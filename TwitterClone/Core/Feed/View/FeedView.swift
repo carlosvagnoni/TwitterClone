@@ -17,7 +17,7 @@ struct FeedView: View {
                 
                 ForEach(0...20, id: \.self) { _ in
                     
-                    Text("Tweet Row View")
+                    TweetRowView()
                     
                 }
                 

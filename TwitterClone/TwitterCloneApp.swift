@@ -14,7 +14,7 @@ struct TwitterCloneApp: App {
         
         WindowGroup {
             
-            ContentView()
+            MainTabView()
             
         }
     }
