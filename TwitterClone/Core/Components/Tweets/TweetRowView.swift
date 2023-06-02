@@ -13,7 +13,7 @@ struct TweetRowView: View {
         
         VStack(spacing: 0) {
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 
                 //Profile image + User info + Tweet
                 HStack(alignment: .top, spacing: 12) {
@@ -53,64 +53,73 @@ struct TweetRowView: View {
                 //Action buttons
                 HStack {
                     
-                    Button {
-                        
-                        //Action 1
-                        
-                    } label: {
-                        
-                        Image(systemName: "bubble.left")
-                            .font(.subheadline)
+                    HStack {
                         
                     }
+                    .frame(width: 56)
+                    .padding(.trailing, 3)
                     
-                    Spacer()
-                    
-                    Button {
+                    HStack {
                         
-                        //Action 2
+                        Button {
+                            
+                            //Action 1
+                            
+                        } label: {
+                            
+                            Image(systemName: "bubble.left")
+                                .font(.subheadline)
+                            
+                        }
                         
-                    } label: {
+                        Spacer()
                         
-                        Image(systemName: "arrow.2.squarepath")
-                            .font(.subheadline)
+                        Button {
+                            
+                            //Action 2
+                            
+                        } label: {
+                            
+                            Image(systemName: "arrow.2.squarepath")
+                                .font(.subheadline)
+                            
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                            //Action 3
+                            
+                        } label: {
+                            
+                            Image(systemName: "heart")
+                                .font(.subheadline)
+                            
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                            //Action 4
+                            
+                        } label: {
+                            
+                            Image(systemName: "bookmark")
+                                .font(.subheadline)
+                            
+                        }
                         
                     }
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                        //Action 3
-                        
-                    } label: {
-                        
-                        Image(systemName: "heart")
-                            .font(.subheadline)
-                        
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                        //Action 4
-                        
-                    } label: {
-                        
-                        Image(systemName: "bookmark")
-                            .font(.subheadline)
-                        
-                    }
-                    
+                    .padding(.top, 12)
+                    .foregroundColor(.gray)
                 }
-                .padding()
-                .foregroundColor(.gray)
                 
                 
                 
             }
-            .padding()
+            .padding(12)
             
             Divider()
 

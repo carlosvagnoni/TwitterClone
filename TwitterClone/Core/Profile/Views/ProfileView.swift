@@ -23,48 +23,9 @@ struct ProfileView: View {
             
             userInfoDeatils
             
-            HStack {
-                
-                ForEach(TweetFilterViewModel.allCases, id: \.rawValue) { item in
-                    
-                    VStack {
-                        
-                        Text(item.title)
-                            .font(.subheadline)
-                            .fontWeight(selectedFilter == item ? .bold : .regular)
-                            .foregroundColor(selectedFilter == item ? .black : .gray)
-                        
-                        if selectedFilter == item {
-                            
-                            Capsule()
-                                .foregroundColor(Color(.systemBlue))
-                                .frame(height: 3)
-                                .matchedGeometryEffect(id: "filter", in: animation)
-                            
-                        } else {
-                            
-                            Capsule()
-                                .foregroundColor(Color(.clear))
-                                .frame(height: 3)
-                            
-                        }
-                        
-                        
-                    }
-                    .onTapGesture {
-                        withAnimation(.easeInOut) {
-                            
-                            self.selectedFilter = item
-                            
-                        }
-                    }
-                    
-                }
-                
-            }
-            .overlay(Divider().offset(x: 0, y: 16))
+            tweetFilterBar
             
-            
+            tweetsView
             
             Spacer()
             
@@ -219,6 +180,69 @@ extension ProfileView {
             
         }
         .padding(.horizontal, 12)
+        
+    }
+    
+    var tweetFilterBar: some View {
+        
+        HStack {
+            
+            ForEach(TweetFilterViewModel.allCases, id: \.rawValue) { item in
+                
+                VStack {
+                    
+                    Text(item.title)
+                        .font(.subheadline)
+                        .fontWeight(selectedFilter == item ? .bold : .regular)
+                        .foregroundColor(selectedFilter == item ? .black : .gray)
+                    
+                    if selectedFilter == item {
+                        
+                        Capsule()
+                            .foregroundColor(Color(.systemBlue))
+                            .frame(height: 3)
+                            .matchedGeometryEffect(id: "filter", in: animation)
+                        
+                    } else {
+                        
+                        Capsule()
+                            .foregroundColor(Color(.clear))
+                            .frame(height: 3)
+                        
+                    }
+                    
+                    
+                }
+                .onTapGesture {
+                    withAnimation(.easeInOut) {
+                        
+                        self.selectedFilter = item
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        .overlay(Divider().offset(x: 0, y: 16))
+        
+    }
+    
+    var tweetsView: some View {
+        
+        ScrollView {
+            
+            LazyVStack {
+                
+                ForEach(0...9, id: \.self) { _ in
+                    
+                    TweetRowView()
+                    
+                }
+                
+            }
+            
+        }
         
     }
 
