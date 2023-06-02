@@ -25,18 +25,8 @@ struct MainTabView: View {
             ExploreView()
                 .tabItem {
                     
-                    if selectedIndex == 1 {
-                        
-                        Image(systemName: "magnifyingglass")
-                            .fontWeight(.bold)
-                            .environment(\.symbolVariants, .none)
-                            
-                                                    
-                    } else {
-                        
-                        Image(systemName: "magnifyingglass")
-                        
-                    }
+                    Image(systemName: selectedIndex == 1 ? "magnifyingglass.circle.fill" : "magnifyingglass.circle")
+                        .environment(\.symbolVariants, .none)
                     
                 }
                 .tag(1)
