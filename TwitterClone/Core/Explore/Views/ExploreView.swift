@@ -17,7 +17,7 @@ struct ExploreView: View {
                 
                 ScrollView {
                     
-                    LazyVStack {
+                    LazyVStack(spacing: 0) {
                         
                         ForEach(0...25, id: \.self) { _ in
                             
@@ -37,7 +37,10 @@ struct ExploreView: View {
                     
                 }
             }
+            .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.inline)
         }
+        
         
         
     }
