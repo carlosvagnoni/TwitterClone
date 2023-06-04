@@ -11,35 +11,32 @@ struct ExploreView: View {
     
     var body: some View {
         
-        NavigationStack {
+        VStack {
             
-            VStack {
+            ScrollView {
                 
-                ScrollView {
+                LazyVStack(spacing: 0) {
                     
-                    LazyVStack(spacing: 0) {
+                    ForEach(0...25, id: \.self) { _ in
                         
-                        ForEach(0...25, id: \.self) { _ in
+                        NavigationLink {
                             
-                            NavigationLink {
-                                
-                                ProfileView()
-                                
-                            } label: {
-                                
-                                UserRowView()
-                                
-                            }
+                            ProfileView()
+                            
+                        } label: {
+                            
+                            UserRowView()
                             
                         }
                         
                     }
                     
                 }
+                
             }
-            .navigationTitle("Search")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Search")
+        .navigationBarTitleDisplayMode(.inline)
         
         
         

@@ -9,9 +9,19 @@ import SwiftUI
 
 struct SideMenuRowView: View {
     
+    let sideMenuViewModel: SideMenuViewModel
+    
     var body: some View {
         
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            
+            Image(systemName: sideMenuViewModel.imageName)
+            
+            Text(sideMenuViewModel.title)
+            
+        }
+        .foregroundColor(.black)
+        .frame(height: 40)
         
     }
 }
@@ -20,7 +30,7 @@ struct SideMenuRowView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        SideMenuRowView()
+        SideMenuRowView(sideMenuViewModel: .profile)
         
     }
 }

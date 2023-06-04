@@ -38,14 +38,37 @@ struct SideMenuView: View {
             
             ForEach(SideMenuViewModel.allCases, id: \.rawValue) { option in
                 
-                HStack {
+                if option == .profile {
                     
-                    Image(systemName: option.imageName)
+                    NavigationLink {
+                        
+                        ProfileView()
+                        
+                    } label: {
+                        
+                        SideMenuRowView(sideMenuViewModel: option)
+                        
+                    }
                     
-                    Text(option.title)
+                } else if option == .logout {
+                    
+                    Button {
+                        
+                        print("Logout")
+                        
+                    } label: {
+                        
+                        SideMenuRowView(sideMenuViewModel: option)
+                            .foregroundColor(.black)
+                        
+                    }
+                    
+                } else {
+                    
+                    SideMenuRowView(sideMenuViewModel: option)
                     
                 }
-                .frame(height: 40)
+                
             }
             
             Spacer()
