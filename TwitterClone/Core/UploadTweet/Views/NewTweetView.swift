@@ -51,10 +51,11 @@ struct NewTweetView: View {
             }
             .padding(12)
             
-            HStack {
+            HStack(alignment: .top, spacing: 0) {
                 
                 Circle()
                     .frame(width: 40, height: 40)
+                    .padding(12)
                 
                 TextArea("What's happening?", text: $caption)
                 

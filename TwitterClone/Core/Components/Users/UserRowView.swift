@@ -20,7 +20,6 @@ struct UserRowView: View {
                 
                 Text("Daniel Ricciardo")
                     .font(.subheadline).bold()
-                    .foregroundColor(.black)
                 
                 Text("@thehoneybadger")
                     .font(.subheadline)

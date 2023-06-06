@@ -13,30 +13,38 @@ struct TextArea: View {
     
     @Binding var text: String
     
+    @FocusState private var isFocused: Bool
+    
     init(_ placeholder: String, text: Binding<String>) {
         
         self.placeholder = placeholder
         self._text = text
-        UITextView.appearance().backgroundColor = .clear
+
     }
 
     var body: some View {
         
         ZStack(alignment: .topLeading) {
             
-            if text.isEmpty {
-                
-                Text(placeholder)
-                    .foregroundColor(Color(.placeholderText))
-                    .padding(12)
-                
-            }
-            
             TextEditor(text: $text)
-                .padding(12)
+                .padding(4)
+                .focused($isFocused)
             
+            if text.isEmpty {
+
+                Text(placeholder)
+                    .foregroundColor(Color(.gray))
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 12)
+                    .background(.clear)
+
+            }
+  
         }
         .font(.body)
+        .onAppear {
+                    isFocused = true
+                }
         
     }
 }
