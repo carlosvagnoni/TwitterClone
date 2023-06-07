@@ -31,6 +31,8 @@
 		DDA1AFB92A29381100C5EBFE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA1AFB82A29381100C5EBFE /* ProfileView.swift */; };
 		DDAD134E2A2CB45A006B5673 /* NewTweetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAD134D2A2CB45A006B5673 /* NewTweetView.swift */; };
 		DDAD13502A2CB9D5006B5673 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAD134F2A2CB9D5006B5673 /* TextArea.swift */; };
+		DDF6F14B2A309845006ED0C4 /* RoundedShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6F14A2A309845006ED0C4 /* RoundedShape.swift */; };
+		DDF6F14F2A30A1B6006ED0C4 /* CustomInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6F14E2A30A1B6006ED0C4 /* CustomInputField.swift */; };
 		DDFC1F682A2FC1CF009807BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC1F672A2FC1CF009807BF /* LoginView.swift */; };
 		DDFC1F6A2A2FC1E0009807BF /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC1F692A2FC1E0009807BF /* RegistrationView.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,8 @@
 		DDA1AFB82A29381100C5EBFE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DDAD134D2A2CB45A006B5673 /* NewTweetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTweetView.swift; sourceTree = "<group>"; };
 		DDAD134F2A2CB9D5006B5673 /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
+		DDF6F14A2A309845006ED0C4 /* RoundedShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShape.swift; sourceTree = "<group>"; };
+		DDF6F14E2A30A1B6006ED0C4 /* CustomInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputField.swift; sourceTree = "<group>"; };
 		DDFC1F672A2FC1CF009807BF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		DDFC1F692A2FC1E0009807BF /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,6 +208,8 @@
 				DD6723BE2A2A9F5600F9354D /* Users */,
 				DD31785C2A2804E50095AB30 /* Tweets */,
 				DDAD134F2A2CB9D5006B5673 /* TextArea.swift */,
+				DDF6F14A2A309845006ED0C4 /* RoundedShape.swift */,
+				DDF6F14E2A30A1B6006ED0C4 /* CustomInputField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -439,6 +445,7 @@
 				DD31785E2A28058A0095AB30 /* TweetRowView.swift in Sources */,
 				DD334B262A2B929A006F64ED /* SideMenuView.swift in Sources */,
 				DD31785B2A2803AB0095AB30 /* FeedView.swift in Sources */,
+				DDF6F14F2A30A1B6006ED0C4 /* CustomInputField.swift in Sources */,
 				DD334B362A2BA9D7006F64ED /* FeedViewModel.swift in Sources */,
 				DD3178432A2800010095AB30 /* TwitterCloneApp.swift in Sources */,
 				DDAD13502A2CB9D5006B5673 /* TextArea.swift in Sources */,
@@ -447,6 +454,7 @@
 				DD334B2A2A2B943E006F64ED /* SideMenuViewModel.swift in Sources */,
 				DD334B2E2A2BA985006F64ED /* Extensions.swift in Sources */,
 				DD6723C02A2A9F7100F9354D /* UserRowView.swift in Sources */,
+				DDF6F14B2A309845006ED0C4 /* RoundedShape.swift in Sources */,
 				DD0A07972A28AB580031B8BC /* MainTabView.swift in Sources */,
 				DD0A079F2A28AECA0031B8BC /* NotificationsView.swift in Sources */,
 				DD334B342A2BA9BE006F64ED /* ExploreViewModel.swift in Sources */,
