@@ -14,7 +14,9 @@ struct TwitterCloneApp: App {
         
         WindowGroup {
                 
-            ContentView()
+            NavigationStack {
+                LoginView()
+            }
                    
         }
     }

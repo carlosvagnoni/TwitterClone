@@ -16,41 +16,13 @@ struct LoginView: View {
         
         VStack {
             
-            VStack(alignment: .leading) {
-                
-                HStack {
-                    
-                    VStack(alignment: .leading, spacing: 0) {
-                        
-                        
-                        Text("Hello.")
-                            .font(.largeTitle)
-                        .fontWeight(.semibold)
-                        
-                        Text("Welcome Back")
-                            .font(.largeTitle)
-                            .fontWeight(.semibold)
-                        
-                    }
-                    .padding(.leading, 12)
-                    
-                    Spacer()
-                        
-                }
-   
-                
-            }
-            .foregroundColor(.white)
-            .frame(height: 260)
-            .frame(maxWidth: .infinity)
-            .background(Color(.systemBlue))
-            .clipShape(RoundedShape(corners: [.bottomRight]))
+            AuthHeaderView(title1: "Hello.", title2: "Welcome Back")
             
             VStack(spacing: 40) {
                 
-                TextField("Email", text: $email)
+                CustomTextField(imageName: "envelope", placeholderText: "Email", text: $email)
                 
-                TextField("Password", text: $password)
+                CustomSecureField(imageName: "lock", placeholderText: "Password", password: $password)
                 
             }
             .padding(.horizontal, 32)
@@ -130,11 +102,11 @@ struct LoginView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        NavigationStack {
+
             
             LoginView()
             
-        }
+
         
     }
 }
