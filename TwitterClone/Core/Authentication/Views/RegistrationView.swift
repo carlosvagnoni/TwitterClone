@@ -16,7 +16,7 @@ struct RegistrationView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             
             AuthHeaderView(title1: "Get started.", title2: "Create your account")
             
@@ -40,7 +40,7 @@ struct RegistrationView: View {
                 
             } label: {
                 
-                Text("Sign Un")
+                Text("Sign Up")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(width: 340, height: 50)
@@ -50,6 +50,9 @@ struct RegistrationView: View {
                 
             }
             .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 0)
+            
+            
+            
             
             Spacer()
             
@@ -69,11 +72,12 @@ struct RegistrationView: View {
                         .font(.footnote)
                         .fontWeight(.semibold)
                     
+                    
                 }
             }
             .padding(.bottom, 32)
             .foregroundColor(Color(.systemBlue))
-            
+               
         }
         .ignoresSafeArea()
         .toolbar(.hidden)
@@ -84,12 +88,12 @@ struct RegistrationView: View {
 struct RegistrationView_Previews: PreviewProvider {
     
     static var previews: some View {
-        
-
+      
+        NavigationStack {
             
             RegistrationView()
             
-
-        
+        }
+       
     }
 }

@@ -14,7 +14,7 @@ struct LoginView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             
             AuthHeaderView(title1: "Hello.", title2: "Welcome Back")
             
@@ -49,6 +49,7 @@ struct LoginView: View {
                 }
    
             }
+            .padding(.bottom, 15)
             
             Button {
                 
@@ -101,12 +102,12 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     
     static var previews: some View {
-        
-
+     
+        NavigationStack {
             
             LoginView()
             
-
-        
+        }
+  
     }
 }
