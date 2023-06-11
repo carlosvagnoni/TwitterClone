@@ -12,6 +12,8 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
         
         VStack(spacing: 0) {
@@ -53,7 +55,7 @@ struct LoginView: View {
             
             Button {
                 
-                print("Sign in here...")
+                authViewModel.login(withEmail: email, password: password)
                 
             } label: {
                 
@@ -73,7 +75,7 @@ struct LoginView: View {
             NavigationLink {
                 
                 RegistrationView()
-                    .toolbar(.hidden)
+                    .navigationBarHidden(true)
                 
             } label: {
                 
@@ -94,7 +96,7 @@ struct LoginView: View {
             
         }
         .ignoresSafeArea()
-        .toolbar(.hidden)
+        .navigationBarHidden(true)
         
     }
 }
@@ -103,9 +105,10 @@ struct LoginView_Previews: PreviewProvider {
     
     static var previews: some View {
      
-        NavigationStack {
+        NavigationView {
             
             LoginView()
+                .environmentObject(AuthViewModel())
             
         }
   

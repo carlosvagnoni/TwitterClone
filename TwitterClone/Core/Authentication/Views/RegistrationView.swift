@@ -14,6 +14,8 @@ struct RegistrationView: View {
     @State private var fullname = ""
     @State private var password = ""
     
+    @EnvironmentObject var authViewModer: AuthViewModel
+    
     var body: some View {
         
         VStack(spacing: 0) {
@@ -36,7 +38,7 @@ struct RegistrationView: View {
             
             Button {
                 
-                print("Sign up here...")
+                authViewModer.register(withEmail: email, password: password, fullname: fullname, username: username)
                 
             } label: {
                 
@@ -59,7 +61,7 @@ struct RegistrationView: View {
             NavigationLink {
                 
                 LoginView()
-                    .toolbar(.hidden)
+                    .navigationBarHidden(true)
                 
             } label: {
                 
@@ -80,7 +82,7 @@ struct RegistrationView: View {
                
         }
         .ignoresSafeArea()
-        .toolbar(.hidden)
+        .navigationBarHidden(true)
         
     }
 }
@@ -89,9 +91,10 @@ struct RegistrationView_Previews: PreviewProvider {
     
     static var previews: some View {
       
-        NavigationStack {
+        NavigationView {
             
             RegistrationView()
+                .environmentObject(AuthViewModel())
             
         }
        

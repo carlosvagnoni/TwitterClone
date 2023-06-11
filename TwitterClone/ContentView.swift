@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var showMenu = false
+    @State private var userSessionChanged = false
     
     @EnvironmentObject var authViewModel: AuthViewModel
     
@@ -19,7 +20,7 @@ struct ContentView: View {
             
             if authViewModel.userSession == nil {
                 
-                
+                LoginView()
                 
             } else {
                 
@@ -28,6 +29,12 @@ struct ContentView: View {
             }
             
         }
+        .onAppear {
+                    print("DEBUG: ContentView userSession is \(authViewModel.userSession)")
+                }
+        .onReceive(authViewModel.$userSession) { _ in
+                    userSessionChanged.toggle()
+                }
     }
 }
 
@@ -38,7 +45,7 @@ extension ContentView {
         ZStack(alignment: .topLeading) {
             
             MainTabView()
-                .toolbar(showMenu ? .hidden : .visible)
+                .navigationBarHidden(showMenu ? true : false)
             
             if showMenu {
                 

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SideMenuView: View {
     
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -54,7 +56,7 @@ struct SideMenuView: View {
                     
                     Button {
                         
-                        print("Logout")
+                        authViewModel.signOut()
                         
                     } label: {
                         
@@ -83,6 +85,7 @@ struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
         
         SideMenuView()
+            .environmentObject(AuthViewModel())
         
     }
 }
