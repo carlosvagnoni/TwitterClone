@@ -11,6 +11,7 @@ import SwiftUI
 class AuthViewModel: ObservableObject {
     
     @Published var userSession: FirebaseAuth.User?
+    @Published var didAuthenticateUser =  false
     
     init() {
         
@@ -65,7 +66,7 @@ class AuthViewModel: ObservableObject {
                 .document(user.uid)
                 .setData(data) { _ in
                     
-                    print("DEBUG: Did upload user data...")
+                    self.didAuthenticateUser = true
                     
                 }
             
