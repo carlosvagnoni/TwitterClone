@@ -13,6 +13,7 @@ struct RegistrationView: View {
     @State private var username = ""
     @State private var fullname = ""
     @State private var password = ""
+    @State private var shouldNavigateToPhotoSelector = false
     
     @EnvironmentObject var authViewModel: AuthViewModel
     
@@ -20,7 +21,7 @@ struct RegistrationView: View {
         
         VStack(spacing: 0) {
             
-            NavigationLink(destination: ProfilePhotoSelectorView(), isActive: $authViewModel.didAuthenticateUser, label: { })
+            NavigationLink(destination: ProfilePhotoSelectorView(), isActive: $shouldNavigateToPhotoSelector, label: { })
             
             AuthHeaderView(title1: "Get started.", title2: "Create your account")
             
@@ -40,7 +41,15 @@ struct RegistrationView: View {
             
             Button {
                 
-                authViewModel.register(withEmail: email, password: password, fullname: fullname, username: username)
+                authViewModel.register(withEmail: email, password: password, fullname: fullname, username: username) { success in
+                    
+                    if success {
+                        
+                        shouldNavigateToPhotoSelector = true
+                        
+                    }
+                    
+                }
                 
             } label: {
                 
@@ -54,9 +63,6 @@ struct RegistrationView: View {
                 
             }
             .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 0)
-            
-            
-            
             
             Spacer()
             

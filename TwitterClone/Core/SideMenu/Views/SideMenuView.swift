@@ -13,69 +13,73 @@ struct SideMenuView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
+        if let user = authViewModel.currentUser {
             
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading) {
                 
-                Circle()
-                    .frame(width: 48, height: 48)
-                
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 12) {
                     
-                    Text("Daniel Ricciardo")
-                        .font(.subheadline).bold()
+                    Circle()
+                        .frame(width: 48, height: 48)
                     
-                    Text("@thehoneybadger")
-                        .font(.caption)
-                        .foregroundColor(.gray)
+                    VStack(alignment: .leading, spacing: 4) {
+                        
+                        Text("\(user.fullname)")
+                            .font(.subheadline).bold()
+                        
+                        Text("@\(user.username)")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        
+                    }
+                    
+                    UserStatsView()
                     
                 }
                 
-                UserStatsView()
-                       
-            }
-            
-            Divider()
-                .padding(.vertical)
-            
-            ForEach(SideMenuViewModel.allCases, id: \.rawValue) { option in
+                Divider()
+                    .padding(.vertical)
                 
-                if option == .profile {
+                ForEach(SideMenuViewModel.allCases, id: \.rawValue) { option in
                     
-                    NavigationLink {
+                    if option == .profile {
                         
-                        ProfileView()
+                        NavigationLink {
+                            
+                            ProfileView()
+                            
+                        } label: {
+                            
+                            SideMenuRowView(sideMenuViewModel: option)
+                            
+                        }
                         
-                    } label: {
+                    } else if option == .logout {
+                        
+                        Button {
+                            
+                            authViewModel.signOut()
+                            
+                        } label: {
+                            
+                            SideMenuRowView(sideMenuViewModel: option)
+                                .foregroundColor(.black)
+                            
+                        }
+                        
+                    } else {
                         
                         SideMenuRowView(sideMenuViewModel: option)
                         
                     }
                     
-                } else if option == .logout {
-                    
-                    Button {
-                        
-                        authViewModel.signOut()
-                        
-                    } label: {
-                        
-                        SideMenuRowView(sideMenuViewModel: option)
-                            .foregroundColor(.black)
-                        
-                    }
-                    
-                } else {
-                    
-                    SideMenuRowView(sideMenuViewModel: option)
-                    
                 }
                 
+                Spacer()
             }
+            .padding(.horizontal, 20)
             
-            Spacer()
         }
-        .padding(.horizontal, 20)
         
     }
 }

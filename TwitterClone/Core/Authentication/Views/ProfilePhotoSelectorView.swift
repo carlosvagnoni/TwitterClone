@@ -11,7 +11,13 @@ import PhotosUI
 struct ProfilePhotoSelectorView: View {
     
     @State var selectedItem: PhotosPickerItem?
-    @State private var profilePhoto: Image?
+    @State private var selectedProfilePhoto: UIImage?
+    
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
+    init() {
+            print("DEBUG: Initializing ProfilePhotoSelectorView")
+        }
     
     var body: some View {
         
@@ -24,9 +30,9 @@ struct ProfilePhotoSelectorView: View {
                 
                 ZStack {
                     
-                    if let profilePhoto = profilePhoto {
+                    if let selectedProfilePhoto = selectedProfilePhoto {
                         
-                        profilePhoto
+                        Image(uiImage: selectedProfilePhoto)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 100, height: 100)
@@ -60,17 +66,17 @@ struct ProfilePhotoSelectorView: View {
                                  
                                  if let data = try? await newItem?.loadTransferable(type: Data.self) {
                                      
-                                     profilePhoto = Image(uiImage: UIImage(data: data)!)
+                                     selectedProfilePhoto = UIImage(data: data)
                                      
                                  }
                              }
                          }
             
-            if profilePhoto != nil {
+            if let selectedProfilePhoto = selectedProfilePhoto {
                 
                 Button {
                     
-                    
+                    authViewModel.uploadProfilePhoto(selectedProfilePhoto)
                     
                 } label: {
                     
@@ -101,6 +107,7 @@ struct ProfilePhotoSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         
         ProfilePhotoSelectorView()
+            .environmentObject(AuthViewModel())
         
     }
 }
