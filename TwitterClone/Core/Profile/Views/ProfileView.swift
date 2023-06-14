@@ -15,6 +15,12 @@ struct ProfileView: View {
     
     @Namespace var animation
     
+    private let user: User
+    
+    init(user: User) {
+        self.user = user
+    }
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -59,7 +65,27 @@ extension ProfileView {
 
                 }
 
-                Circle()
+                AsyncImage( url: URL(string: user.profilePhotoUrl) )
+                { image in
+                    
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                    
+                } placeholder: {
+                    
+                    ZStack {
+                        
+                        Circle()
+                            .foregroundColor(.gray)
+                        
+                        ProgressView()
+                        
+                    }
+                        
+                    
+                }
                     .frame(width: 72, height: 72)
                 .offset(x: 16, y: 36)
 
@@ -231,7 +257,6 @@ struct ProfileView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        ProfileView()
-        
+        ProfileView(user: User(username: "thehoneybadger", fullname: "Daniel Ricciardo", profilePhotoUrl: "", email: ""))
     }
 }

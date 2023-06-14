@@ -79,18 +79,34 @@ extension ContentView {
             
             ToolbarItem(placement: .navigationBarLeading) {
                 
-                Button {
+                if let user = authViewModel.currentUser {
                     
-                    withAnimation(.easeInOut) {
+                    Button {
                         
-                        showMenu = true
+                        withAnimation(.easeInOut) {
+                            
+                            showMenu = true
+                            
+                        }
+                        
+                    } label: {
+                        
+                        AsyncImage( url: URL(string: user.profilePhotoUrl) )
+                        { image in
+                            
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .clipShape(Circle())
+                            
+                        } placeholder: {
+                            
+                            ProgressView()
+                            
+                        }
+                            .frame(width: 32, height: 32)
                         
                     }
-                    
-                } label: {
-                    
-                    Circle()
-                        .frame(width: 32, height: 32)
                     
                 }
                 

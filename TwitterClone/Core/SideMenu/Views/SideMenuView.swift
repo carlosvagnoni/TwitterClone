@@ -19,12 +19,24 @@ struct SideMenuView: View {
                 
                 VStack(alignment: .leading, spacing: 12) {
                     
-                    Circle()
-                        .frame(width: 48, height: 48)
+                    AsyncImage( url: URL(string: user.profilePhotoUrl) )
+                    { image in
+                        
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                        
+                    } placeholder: {
+                        
+                        ProgressView()
+                        
+                    }
+                    .frame(width: 48, height: 48)
                     
                     VStack(alignment: .leading, spacing: 4) {
                         
-                        Text("\(user.fullname)")
+                        Text(user.fullname)
                             .font(.subheadline).bold()
                         
                         Text("@\(user.username)")
@@ -46,7 +58,7 @@ struct SideMenuView: View {
                         
                         NavigationLink {
                             
-                            ProfileView()
+                            ProfileView(user: user)
                             
                         } label: {
                             
