@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProfileView: View {
     
@@ -67,27 +68,31 @@ extension ProfileView {
                 }
                 .padding(.top, 20)
 
-                AsyncImage( url: URL(string: user.profilePhotoUrl) )
-                { image in
-                    
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(Circle())
-                    
-                } placeholder: {
-                    
-                    ZStack {
-                        
-                        Circle()
-                            .foregroundColor(Color(.systemGray4))
-                        
-                        ProgressView()
-                        
-                    }
-                        
-                    
-                }
+//                AsyncImage( url: URL(string: user.profilePhotoUrl) )
+//                { image in
+//
+//                    image
+//                        .resizable()
+//                        .scaledToFill()
+//                        .clipShape(Circle())
+//
+//                } placeholder: {
+//
+//                    ZStack {
+//
+//                        Circle()
+//                            .foregroundColor(Color(.systemGray4))
+//
+//                        ProgressView()
+//
+//                    }
+//
+//
+//                }
+                KFImage(URL(string: user.profilePhotoUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
                     .frame(width: 72, height: 72)
                 .offset(x: 16, y: 36)
 

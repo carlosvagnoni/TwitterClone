@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct UserRowView: View {
     
@@ -15,26 +16,30 @@ struct UserRowView: View {
         
         HStack {
             
-            AsyncImage( url: URL(string: user.profilePhotoUrl) )
-            { image in
-                
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .clipShape(Circle())
-                
-            } placeholder: {
-                
-                ZStack {
-                    
-                    Circle()
-                        .foregroundColor(Color(.systemGray4))
-                    
-                    ProgressView()
-                    
-                }
-                
-            }
+//            AsyncImage( url: URL(string: user.profilePhotoUrl) )
+//            { image in
+//
+//                image
+//                    .resizable()
+//                    .scaledToFill()
+//                    .clipShape(Circle())
+//
+//            } placeholder: {
+//
+//                ZStack {
+//
+//                    Circle()
+//                        .foregroundColor(Color(.systemGray4))
+//
+//                    ProgressView()
+//
+//                }
+//
+//            }
+            KFImage(URL(string: user.profilePhotoUrl))
+                .resizable()
+                .scaledToFill()
+                .clipShape(Circle())
                 .frame(width: 48, height: 48)
             
             VStack(alignment: .leading, spacing: 4) {
