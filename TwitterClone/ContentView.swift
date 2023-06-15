@@ -101,7 +101,14 @@ extension ContentView {
                             
                         } placeholder: {
                             
-                            ProgressView()
+                            ZStack {
+                                
+                                Circle()
+                                    .foregroundColor(Color(.systemGray4))
+                                
+                                ProgressView()
+                                
+                            }
                             
                         }
                             .frame(width: 32, height: 32)

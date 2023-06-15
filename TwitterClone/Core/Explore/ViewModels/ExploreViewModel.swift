@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+class ExploreViewModel: ObservableObject {
+    
+    @Published var users = [User]()
+    
+    let userService = UserService()
+    
+    init() {
+        fetchUsers()
+    }
+    
+    func fetchUsers() {
+        
+        userService.fetchUsers { users in
+            
+            self.users = users
+            
+        }
+    }
+}

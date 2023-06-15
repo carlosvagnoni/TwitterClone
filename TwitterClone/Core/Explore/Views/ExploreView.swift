@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ExploreView: View {
     
+    @ObservedObject var exploreViewModel = ExploreViewModel()
+    
     var body: some View {
         
         VStack {
@@ -17,15 +19,15 @@ struct ExploreView: View {
                 
                 LazyVStack(spacing: 0) {
                     
-                    ForEach(0...25, id: \.self) { _ in
+                    ForEach(exploreViewModel.users) { user in
                         
                         NavigationLink {
                             
-                            //ProfileView()
+                            ProfileView(user: user)
                             
                         } label: {
                             
-                            UserRowView()
+                            UserRowView(user: user)
                             
                         }
                         

@@ -38,6 +38,7 @@ struct ProfileView: View {
             Spacer()
             
         }
+        .navigationBarHidden(true)
     }
 }
 
@@ -64,6 +65,7 @@ extension ProfileView {
                         .foregroundColor(.white)
 
                 }
+                .padding(.top, 20)
 
                 AsyncImage( url: URL(string: user.profilePhotoUrl) )
                 { image in
@@ -78,7 +80,7 @@ extension ProfileView {
                     ZStack {
                         
                         Circle()
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color(.systemGray4))
                         
                         ProgressView()
                         
@@ -142,7 +144,7 @@ extension ProfileView {
             
             HStack {
                 
-                Text("Daniel Ricciardo")
+                Text(user.fullname)
                     .font(.title2).bold()
                 
                 Image(systemName: "checkmark.seal.fill")
@@ -150,7 +152,7 @@ extension ProfileView {
                 
             }
             
-            Text("@thehoneybadger")
+            Text("@\(user.username)")
                 .font(.subheadline)
                 .foregroundColor(.gray)
             

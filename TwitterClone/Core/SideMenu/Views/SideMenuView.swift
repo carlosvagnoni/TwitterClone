@@ -29,7 +29,14 @@ struct SideMenuView: View {
                         
                     } placeholder: {
                         
-                        ProgressView()
+                        ZStack {
+                            
+                            Circle()
+                                .foregroundColor(Color(.systemGray4))
+                            
+                            ProgressView()
+                            
+                        }
                         
                     }
                     .frame(width: 48, height: 48)

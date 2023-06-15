@@ -9,19 +9,40 @@ import SwiftUI
 
 struct UserRowView: View {
     
+    let user: User
+    
     var body: some View {
         
         HStack {
             
-            Circle()
+            AsyncImage( url: URL(string: user.profilePhotoUrl) )
+            { image in
+                
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+                
+            } placeholder: {
+                
+                ZStack {
+                    
+                    Circle()
+                        .foregroundColor(Color(.systemGray4))
+                    
+                    ProgressView()
+                    
+                }
+                
+            }
                 .frame(width: 48, height: 48)
             
             VStack(alignment: .leading, spacing: 4) {
                 
-                Text("Daniel Ricciardo")
+                Text(user.fullname)
                     .font(.subheadline).bold()
                 
-                Text("@thehoneybadger")
+                Text("@\(user.username)")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
@@ -35,11 +56,11 @@ struct UserRowView: View {
     }
 }
 
-struct UserRowView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        
-        UserRowView()
-        
-    }
-}
+//struct UserRowView_Previews: PreviewProvider {
+//    
+//    static var previews: some View {
+//        
+//        UserRowView()
+//        
+//    }
+//}
