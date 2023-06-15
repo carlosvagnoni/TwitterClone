@@ -28,8 +28,6 @@ class UserService {
     
     func fetchUsers(completion: @escaping([User]) -> Void) {
         
-        var users = [User]()
-        
         Firestore.firestore().collection("users")
             .getDocuments { snapshot, _ in
                 
@@ -39,10 +37,12 @@ class UserService {
                     
                     guard let user = try? document.data(as: User.self) else { return }
                     
-                    users.append(user)
+                    let users = documents.compactMap({ try? $0.data(as: User.self) })
+                    
+                    completion(users)
                 }
                 
-                completion(users)
+                
                 
             }
     }

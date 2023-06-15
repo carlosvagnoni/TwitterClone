@@ -15,19 +15,39 @@ struct ExploreView: View {
         
         VStack {
             
-            ScrollView {
+            SearchBar(text: $exploreViewModel.searchText)
+                .padding(.top, 10)
+            
+            if exploreViewModel.searchText.isEmpty {
                 
-                LazyVStack(spacing: 0) {
+                VStack(spacing: 0) {
                     
-                    ForEach(exploreViewModel.users) { user in
+                    Text("Try searching for people")
+                        .bold()
+                        .foregroundColor(.gray)
+                        .padding(20)
+                    
+                    Spacer()
+                    
+                }
+                
+            } else {
+                
+                ScrollView {
+                    
+                    LazyVStack(spacing: 0) {
                         
-                        NavigationLink {
+                        ForEach(exploreViewModel.searchableUsers) { user in
                             
-                            ProfileView(user: user)
-                            
-                        } label: {
-                            
-                            UserRowView(user: user)
+                            NavigationLink {
+                                
+                                ProfileView(user: user)
+                                
+                            } label: {
+                                
+                                UserRowView(user: user)
+                                
+                            }
                             
                         }
                         
@@ -49,7 +69,11 @@ struct ExploreView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        ExploreView()
+        NavigationView {
+            
+            ExploreView()
+            
+        }
         
     }
 }

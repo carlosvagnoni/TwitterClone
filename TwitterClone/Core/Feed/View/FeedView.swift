@@ -34,11 +34,13 @@ struct FeedView: View {
                 showNewTweetView = true
                 
             } label: {
+                
                 Image(systemName: "square.and.pencil")
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 28, height: 28)
                     .padding()
+                
             }
             .background(Color(.systemBlue))
             .foregroundColor(.white)
