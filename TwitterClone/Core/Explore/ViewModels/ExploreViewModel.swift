@@ -19,7 +19,7 @@ class ExploreViewModel: ObservableObject {
             
             return users.filter({
                 
-                $0.username.contains(lowercasedQuery) || $0.fullname.contains(lowercasedQuery)
+                $0.username.lowercased().contains(lowercasedQuery) || $0.fullname.lowercased().contains(lowercasedQuery)
                 
             })
         

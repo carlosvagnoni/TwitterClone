@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NewTweetView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
+    @ObservedObject var uploadTweetViewModel = UploadTweetViewModel()
     
     @State private var caption = ""
     
@@ -34,7 +38,7 @@ struct NewTweetView: View {
                 
                 Button {
                     
-                    print("Tweet")
+                    uploadTweetViewModel.uploadTweet(withCaption: caption)
                     
                 } label: {
                     
@@ -47,21 +51,61 @@ struct NewTweetView: View {
                         .clipShape(Capsule())
                     
                 }
-   
+                
             }
             .padding(12)
             
             HStack(alignment: .top, spacing: 0) {
                 
-                Circle()
-                    .frame(width: 40, height: 40)
-                    .padding(12)
+                if let user = authViewModel.currentUser {
+                    
+//                    AsyncImage( url: URL(string: user.profilePhotoUrl) )
+//                    { image in
+//
+//                        image
+//                            .resizable()
+//                            .scaledToFill()
+//                            .clipShape(Circle())
+//
+//                    } placeholder: {
+//
+//                        ZStack {
+//
+//                            Circle()
+//                                .foregroundColor(Color(.systemGray4))
+//
+//                            ProgressView()
+//
+//                        }
+//
+//                    }
+                    KFImage(URL(string: user.profilePhotoUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .frame(width: 40, height: 40)
+                        .padding(12)
+                    
+                }
+                
                 
                 TextArea("What's happening?", text: $caption)
                 
                 
             }
             
+        }
+        .onReceive(uploadTweetViewModel.$didUploadTweet) { success in
+            
+            if success {
+                
+                dismiss()
+                
+            } else {
+                
+                // Handle error here...
+                
+            }
         }
         
     }
@@ -72,6 +116,7 @@ struct NewTweetView_Previews: PreviewProvider {
     static var previews: some View {
         
         NewTweetView()
+            .environmentObject(AuthViewModel())
         
     }
 }
