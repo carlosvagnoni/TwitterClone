@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct TweetRowView: View {
     
-    let tweet: Tweet
+    let tweetRowViewModel: TweetRowViewModel
+    
+    init(tweet: Tweet) {
+        
+        self.tweetRowViewModel = TweetRowViewModel(tweet: tweet)
+        
+    }
     
     var body: some View {
         
@@ -20,36 +27,70 @@ struct TweetRowView: View {
                 //Profile image + User info + Tweet
                 HStack(alignment: .top, spacing: 12) {
                     
-                    //Profile Image
-                    Circle()
-                        .frame(width: 56, height: 56)
-                        .foregroundColor(Color(.systemBlue))
-                    
-                    //User info + Tweet caption
-                    VStack(alignment: .leading, spacing: 4) {
+                    if let user = tweetRowViewModel.tweet.user {
                         
-                        //User info
-                        HStack(spacing: 2.5) {
+                    //Profile Image
+                        //                AsyncImage( url: URL(string: user.profilePhotoUrl) )
+                        //                { image in
+                        //
+                        //                    image
+                        //                        .resizable()
+                        //                        .scaledToFill()
+                        //                        .clipShape(Circle())
+                        //
+                        //                } placeholder: {
+                        //
+                        //                    ZStack {
+                        //
+                        //                        Circle()
+                        //                            .foregroundColor(Color(.systemGray4))
+                        //
+                        //                        ProgressView()
+                        //
+                        //                    }
+                        //
+                        //
+                        //                }
+                        KFImage(URL(string: user.profilePhotoUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .frame(width: 56, height: 56)
+                            .foregroundColor(Color(.systemBlue))
+                        
+                        
+                        //User info + Tweet caption
+                        VStack(alignment: .leading, spacing: 4) {
                             
-                            Text("Lando Norris")
-                                .font(.subheadline).bold()
+                            //User info
                             
-                            Text("@LightningMcQueen")
-                                .foregroundColor(.gray)
+                            
+                            
+                            HStack(spacing: 2.5) {
+                                
+                                Text(user.fullname)
+                                    .font(.subheadline).bold()
+                                
+                                Text("\(user.username)")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                                
+                                Text("· 2m")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                            }
+                            
+                            
+                            
+                            
+                            //Tweet caption
+                            Text(tweetRowViewModel.tweet.caption)
                                 .font(.subheadline)
+                                .multilineTextAlignment(.leading)
                             
-                            Text("· 2m")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
                         }
                         
-                        //Tweet caption
-                        Text(tweet.caption)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.leading)
-                        
                     }
-                    
                 }
                 
                 //Action buttons
