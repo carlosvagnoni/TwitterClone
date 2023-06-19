@@ -11,6 +11,8 @@ struct FeedView: View {
     
     @State private var showNewTweetView = false
     
+    @ObservedObject var feedViewModel = FeedViewModel()
+    
     var body: some View {
         
         ZStack(alignment: .bottomTrailing) {
@@ -19,9 +21,9 @@ struct FeedView: View {
                 
                 LazyVStack {
                     
-                    ForEach(0...20, id: \.self) { _ in
+                    ForEach(feedViewModel.tweets) { tweet in
                         
-                        TweetRowView()
+                        TweetRowView(tweet: tweet)
                         
                     }
                     

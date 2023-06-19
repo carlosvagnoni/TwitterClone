@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 
 class UserService {
     
-    func fecthUser(withUid uid: String, completion: @escaping(User) -> Void) {
+    func fetchUser(withUid uid: String, completion: @escaping(User) -> Void) {
         
         Firestore.firestore().collection("users")
             .document(uid)
