@@ -27,6 +27,12 @@ class ProfileViewMpdel: ObservableObject {
         
     }
     
+    var actionButtonTitle: String {
+        
+        return user.isCurrentUser ? "Edit Profile" : "Follow"
+        
+    }
+    
     func tweets(forFilter filter: TweetFilterViewModel) -> [Tweet] {
         
         switch filter {
