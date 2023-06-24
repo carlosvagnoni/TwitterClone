@@ -12,7 +12,7 @@ struct ProfileView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @ObservedObject var profileViewModel: ProfileViewMpdel
+    @ObservedObject var profileViewModel: ProfileViewModel
     
     @State private var selectedFilter: TweetFilterViewModel = .tweets
     
@@ -20,7 +20,7 @@ struct ProfileView: View {
     
     init(user: User) {
         
-        self.profileViewModel = ProfileViewMpdel(user: user)
+        self.profileViewModel = ProfileViewModel(user: user)
         
     }
     
@@ -70,27 +70,6 @@ extension ProfileView {
                 }
                 .padding(.top, 20)
 
-//                AsyncImage( url: URL(string: user.profilePhotoUrl) )
-//                { image in
-//
-//                    image
-//                        .resizable()
-//                        .scaledToFill()
-//                        .clipShape(Circle())
-//
-//                } placeholder: {
-//
-//                    ZStack {
-//
-//                        Circle()
-//                            .foregroundColor(Color(.systemGray4))
-//
-//                        ProgressView()
-//
-//                    }
-//
-//
-//                }
                 KFImage(URL(string: profileViewModel.user.profilePhotoUrl))
                     .resizable()
                     .scaledToFill()

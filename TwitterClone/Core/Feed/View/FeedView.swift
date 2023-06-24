@@ -11,7 +11,7 @@ struct FeedView: View {
     
     @State private var showNewTweetView = false
     
-    @ObservedObject var feedViewModel = FeedViewModel()
+    @EnvironmentObject var feedViewModel : FeedViewModel
     
     var body: some View {
         
@@ -55,6 +55,11 @@ struct FeedView: View {
             }
             
         }
+        .onAppear() {
+            
+            feedViewModel.fetchTweets()
+            
+        }
         
     }
 }
@@ -64,6 +69,7 @@ struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
         
         FeedView()
+            .environmentObject(FeedViewModel())
         
     }
 }

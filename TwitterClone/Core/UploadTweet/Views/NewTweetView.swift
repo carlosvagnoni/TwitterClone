@@ -59,26 +59,6 @@ struct NewTweetView: View {
                 
                 if let user = authViewModel.currentUser {
                     
-//                    AsyncImage( url: URL(string: user.profilePhotoUrl) )
-//                    { image in
-//
-//                        image
-//                            .resizable()
-//                            .scaledToFill()
-//                            .clipShape(Circle())
-//
-//                    } placeholder: {
-//
-//                        ZStack {
-//
-//                            Circle()
-//                                .foregroundColor(Color(.systemGray4))
-//
-//                            ProgressView()
-//
-//                        }
-//
-//                    }
                     KFImage(URL(string: user.profilePhotoUrl))
                         .resizable()
                         .scaledToFill()

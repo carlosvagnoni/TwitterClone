@@ -30,9 +30,6 @@ struct ContentView: View {
             }
             
         }
-        .onAppear {
-                    print("DEBUG: ContentView userSession is \(authViewModel.userSession)")
-                }
         .onReceive(authViewModel.$userSession) { _ in
                     userSessionChanged.toggle()
                 }
@@ -92,26 +89,6 @@ extension ContentView {
                         
                     } label: {
                         
-//                        AsyncImage( url: URL(string: user.profilePhotoUrl) )
-//                        { image in
-//
-//                            image
-//                                .resizable()
-//                                .scaledToFill()
-//                                .clipShape(Circle())
-//
-//                        } placeholder: {
-//
-//                            ZStack {
-//
-//                                Circle()
-//                                    .foregroundColor(Color(.systemGray4))
-//
-//                                ProgressView()
-//
-//                            }
-//
-//                        }
                         KFImage(URL(string: user.profilePhotoUrl))
                             .resizable()
                             .scaledToFill()

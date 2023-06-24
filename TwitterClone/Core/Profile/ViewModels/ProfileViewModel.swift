@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProfileViewMpdel: ObservableObject {
+class ProfileViewModel: ObservableObject {
     
     @Published var tweets = [Tweet]()
     @Published var likedTweets = [Tweet]()
@@ -58,11 +58,6 @@ class ProfileViewMpdel: ObservableObject {
             
             self.tweets = tweets
             
-            for i in 0 ..< tweets.count {
-                
-                self.tweets[i].user = self.user
-                
-            }
         }
         
     }
@@ -74,18 +69,6 @@ class ProfileViewMpdel: ObservableObject {
         tweetService.fetchLikedTweets(forUid: uid) { tweets in
             
             self.likedTweets = tweets
-            
-            for i in 0 ..< tweets.count {
-                
-                let uid = tweets[i].uid
-                
-                self.userService.fetchUser(withUid: uid) { user in
-                    
-                    self.likedTweets[i].user = user
-                    
-                }
-                
-            }
             
         }
         
