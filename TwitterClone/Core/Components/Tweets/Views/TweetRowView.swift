@@ -30,12 +30,13 @@ struct TweetRowView: View {
                     if let user = tweetRowViewModel.tweet.user {
                         
                         //Profile Image
-                        KFImage(URL(string: user.profilePhotoUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .frame(width: 56, height: 56)
-                            .foregroundColor(Color(.systemBlue))
+                            KFImage(URL(string: user.profilePhotoUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .clipShape(Circle())
+                                .frame(width: 56, height: 56)
+                                .foregroundColor(Color(.systemBlue))
+                        
                         
                         //User info + Tweet caption
                         VStack(alignment: .leading, spacing: 4) {
@@ -65,7 +66,58 @@ struct TweetRowView: View {
                             
                         }
                         
+                    } else {
+                        
+                        //Profile Image
+                        Circle()
+                            .scaledToFill()
+                            .frame(width: 56, height: 56)
+                            .foregroundColor(Color.gray.opacity(0.5))
+                            .modifier(Shimmer())
+                                  
+                        //User info + Tweet caption
+                        VStack(alignment: .leading, spacing: 4) {
+                            
+                            //User info
+                            
+                            HStack(spacing: 2.5) {
+                                
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.5))
+                                    .frame(height: 8)
+                                    .cornerRadius(5)
+                                    .font(.subheadline).bold()
+                                    .modifier(Shimmer())
+                                
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.5))
+                                    .frame(height: 8)
+                                    .cornerRadius(5)
+                                    .font(.subheadline)
+                                    .modifier(Shimmer())
+                                
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.5))
+                                    .frame(height: 8)
+                                    .cornerRadius(5)
+                                    .font(.subheadline)
+                                    .modifier(Shimmer())
+                            }
+
+                            //Tweet caption
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.5))
+                                .frame(height: 8)
+                                .cornerRadius(5)
+                                .font(.subheadline)
+                                .multilineTextAlignment(.leading)
+                                .padding(.top, 5)
+                                .modifier(Shimmer())
+                            
+                        }
+                        
                     }
+                    
                 }
                 
                 //Action buttons

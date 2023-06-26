@@ -16,30 +16,48 @@ struct FeedView: View {
     var body: some View {
         
         ZStack(alignment: .bottomTrailing) {
-            
-            ScrollView {
+ 
+            if feedViewModel.isLoading {
                 
-                LazyVStack {
+                VStack {
                     
-                    if feedViewModel.isLoading {
+                    Spacer()
+                    
+                    
+                    
+                    HStack {
                         
-                        ForEach(0..<20) { _ in
-                            
-                            LoadingTweetRowView()
-                            
-                        }
+                        Spacer()
                         
-                    } else {
+                        ProgressView()
+                            .scaleEffect(2)
                         
-                        ForEach(feedViewModel.tweets) { tweet in
-                            
-                            TweetRowView(tweet: tweet)
-                            
-                        }
+                        Spacer()
+                        
                     }
+                    
+                    
+                    
+                    Spacer()
+                    
                 }
-                
-            }
+    
+                } else {
+                    
+                    ScrollView {
+                        
+                        LazyVStack {
+                            
+                            ForEach(feedViewModel.tweets) { tweet in
+                                
+                                TweetRowView(tweet: tweet)
+                                
+                            }
+                        }
+                        
+                    }
+           
+                }
             
             Button {
                 

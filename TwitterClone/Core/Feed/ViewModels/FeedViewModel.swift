@@ -11,7 +11,6 @@ class FeedViewModel: ObservableObject {
     
     @Published var tweets = [Tweet]()
     @Published var isLoading = false
-
     
     let tweetService = TweetService()
     let userService = UserService()

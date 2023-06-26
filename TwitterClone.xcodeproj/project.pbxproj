@@ -49,7 +49,6 @@
 		DDD6B3922A3132A700A99749 /* CustomSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD6B3912A3132A700A99749 /* CustomSecureField.swift */; };
 		DDD6B3952A313E2300A99749 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD6B3942A313E2300A99749 /* AuthHeaderView.swift */; };
 		DDDC44BC2A48BAF100864362 /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDC44BB2A48BAF100864362 /* MainTabViewModel.swift */; };
-		DDDC44BE2A48C21900864362 /* LoadingTweetRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDC44BD2A48C21900864362 /* LoadingTweetRowView.swift */; };
 		DDDC44C12A48C7D700864362 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDC44C02A48C7D700864362 /* Shimmer.swift */; };
 		DDF6F14B2A309845006ED0C4 /* RoundedShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6F14A2A309845006ED0C4 /* RoundedShape.swift */; };
 		DDF6F14F2A30A1B6006ED0C4 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6F14E2A30A1B6006ED0C4 /* CustomTextField.swift */; };
@@ -96,7 +95,6 @@
 		DDD6B3912A3132A700A99749 /* CustomSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureField.swift; sourceTree = "<group>"; };
 		DDD6B3942A313E2300A99749 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
 		DDDC44BB2A48BAF100864362 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
-		DDDC44BD2A48C21900864362 /* LoadingTweetRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTweetRowView.swift; sourceTree = "<group>"; };
 		DDDC44C02A48C7D700864362 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
 		DDF6F14A2A309845006ED0C4 /* RoundedShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShape.swift; sourceTree = "<group>"; };
 		DDF6F14E2A30A1B6006ED0C4 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -327,7 +325,6 @@
 			isa = PBXGroup;
 			children = (
 				DD31785D2A28058A0095AB30 /* TweetRowView.swift */,
-				DDDC44BD2A48C21900864362 /* LoadingTweetRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -550,7 +547,6 @@
 			files = (
 				DD0A07A12A28AEEF0031B8BC /* MessagesView.swift in Sources */,
 				DDA1AFB92A29381100C5EBFE /* ProfileView.swift in Sources */,
-				DDDC44BE2A48C21900864362 /* LoadingTweetRowView.swift in Sources */,
 				DD3178452A2800010095AB30 /* ContentView.swift in Sources */,
 				DD334B282A2B92F4006F64ED /* SideMenuRowView.swift in Sources */,
 				DD70956B2A394F0100CC88EC /* User.swift in Sources */,
