@@ -54,12 +54,8 @@ extension ContentView {
                     
                 }
                 .onTapGesture {
-                    
-                    withAnimation(.easeInOut) {
-                        
-                        showMenu = false
-                        
-                    }
+                       
+                    showMenu = false
                 }
                 .ignoresSafeArea()
                 
@@ -71,8 +67,6 @@ extension ContentView {
                 .offset(x: showMenu ? 0 : -300)
             
         }
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             
             ToolbarItem(placement: .navigationBarLeading) {
@@ -80,12 +74,8 @@ extension ContentView {
                 if let user = authViewModel.currentUser {
                     
                     Button {
-                        
-                        withAnimation(.easeInOut) {
                             
-                            showMenu = true
-                            
-                        }
+                        showMenu = true
                         
                     } label: {
                         

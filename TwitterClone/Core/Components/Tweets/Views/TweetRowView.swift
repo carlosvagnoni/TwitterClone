@@ -29,7 +29,7 @@ struct TweetRowView: View {
                     
                     if let user = tweetRowViewModel.tweet.user {
                         
-                    //Profile Image
+                        //Profile Image
                         KFImage(URL(string: user.profilePhotoUrl))
                             .resizable()
                             .scaledToFill()
@@ -37,14 +37,10 @@ struct TweetRowView: View {
                             .frame(width: 56, height: 56)
                             .foregroundColor(Color(.systemBlue))
                         
-                        
                         //User info + Tweet caption
                         VStack(alignment: .leading, spacing: 4) {
                             
                             //User info
-                            
-                            
-                            
                             HStack(spacing: 2.5) {
                                 
                                 Text(user.fullname)
@@ -147,6 +143,7 @@ struct TweetRowView: View {
             Divider()
 
         }
+        .frame(minHeight: 110)
         
     }
 }

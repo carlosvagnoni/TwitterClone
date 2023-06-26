@@ -141,11 +141,19 @@ extension TweetService {
     }
     
     func fetchLikedTweets(forUid uid: String, completion: @escaping([Tweet]) -> Void) {
+        
         var tweets = [Tweet]()
         
         Firestore.firestore().collection("users").document(uid).collection("user-likes").getDocuments { snapshot, _ in
             
             guard let document = snapshot?.documents else { return }
+            
+            if document.isEmpty {
+                
+                completion(tweets)
+                
+                return
+            }
             
             document.forEach { doc in
                 

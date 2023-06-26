@@ -10,6 +10,8 @@ import Foundation
 class FeedViewModel: ObservableObject {
     
     @Published var tweets = [Tweet]()
+    @Published var isLoading = false
+
     
     let tweetService = TweetService()
     let userService = UserService()
@@ -23,9 +25,17 @@ class FeedViewModel: ObservableObject {
     
     func fetchTweets() {
         
+        isLoading = true
+        
         tweetService.fetchTweets { tweets in
             
-            self.tweets = tweets            
+            DispatchQueue.main.async {
+                
+                self.tweets = tweets
+                
+                self.isLoading = false
+                
+            }
             
         }
                 

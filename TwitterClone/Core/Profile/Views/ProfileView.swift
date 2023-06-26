@@ -236,6 +236,13 @@ extension ProfileView {
             }
             
         }
+        .onAppear() {
+            
+            profileViewModel.fetchUserTweets()
+            
+            profileViewModel.fetchLikedTweets()
+            
+        }
         
     }
 

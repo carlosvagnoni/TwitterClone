@@ -21,12 +21,22 @@ struct FeedView: View {
                 
                 LazyVStack {
                     
-                    ForEach(feedViewModel.tweets) { tweet in
+                    if feedViewModel.isLoading {
                         
-                        TweetRowView(tweet: tweet)
+                        ForEach(0..<20) { _ in
+                            
+                            LoadingTweetRowView()
+                            
+                        }
                         
+                    } else {
+                        
+                        ForEach(feedViewModel.tweets) { tweet in
+                            
+                            TweetRowView(tweet: tweet)
+                            
+                        }
                     }
-                    
                 }
                 
             }

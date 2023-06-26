@@ -12,6 +12,7 @@ struct NewTweetView: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var feedViewModel: FeedViewModel
     
     @ObservedObject var uploadTweetViewModel = UploadTweetViewModel()
     
@@ -78,6 +79,8 @@ struct NewTweetView: View {
         .onReceive(uploadTweetViewModel.$didUploadTweet) { success in
             
             if success {
+                
+                feedViewModel.fetchTweets()
                 
                 dismiss()
                 

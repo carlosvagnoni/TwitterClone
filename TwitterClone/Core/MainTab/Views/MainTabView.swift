@@ -11,6 +11,8 @@ struct MainTabView: View {
     
     @State private var selectedIndex = 0
     
+    @ObservedObject var mainTabViewModel = MainTabViewModel()
+    
     var body: some View {
         
         TabView(selection: $selectedIndex) {
@@ -52,6 +54,9 @@ struct MainTabView: View {
             UITabBar.appearance().unselectedItemTintColor = UIColor(Color.black)
             
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(mainTabViewModel.titleForSelectedIndex(selectedIndex))
+        
         
         
     }

@@ -26,15 +26,15 @@ class TweetRowViewModel: ObservableObject {
     
     func fetchUserForTweet() {
         
-            userService.fetchUser(withUid: tweet.uid) { user in
+        userService.fetchUser(withUid: tweet.uid) { user in
+            
+            DispatchQueue.main.async {
                 
-                DispatchQueue.main.async {
-                    
-                    self.tweet.user = user
-                    
-                }
+                self.tweet.user = user
+                
             }
         }
+    }
     
     func likeTweet() {
         
