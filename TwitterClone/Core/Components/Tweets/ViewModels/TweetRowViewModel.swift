@@ -38,40 +38,36 @@ class TweetRowViewModel: ObservableObject {
     
     func likeTweet() {
         
-        tweetService.likeTweet(tweet) {
+        tweetService.likeTweet(tweet) { updatedLikes in
             
             guard let tweetId = self.tweet.id else { return }
             
-            self.tweetService.fetchTweet(withId: tweetId) { updatedTweet in
-                
-                self.tweet = updatedTweet
-                
-                self.tweet.didLike = true
-                
-                self.fetchUserForTweet()
-                
-            }
+            self.tweet.likes = updatedLikes
+            
+            self.tweet.didLike = true
+            
+            print(self.tweet.likes)
+            
         }
+        
+        
+        
     }
-
+    
     func unlikeTweet() {
         
-        tweetService.unlikeTweet(tweet) {
-            
+        tweetService.unlikeTweet(tweet) { updatedLikes in
             guard let tweetId = self.tweet.id else { return }
             
-            self.tweetService.fetchTweet(withId: tweetId) { updatedTweet in
-                
-                self.tweet = updatedTweet
-                
-                self.tweet.didLike = false
-                
-                self.fetchUserForTweet()
-                
-            }
+            self.tweet.likes = updatedLikes
+            
+            self.tweet.didLike = false
+            
+            print(self.tweet.likes)
         }
     }
-
+    
+    
     
     func checkIfUserLikedTweet() {
 

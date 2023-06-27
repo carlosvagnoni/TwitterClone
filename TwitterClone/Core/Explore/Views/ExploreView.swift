@@ -57,8 +57,6 @@ struct ExploreView: View {
                 
             }
         }
-        .navigationTitle("Search")
-        .navigationBarTitleDisplayMode(.inline)
         
         
         

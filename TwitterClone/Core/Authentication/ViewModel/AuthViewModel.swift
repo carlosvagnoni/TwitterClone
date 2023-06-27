@@ -80,6 +80,8 @@ class AuthViewModel: ObservableObject {
                 
                 self.userSession = nil
                 
+                self.currentUser = nil
+                
             } catch let signOutError as NSError {
                 
                 print("Error signing out: %@", signOutError)

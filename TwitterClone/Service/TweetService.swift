@@ -82,48 +82,68 @@ class TweetService {
 
 extension TweetService {
     
-    func likeTweet( _ tweet: Tweet, completion: @escaping() -> Void) {
-
+//    func likeTweet( _ tweet: Tweet, completion: @escaping() -> Void) {
+//
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//
+//        guard let tweetId = tweet.id else { return }
+//
+//        let userLikesRef = Firestore.firestore().collection("users").document(uid).collection("user-likes")
+//
+//        Firestore.firestore().collection("tweets").document(tweetId)
+//            .updateData(["likes": FieldValue.increment(Int64(1))]) { _ in
+//
+//                userLikesRef.document(tweetId).setData([:]) { _ in
+//
+//                    completion()
+//
+//                }
+//
+//            }
+//
+//    }
+    
+    func likeTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-
         guard let tweetId = tweet.id else { return }
 
         let userLikesRef = Firestore.firestore().collection("users").document(uid).collection("user-likes")
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
 
-        Firestore.firestore().collection("tweets").document(tweetId)
-            .updateData(["likes": FieldValue.increment(Int64(1))]) { _ in
-
-                userLikesRef.document(tweetId).setData([:]) { _ in
-
-                    completion()
-
+        tweetRef.updateData(["likes": FieldValue.increment(Int64(1))]) { _ in
+            tweetRef.getDocument { (document, _) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data()
+                    let updatedLikes = dataDescription?["likes"] as? Int ?? 0
+                    userLikesRef.document(tweetId).setData([:]) { _ in
+                        completion(updatedLikes)
+                    }
                 }
-
             }
-
+        }
     }
-
-    func unlikeTweet( _ tweet: Tweet, completion: @escaping() -> Void) {
-
+    
+    func unlikeTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-
         guard let tweetId = tweet.id else { return }
-
         guard tweet.likes > 0 else { return }
 
         let userLikesRef = Firestore.firestore().collection("users").document(uid).collection("user-likes")
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
 
-        Firestore.firestore().collection("tweets").document(tweetId)
-            .updateData(["likes": FieldValue.increment(Int64(-1))]) { _ in
-
-                userLikesRef.document(tweetId).delete { _ in
-
-                    completion()
-
+        tweetRef.updateData(["likes": FieldValue.increment(Int64(-1))]) { _ in
+            tweetRef.getDocument { (document, _) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data()
+                    let updatedLikes = dataDescription?["likes"] as? Int ?? 0
+                    userLikesRef.document(tweetId).delete { _ in
+                        completion(updatedLikes)
+                    }
                 }
-
             }
+        }
     }
+
     
     func checkIfUserLikedTweet( _ tweet: Tweet, completion: @escaping(Bool) -> Void) {
         
