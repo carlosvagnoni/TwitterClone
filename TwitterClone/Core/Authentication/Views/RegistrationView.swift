@@ -69,7 +69,7 @@ struct RegistrationView: View {
             NavigationLink {
                 
                 LoginView()
-                    .navigationBarHidden(true)
+                    .toolbar(.hidden)
                 
             } label: {
                 
@@ -90,7 +90,7 @@ struct RegistrationView: View {
                
         }
         .ignoresSafeArea()
-        .navigationBarHidden(true)
+        .toolbar(.hidden)
         
     }
 }

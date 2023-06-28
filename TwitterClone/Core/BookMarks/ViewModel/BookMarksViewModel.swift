@@ -1,14 +1,13 @@
 //
-//  FeedViewModel.swift
+//  BookMarksViewModel.swift
 //  TwitterClone
 //
-//  Created by user239477 on 6/3/23.
+//  Created by user239477 on 6/27/23.
 //
 
 import Foundation
 
-class FeedViewModel: ObservableObject {
-    
+class BookmarksViewModel: ObservableObject {
     @Published var tweets = [Tweet]()
     @Published var isLoading = false
     

@@ -56,6 +56,7 @@ struct MainTabView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(mainTabViewModel.titleForSelectedIndex(selectedIndex))
+        .toolbarBackground(.visible)
         
 
         

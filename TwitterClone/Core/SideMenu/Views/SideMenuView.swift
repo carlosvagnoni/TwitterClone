@@ -71,6 +71,18 @@ struct SideMenuView: View {
                             
                         }
                         
+                    } else if option == .bookmarks {
+                        
+                        NavigationLink {
+                            
+                            BookmarksView()
+                            
+                        } label: {
+                            
+                            SideMenuRowView(sideMenuViewModel: option)
+                            
+                        }
+                        
                     } else {
                         
                         SideMenuRowView(sideMenuViewModel: option)

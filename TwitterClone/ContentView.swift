@@ -43,7 +43,8 @@ extension ContentView {
         ZStack(alignment: .topLeading) {
             
             MainTabView()
-                .navigationBarHidden(showMenu ? true : false)
+                .toolbar(showMenu ? .hidden : .visible)
+
             
             if showMenu {
                 
@@ -94,6 +95,7 @@ extension ContentView {
         .onAppear {
             
             showMenu = false
+                
             
         }
 

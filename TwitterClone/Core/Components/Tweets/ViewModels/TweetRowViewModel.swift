@@ -40,13 +40,10 @@ class TweetRowViewModel: ObservableObject {
         
         tweetService.likeTweet(tweet) { updatedLikes in
             
-            guard let tweetId = self.tweet.id else { return }
-            
             self.tweet.likes = updatedLikes
             
             self.tweet.didLike = true
             
-            print(self.tweet.likes)
             
         }
         
@@ -57,13 +54,11 @@ class TweetRowViewModel: ObservableObject {
     func unlikeTweet() {
         
         tweetService.unlikeTweet(tweet) { updatedLikes in
-            guard let tweetId = self.tweet.id else { return }
             
             self.tweet.likes = updatedLikes
             
             self.tweet.didLike = false
-            
-            print(self.tweet.likes)
+
         }
     }
     

@@ -45,15 +45,24 @@ struct TweetRowView: View {
                             HStack(spacing: 2.5) {
                                 
                                 Text(user.fullname)
-                                    .font(.subheadline).bold()
+                                        .font(.subheadline).bold()
+                                        .truncationMode(.tail)
+                                        .lineLimit(1)
+                                        .layoutPriority(2)
+
+                                    Text(" @\(user.username)")
+                                        .foregroundColor(.gray)
+                                        .font(.subheadline)
+                                        .truncationMode(.tail)
+                                        .lineLimit(1)
+                                        .layoutPriority(1)
+
+                                    Text(" · \(DateFormatterUtils.formatTimestamp(tweetRowViewModel.tweet.timestamp))")
+                                        .foregroundColor(.gray)
+                                        .font(.subheadline)
+                                        .lineLimit(1)
+                                        .layoutPriority(3)
                                 
-                                Text("\(user.username)")
-                                    .foregroundColor(.gray)
-                                    .font(.subheadline)
-                                
-                                Text("· 2m")
-                                    .foregroundColor(.gray)
-                                    .font(.subheadline)
                             }
                             
                             

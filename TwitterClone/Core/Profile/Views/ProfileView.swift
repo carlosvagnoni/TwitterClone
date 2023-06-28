@@ -16,8 +16,6 @@ struct ProfileView: View {
     
     @State private var selectedFilter: TweetFilterViewModel = .tweets
     
-    @Namespace var animation
-    
     init(user: User) {
         
         self.profileViewModel = ProfileViewModel(user: user)
@@ -41,7 +39,7 @@ struct ProfileView: View {
             Spacer()
             
         }
-        .navigationBarHidden(true)
+        .toolbar(.hidden)
     }
 }
 
@@ -194,7 +192,6 @@ extension ProfileView {
                         Capsule()
                             .foregroundColor(Color(.systemBlue))
                             .frame(height: 3)
-                            .matchedGeometryEffect(id: "filter", in: animation)
                         
                     } else {
                         
@@ -207,11 +204,9 @@ extension ProfileView {
                     
                 }
                 .onTapGesture {
-                    withAnimation(.easeInOut) {
-                        
-                        self.selectedFilter = item
-                        
-                    }
+                    self.selectedFilter = item
+                    profileViewModel.fetchUserTweets()
+                    profileViewModel.fetchLikedTweets()
                 }
                 
             }
