@@ -182,12 +182,13 @@ struct TweetRowView: View {
                         
                         Button {
                             
-                            //Action 4
+                            tweetRowViewModel.tweet.didBookmark ?? false ? tweetRowViewModel.unbookmarkTweet() : tweetRowViewModel.bookmarkTweet()
                             
                         } label: {
                             
-                            Image(systemName: "bookmark")
+                            Image(systemName: tweetRowViewModel.tweet.didBookmark ?? false ? "bookmark.fill" : "bookmark")
                                 .font(.subheadline)
+                                .foregroundColor(tweetRowViewModel.tweet.didBookmark ?? false ? .blue : .gray)
                             
                         }
                         

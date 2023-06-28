@@ -21,6 +21,7 @@ class TweetRowViewModel: ObservableObject {
         fetchUserForTweet()
         
         checkIfUserLikedTweet()
+        checkIfUserBookmarkedTweet()
         
     }
     
@@ -71,6 +72,47 @@ class TweetRowViewModel: ObservableObject {
             if didLike {
                 
                 self.tweet.didLike = true
+                
+            }
+        }
+
+    }
+    
+    func bookmarkTweet() {
+        
+        tweetService.bookmarkTweet(tweet) { updatedBookmarkCount in
+            
+            self.tweet.bookmarkCount = updatedBookmarkCount
+            
+            self.tweet.didBookmark = true
+            
+            
+        }
+        
+        
+        
+    }
+    
+    func unbookmarkTweet() {
+        
+        tweetService.unbookmarkTweet(tweet) { updatedBookmarkCount in
+            
+            self.tweet.bookmarkCount = updatedBookmarkCount
+            
+            self.tweet.didBookmark = false
+
+        }
+    }
+    
+    
+    
+    func checkIfUserBookmarkedTweet() {
+
+        tweetService.checkIfUserBookmarkedTweet(tweet) { didBookmark in
+            
+            if didBookmark {
+                
+                self.tweet.didBookmark = true
                 
             }
         }

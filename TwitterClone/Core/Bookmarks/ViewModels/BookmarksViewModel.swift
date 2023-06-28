@@ -8,32 +8,31 @@
 import Foundation
 
 class BookmarksViewModel: ObservableObject {
-    @Published var tweets = [Tweet]()
+    @Published var bookmarkedTweets = [Tweet]()
     @Published var isLoading = false
     
     let tweetService = TweetService()
     
     init() {
         
-        fetchTweets()
+        fetchBookmarkedTweets()
         
     }
     
     
-    func fetchTweets() {
+    func fetchBookmarkedTweets() {
         
         isLoading = true
         
-        tweetService.fetchTweets { tweets in
+        tweetService.fetchBookmarkedTweets { bookmarkedTweets in
             
             DispatchQueue.main.async {
                 
-                self.tweets = tweets
+                self.bookmarkedTweets = bookmarkedTweets
                 
                 self.isLoading = false
                 
             }
-            
         }
                 
     }

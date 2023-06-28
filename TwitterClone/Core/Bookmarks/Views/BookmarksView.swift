@@ -48,7 +48,7 @@ struct BookmarksView: View {
                         
                         LazyVStack {
                             
-                            ForEach(bookmarksViewModel.tweets) { tweet in
+                            ForEach(bookmarksViewModel.bookmarkedTweets) { tweet in
                                 
                                 TweetRowView(tweet: tweet)
                                 
@@ -83,6 +83,11 @@ struct BookmarksView: View {
                 
             }
     }
+        .onAppear() {
+            
+            bookmarksViewModel.fetchBookmarkedTweets()
+            
+        }
 
     }
 }
