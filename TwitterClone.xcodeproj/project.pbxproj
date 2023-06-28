@@ -13,6 +13,8 @@
 		DD0A07A12A28AEEF0031B8BC /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A07A02A28AEEF0031B8BC /* MessagesView.swift */; };
 		DD0AB49F2A3C7110001A730E /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0AB49E2A3C7110001A730E /* TweetService.swift */; };
 		DD0AB4A12A3C7835001A730E /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0AB4A02A3C7835001A730E /* UploadTweetViewModel.swift */; };
+		DD25A3302A4C431E00DCD8D9 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD25A32F2A4C431E00DCD8D9 /* BookmarksViewModel.swift */; };
+		DD25A3322A4C433000DCD8D9 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD25A3312A4C433000DCD8D9 /* BookmarksView.swift */; };
 		DD3178432A2800010095AB30 /* TwitterCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3178422A2800010095AB30 /* TwitterCloneApp.swift */; };
 		DD3178452A2800010095AB30 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3178442A2800010095AB30 /* ContentView.swift */; };
 		DD3178472A2800020095AB30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD3178462A2800020095AB30 /* Assets.xcassets */; };
@@ -64,6 +66,8 @@
 		DD0A07A02A28AEEF0031B8BC /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		DD0AB49E2A3C7110001A730E /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
 		DD0AB4A02A3C7835001A730E /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
+		DD25A32F2A4C431E00DCD8D9 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
+		DD25A3312A4C433000DCD8D9 /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		DD31783F2A2800010095AB30 /* TwitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3178422A2800010095AB30 /* TwitterCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCloneApp.swift; sourceTree = "<group>"; };
 		DD3178442A2800010095AB30 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -154,6 +158,31 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		DD25A32C2A4C42EC00DCD8D9 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				DD25A32D2A4C42F600DCD8D9 /* ViewModels */,
+				DD25A32E2A4C430100DCD8D9 /* Views */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		DD25A32D2A4C42F600DCD8D9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DD25A32F2A4C431E00DCD8D9 /* BookmarksViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DD25A32E2A4C430100DCD8D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD25A3312A4C433000DCD8D9 /* BookmarksView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		DD3178362A2800010095AB30 = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +227,7 @@
 		DD3178502A2800530095AB30 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				DD25A32C2A4C42EC00DCD8D9 /* Bookmarks */,
 				DD3178552A2800A60095AB30 /* Components */,
 				DDFC1F642A2FC179009807BF /* Authentication */,
 				DDAD134A2A2CB3FD006B5673 /* UploadTweet */,
@@ -564,6 +594,7 @@
 				DD0AB49F2A3C7110001A730E /* TweetService.swift in Sources */,
 				DD334B262A2B929A006F64ED /* SideMenuView.swift in Sources */,
 				DD31785B2A2803AB0095AB30 /* FeedView.swift in Sources */,
+				DD25A3322A4C433000DCD8D9 /* BookmarksView.swift in Sources */,
 				DDF6F14F2A30A1B6006ED0C4 /* CustomTextField.swift in Sources */,
 				DDD191042A3921F10097F2E8 /* UserService.swift in Sources */,
 				DDD6B3952A313E2300A99749 /* AuthHeaderView.swift in Sources */,
@@ -579,6 +610,7 @@
 				DD334B2E2A2BA985006F64ED /* Extensions.swift in Sources */,
 				DD6723C02A2A9F7100F9354D /* UserRowView.swift in Sources */,
 				DDF6F14B2A309845006ED0C4 /* RoundedShape.swift in Sources */,
+				DD25A3302A4C431E00DCD8D9 /* BookmarksViewModel.swift in Sources */,
 				DD0AB4A12A3C7835001A730E /* UploadTweetViewModel.swift in Sources */,
 				DD0A07972A28AB580031B8BC /* MainTabView.swift in Sources */,
 				DD6775A32A33E8A400202AA2 /* AuthViewModel.swift in Sources */,

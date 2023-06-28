@@ -75,7 +75,7 @@ struct SideMenuView: View {
                         
                         NavigationLink {
                             
-                            //BookmarksView()
+                            BookmarksView()
                             
                         } label: {
                             
