@@ -94,7 +94,7 @@ extension TweetService {
                 if let document = document, document.exists {
                     let dataDescription = document.data()
                     let updatedLikes = dataDescription?["likes"] as? Int ?? 0
-                    userLikesRef.document(tweetId).setData([:]) { _ in
+                    userLikesRef.document(tweetId).setData(["likeDate": Timestamp(date: Date())]) { _ in
                         completion(updatedLikes)
                     }
                 }
@@ -141,131 +141,39 @@ extension TweetService {
     
     func fetchLikedTweets(forUid uid: String, completion: @escaping([Tweet]) -> Void) {
         
-        var tweets = [Tweet]()
-        
-        Firestore.firestore().collection("users").document(uid).collection("user-likes").getDocuments { snapshot, _ in
-            
-            guard let document = snapshot?.documents else { return }
-            
-            if document.isEmpty {
-                
-                completion(tweets)
-                
+        var tweetsDict = [String: Tweet]()
+        var likes = [DocumentSnapshot]()
+
+        Firestore.firestore().collection("users").document(uid).collection("user-likes")
+            .order(by: "likeDate", descending: true)
+            .getDocuments { snapshot, _ in
+
+            guard let documents = snapshot?.documents else { return }
+
+            if documents.isEmpty {
+                completion([])
                 return
             }
-            
-            document.forEach { doc in
-                
+
+            likes = documents
+
+            likes.forEach { doc in
                 let tweetId = doc.documentID
-                
+
                 Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, _ in
-                    
                     guard let tweet = try? snapshot?.data(as: Tweet.self) else { return }
-                    
-                    tweets.append(tweet)
-                    
-                    completion(tweets)
-                }
-            }
-        }
-    }
-    
-}
 
-// MARK: - bookmarks
+                    tweetsDict[tweetId] = tweet
 
-extension TweetService {
-    
-    func bookmarkTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let tweetId = tweet.id else { return }
-
-        let userBookmarksRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
-        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
-
-        tweetRef.updateData(["bookmarkCount": FieldValue.increment(Int64(1))]) { _ in
-            tweetRef.getDocument { (document, _) in
-                if let document = document, document.exists {
-                    let dataDescription = document.data()
-                    let updatedBookmarkCount = dataDescription?["bookmarkCount"] as? Int ?? 0
-                    userBookmarksRef.document(tweetId).setData([:]) { _ in
-                        completion(updatedBookmarkCount)
+                    if tweetsDict.count == likes.count {
+                        let sortedTweets = likes.compactMap({ tweetsDict[$0.documentID] })
+                        completion(sortedTweets)
                     }
                 }
             }
         }
     }
-    
-    func unbookmarkTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let tweetId = tweet.id else { return }
-        guard tweet.bookmarkCount > 0 else { return }
-
-        let userBookmarksRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
-        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
-
-        tweetRef.updateData(["bookmarkCount": FieldValue.increment(Int64(-1))]) { _ in
-            tweetRef.getDocument { (document, _) in
-                if let document = document, document.exists {
-                    let dataDescription = document.data()
-                    let updatedBookmarkCount = dataDescription?["bookmarkCount"] as? Int ?? 0
-                    userBookmarksRef.document(tweetId).delete { _ in
-                        completion(updatedBookmarkCount)
-                    }
-                }
-            }
-        }
-    }
-
-    
-    func checkIfUserBookmarkedTweet( _ tweet: Tweet, completion: @escaping(Bool) -> Void) {
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        guard let tweetId = tweet.id else { return }
-        
-        Firestore.firestore().collection("users").document(uid).collection("user-bookmarks").document(tweetId).getDocument { snapshot, _ in
-            
-            guard let snapshot = snapshot else { return }
-            
-            completion(snapshot.exists)
-        }
-        
-    }
-    
-    func fetchBookmarkedTweets(completion: @escaping([Tweet]) -> Void) {
-        
-        var tweets = [Tweet]()
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        Firestore.firestore().collection("users").document(uid).collection("user-bookmarks").getDocuments { snapshot, _ in
-            
-            guard let document = snapshot?.documents else { return }
-            
-            if document.isEmpty {
-                
-                completion(tweets)
-                
-                return
-            }
-            
-            document.forEach { doc in
-                
-                let tweetId = doc.documentID
-                
-                Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, _ in
-                    
-                    guard let tweet = try? snapshot?.data(as: Tweet.self) else { return }
-                    
-                    tweets.append(tweet)
-                    
-                    completion(tweets)
-                }
-            }
-        }
-    }
-    
+  
 }
 
 // MARK: - retweets
@@ -331,33 +239,152 @@ extension TweetService {
     
     func fetchRetweetedTweets(forUid uid: String, completion: @escaping([Tweet]) -> Void) {
         
-        var tweets = [Tweet]()
-        
-        Firestore.firestore().collection("users").document(uid).collection("user-retweets").getDocuments { snapshot, _ in
-            
-            guard let document = snapshot?.documents else { return }
-            
-            if document.isEmpty {
-                
-                completion(tweets)
-                
+        var tweetsDict = [String: Tweet]()
+        var retweets = [DocumentSnapshot]()
+
+        Firestore.firestore().collection("users").document(uid).collection("user-retweets")
+            .order(by: "retweetDate", descending: true)
+            .getDocuments { snapshot, _ in
+
+            guard let documents = snapshot?.documents else { return }
+
+            if documents.isEmpty {
+                completion([])
                 return
             }
-            
-            document.forEach { doc in
-                
+
+            retweets = documents
+
+            retweets.forEach { doc in
                 let tweetId = doc.documentID
-                
+
                 Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, _ in
-                    
                     guard let tweet = try? snapshot?.data(as: Tweet.self) else { return }
-                    
-                    tweets.append(tweet)
-                    
-                    completion(tweets)
+
+                    tweetsDict[tweetId] = tweet
+
+                    if tweetsDict.count == retweets.count {
+                        let sortedTweets = retweets.compactMap({ tweetsDict[$0.documentID] })
+                        completion(sortedTweets)
+                    }
+                }
+            }
+        }
+    }
+    
+    func fetchRetweetDate(forUserId userId: String, tweetId: String, completion: @escaping (Date?) -> Void) {
+        Firestore.firestore().collection("users").document(userId).collection("user-retweets").document(tweetId).getDocument { (documentSnapshot, error) in
+            if let document = documentSnapshot,
+               let data = document.data(),
+               let retweetDate = (data["retweetDate"] as? Timestamp)?.dateValue() {
+                completion(retweetDate)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+
+
+    
+}
+
+
+// MARK: - bookmarks
+
+extension TweetService {
+    
+    func bookmarkTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let tweetId = tweet.id else { return }
+
+        let userBookmarksRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
+
+        tweetRef.updateData(["bookmarkCount": FieldValue.increment(Int64(1))]) { _ in
+            tweetRef.getDocument { (document, _) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data()
+                    let updatedBookmarkCount = dataDescription?["bookmarkCount"] as? Int ?? 0
+                    userBookmarksRef.document(tweetId).setData(["bookmarkDate": Timestamp(date: Date())]) { _ in
+                        completion(updatedBookmarkCount)
+                    }
+                }
+            }
+        }
+    }
+    
+    func unbookmarkTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let tweetId = tweet.id else { return }
+        guard tweet.bookmarkCount > 0 else { return }
+
+        let userBookmarksRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
+
+        tweetRef.updateData(["bookmarkCount": FieldValue.increment(Int64(-1))]) { _ in
+            tweetRef.getDocument { (document, _) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data()
+                    let updatedBookmarkCount = dataDescription?["bookmarkCount"] as? Int ?? 0
+                    userBookmarksRef.document(tweetId).delete { _ in
+                        completion(updatedBookmarkCount)
+                    }
+                }
+            }
+        }
+    }
+
+    
+    func checkIfUserBookmarkedTweet( _ tweet: Tweet, completion: @escaping(Bool) -> Void) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        guard let tweetId = tweet.id else { return }
+        
+        Firestore.firestore().collection("users").document(uid).collection("user-bookmarks").document(tweetId).getDocument { snapshot, _ in
+            
+            guard let snapshot = snapshot else { return }
+            
+            completion(snapshot.exists)
+        }
+        
+    }
+    
+    func fetchBookmarkedTweets(completion: @escaping([Tweet]) -> Void) {
+
+        var tweetsDict = [String: Tweet]()
+        var bookmarks = [DocumentSnapshot]()
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
+            .order(by: "bookmarkDate", descending: true)
+            .getDocuments { snapshot, _ in
+
+            guard let documents = snapshot?.documents else { return }
+
+            if documents.isEmpty {
+                completion([])
+                return
+            }
+
+            bookmarks = documents
+
+            bookmarks.forEach { doc in
+                let tweetId = doc.documentID
+
+                Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, _ in
+                    guard let tweet = try? snapshot?.data(as: Tweet.self) else { return }
+
+                    tweetsDict[tweetId] = tweet
+
+                    if tweetsDict.count == bookmarks.count {
+                        let sortedTweets = bookmarks.compactMap({ tweetsDict[$0.documentID] })
+                        completion(sortedTweets)
+                    }
                 }
             }
         }
     }
     
 }
+

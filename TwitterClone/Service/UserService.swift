@@ -47,4 +47,40 @@ class UserService {
             }
     }
     
+    func fetchUsersWithRetweets(completion: @escaping([User]) -> Void) {
+        Firestore.firestore().collection("users").getDocuments { snapshot, _ in
+            guard let documents = snapshot?.documents else { return }
+
+            var usersWithRetweets: [User] = []
+            let group = DispatchGroup()
+
+            for document in documents {
+                group.enter()
+
+                guard let user = try? document.data(as: User.self), let userId = user.id else {
+                    group.leave()
+                    continue
+                }
+                
+                Firestore.firestore().collection("users")
+                    .document(userId)
+                    .collection("user-retweets")
+                    .getDocuments { (retweetsSnapshot, _) in
+                        
+                        if let retweetsDocuments = retweetsSnapshot?.documents, !retweetsDocuments.isEmpty {
+                            usersWithRetweets.append(user)
+                        }
+                        
+                        group.leave()
+                    }
+            }
+            
+            group.notify(queue: .main) {
+                completion(usersWithRetweets)
+            }
+        }
+    }
+
+
+    
 }

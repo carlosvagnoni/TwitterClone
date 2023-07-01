@@ -48,7 +48,7 @@ struct FeedView: View {
                         
                         LazyVStack {
                             
-                            ForEach(feedViewModel.tweets) { tweet in
+                            ForEach(Array(feedViewModel.tweets.enumerated()), id: \.offset) { index, tweet in
                                 
                                 TweetRowView(tweet: tweet)
                                 
