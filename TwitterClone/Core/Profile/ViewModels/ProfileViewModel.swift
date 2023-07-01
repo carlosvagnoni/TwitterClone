@@ -11,6 +11,7 @@ class ProfileViewModel: ObservableObject {
     
     @Published var tweets = [Tweet]()
     @Published var likedTweets = [Tweet]()
+    @Published var retweetedTweets = [Tweet]()
     
     private let tweetService = TweetService()
     private let userService = UserService()
@@ -41,7 +42,7 @@ class ProfileViewModel: ObservableObject {
             return tweets
             
         case .replies:
-            return tweets
+            return retweetedTweets
             
         case .likes:
             return likedTweets
@@ -69,6 +70,18 @@ class ProfileViewModel: ObservableObject {
         tweetService.fetchLikedTweets(forUid: uid) { tweets in
             
             self.likedTweets = tweets
+            
+        }
+        
+    }
+    
+    func fetchRetweetedTweets() {
+        
+        guard let uid = user.id else { return }
+        
+        tweetService.fetchRetweetedTweets(forUid: uid) { tweets in
+            
+            self.retweetedTweets = tweets
             
         }
         

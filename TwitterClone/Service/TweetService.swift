@@ -13,7 +13,7 @@ class TweetService {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let data = ["uid": uid, "caption": caption, "likes": 0, "bookmarkCount": 0, "timestamp": Timestamp(date: Date())] as [String : Any]
+        let data = ["uid": uid, "caption": caption, "likes": 0, "retweetCount": 0, "bookmarkCount": 0, "timestamp": Timestamp(date: Date())] as [String : Any]
         
         Firestore.firestore().collection("tweets").document()
             .setData(data) { error in
@@ -172,7 +172,7 @@ extension TweetService {
     
 }
 
-// MARK: - boomarks
+// MARK: - bookmarks
 
 extension TweetService {
     
@@ -180,7 +180,7 @@ extension TweetService {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let tweetId = tweet.id else { return }
 
-        let userLikesRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
+        let userBookmarksRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
         let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
 
         tweetRef.updateData(["bookmarkCount": FieldValue.increment(Int64(1))]) { _ in
@@ -188,7 +188,7 @@ extension TweetService {
                 if let document = document, document.exists {
                     let dataDescription = document.data()
                     let updatedBookmarkCount = dataDescription?["bookmarkCount"] as? Int ?? 0
-                    userLikesRef.document(tweetId).setData([:]) { _ in
+                    userBookmarksRef.document(tweetId).setData([:]) { _ in
                         completion(updatedBookmarkCount)
                     }
                 }
@@ -201,7 +201,7 @@ extension TweetService {
         guard let tweetId = tweet.id else { return }
         guard tweet.bookmarkCount > 0 else { return }
 
-        let userLikesRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
+        let userBookmarksRef = Firestore.firestore().collection("users").document(uid).collection("user-bookmarks")
         let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
 
         tweetRef.updateData(["bookmarkCount": FieldValue.increment(Int64(-1))]) { _ in
@@ -209,7 +209,7 @@ extension TweetService {
                 if let document = document, document.exists {
                     let dataDescription = document.data()
                     let updatedBookmarkCount = dataDescription?["bookmarkCount"] as? Int ?? 0
-                    userLikesRef.document(tweetId).delete { _ in
+                    userBookmarksRef.document(tweetId).delete { _ in
                         completion(updatedBookmarkCount)
                     }
                 }
@@ -240,6 +240,100 @@ extension TweetService {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         Firestore.firestore().collection("users").document(uid).collection("user-bookmarks").getDocuments { snapshot, _ in
+            
+            guard let document = snapshot?.documents else { return }
+            
+            if document.isEmpty {
+                
+                completion(tweets)
+                
+                return
+            }
+            
+            document.forEach { doc in
+                
+                let tweetId = doc.documentID
+                
+                Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, _ in
+                    
+                    guard let tweet = try? snapshot?.data(as: Tweet.self) else { return }
+                    
+                    tweets.append(tweet)
+                    
+                    completion(tweets)
+                }
+            }
+        }
+    }
+    
+}
+
+// MARK: - retweets
+
+extension TweetService {
+    
+    func retweetTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let tweetId = tweet.id else { return }
+
+        let userRetweetsRef = Firestore.firestore().collection("users").document(uid).collection("user-retweets")
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
+
+        tweetRef.updateData(["retweetCount": FieldValue.increment(Int64(1))]) { _ in
+            tweetRef.getDocument { (document, _) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data()
+                    let updatedRetweetCount = dataDescription?["retweetCount"] as? Int ?? 0
+                    userRetweetsRef.document(tweetId).setData(["retweetDate": Timestamp(date: Date())]) { _ in
+                        completion(updatedRetweetCount)
+                    }
+                }
+            }
+        }
+    }
+    
+    func unretweetTweet(_ tweet: Tweet, completion: @escaping(Int) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let tweetId = tweet.id else { return }
+        guard tweet.retweetCount > 0 else { return }
+
+        let userRetweetsRef  = Firestore.firestore().collection("users").document(uid).collection("user-retweets")
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
+
+        tweetRef.updateData(["retweetCount": FieldValue.increment(Int64(-1))]) { _ in
+            tweetRef.getDocument { (document, _) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data()
+                    let updatedRetweetCount = dataDescription?["bookmarkCount"] as? Int ?? 0
+                    userRetweetsRef.document(tweetId).delete { _ in
+                        completion(updatedRetweetCount)
+                    }
+                }
+            }
+        }
+    }
+
+    
+    func checkIfUserRetweetedTweet( _ tweet: Tweet, completion: @escaping(Bool) -> Void) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        guard let tweetId = tweet.id else { return }
+        
+        Firestore.firestore().collection("users").document(uid).collection("user-retweets").document(tweetId).getDocument { snapshot, _ in
+            
+            guard let snapshot = snapshot else { return }
+            
+            completion(snapshot.exists)
+        }
+        
+    }
+    
+    func fetchRetweetedTweets(forUid uid: String, completion: @escaping([Tweet]) -> Void) {
+        
+        var tweets = [Tweet]()
+        
+        Firestore.firestore().collection("users").document(uid).collection("user-retweets").getDocuments { snapshot, _ in
             
             guard let document = snapshot?.documents else { return }
             

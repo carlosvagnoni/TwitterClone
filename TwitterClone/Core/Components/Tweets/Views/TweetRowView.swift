@@ -155,12 +155,13 @@ struct TweetRowView: View {
                         
                         Button {
                             
-                            //Action 2
+                            tweetRowViewModel.tweet.didRetweet ?? false ? tweetRowViewModel.unretweetTweet() : tweetRowViewModel.retweetTweet()
                             
                         } label: {
                             
                             Image(systemName: "arrow.2.squarepath")
                                 .font(.subheadline)
+                                .foregroundColor(tweetRowViewModel.tweet.didRetweet ?? false ? .blue : .gray)
                             
                         }
                         

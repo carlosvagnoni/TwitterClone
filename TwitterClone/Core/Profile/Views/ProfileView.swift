@@ -207,6 +207,7 @@ extension ProfileView {
                     self.selectedFilter = item
                     profileViewModel.fetchUserTweets()
                     profileViewModel.fetchLikedTweets()
+                    profileViewModel.fetchRetweetedTweets()
                 }
                 
             }
@@ -236,6 +237,8 @@ extension ProfileView {
             profileViewModel.fetchUserTweets()
             
             profileViewModel.fetchLikedTweets()
+            
+            profileViewModel.fetchRetweetedTweets()
             
         }
         

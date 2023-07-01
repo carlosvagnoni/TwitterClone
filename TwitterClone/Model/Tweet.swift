@@ -17,9 +17,11 @@ struct Tweet: Identifiable, Decodable {
     let uid: String
     var likes: Int
     var bookmarkCount: Int
+    var retweetCount: Int
     
     var user: User?
     var didLike: Bool? = false
+    var didRetweet: Bool? = false
     var didBookmark: Bool? = false
     
 }
