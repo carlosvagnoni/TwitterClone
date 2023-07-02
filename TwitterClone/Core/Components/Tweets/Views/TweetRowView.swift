@@ -191,8 +191,13 @@ struct TweetRowView: View {
                             
                         } label: {
                             
-                            Image(systemName: "bubble.left")
-                                .font(.subheadline)
+                            HStack(spacing: 2) {
+                                Image(systemName: "bubble.left")
+                                    .font(.subheadline)
+                                Text("0")
+                                    .font(.subheadline)
+                                
+                            }
                             
                         }
                         
@@ -204,9 +209,15 @@ struct TweetRowView: View {
                             
                         } label: {
                             
-                            Image(systemName: "arrow.2.squarepath")
-                                .font(.subheadline)
-                                .foregroundColor(tweetRowViewModel.tweet.didRetweet ?? false ? .green : .gray)
+                            HStack(spacing: 2) {
+                                Image(systemName: "arrow.2.squarepath")
+                                    .font(.subheadline)
+                                Text(tweetRowViewModel.tweet.retweetCount == 0 ? "" : "\(tweetRowViewModel.tweet.retweetCount)")
+                                    .font(.subheadline)
+                            }
+                            .foregroundColor(tweetRowViewModel.tweet.didRetweet ?? false ? .green : .gray)
+                            
+                                
                             
                         }
                         
@@ -217,10 +228,15 @@ struct TweetRowView: View {
                             tweetRowViewModel.tweet.didLike ?? false ? tweetRowViewModel.unlikeTweet() : tweetRowViewModel.likeTweet()
                             
                         } label: {
+                            HStack(spacing: 2) {
+                                Image(systemName: tweetRowViewModel.tweet.didLike ?? false ? "heart.fill" : "heart")
+                                    .font(.subheadline)
+                                Text(tweetRowViewModel.tweet.likes == 0 ? "" : "\(tweetRowViewModel.tweet.likes)")
+                                    .font(.subheadline)
+                            }
+                            .foregroundColor(tweetRowViewModel.tweet.didLike ?? false ? .red : .gray)
                             
-                            Image(systemName: tweetRowViewModel.tweet.didLike ?? false ? "heart.fill" : "heart")
-                                .font(.subheadline)
-                                .foregroundColor(tweetRowViewModel.tweet.didLike ?? false ? .red : .gray)
+                                
                             
                         }
                         
@@ -231,10 +247,14 @@ struct TweetRowView: View {
                             tweetRowViewModel.tweet.didBookmark ?? false ? tweetRowViewModel.unbookmarkTweet() : tweetRowViewModel.bookmarkTweet()
                             
                         } label: {
-                            
-                            Image(systemName: tweetRowViewModel.tweet.didBookmark ?? false ? "bookmark.fill" : "bookmark")
-                                .font(.subheadline)
-                                .foregroundColor(tweetRowViewModel.tweet.didBookmark ?? false ? .blue : .gray)
+                            HStack(spacing:2) {
+                                Image(systemName: tweetRowViewModel.tweet.didBookmark ?? false ? "bookmark.fill" : "bookmark")
+                                    .font(.subheadline)
+                                Text(tweetRowViewModel.tweet.bookmarkCount == 0 ? "" : "\(tweetRowViewModel.tweet.bookmarkCount)")
+                                    .font(.subheadline)
+                            }
+                            .foregroundColor(tweetRowViewModel.tweet.didBookmark ?? false ? .blue : .gray)
+                                
                             
                         }
                         

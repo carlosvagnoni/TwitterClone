@@ -205,6 +205,7 @@ extension ProfileView {
                 }
                 .onTapGesture {
                     self.selectedFilter = item
+                    print(self.selectedFilter.title)
                     profileViewModel.fetchUserTweets()
                     profileViewModel.fetchLikedTweets()
                     profileViewModel.fetchRetweetedTweets()
@@ -223,24 +224,15 @@ extension ProfileView {
             
             LazyVStack {
                 
-                if self.selectedFilter == .replies {
+                ForEach(profileViewModel.tweets(forFilter: self.selectedFilter)) { tweet in
                     
-                    ForEach(profileViewModel.tweets(forFilter: .replies)) { tweet in
-                        
+                    if self.selectedFilter == .replies {
                         TweetRowView(tweet: tweet, isRetweet: true, retweetedUserFullname: profileViewModel.user.fullname)
-                        
-                    }
-                    
-                } else {
-                    
-                    ForEach(profileViewModel.tweets(forFilter: self.selectedFilter)) { tweet in
-                        
+                    } else {
                         TweetRowView(tweet: tweet)
-                        
                     }
+                    
                 }
-                
-                
                 
             }
             
