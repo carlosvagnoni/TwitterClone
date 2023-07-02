@@ -223,11 +223,24 @@ extension ProfileView {
             
             LazyVStack {
                 
-                ForEach(profileViewModel.tweets(forFilter: self.selectedFilter)) { tweet in
+                if self.selectedFilter == .replies {
                     
-                    TweetRowView(tweet: tweet)
+                    ForEach(profileViewModel.tweets(forFilter: .replies)) { tweet in
+                        
+                        TweetRowView(tweet: tweet, isRetweet: true, retweetedUserFullname: profileViewModel.user.fullname)
+                        
+                    }
                     
+                } else {
+                    
+                    ForEach(profileViewModel.tweets(forFilter: self.selectedFilter)) { tweet in
+                        
+                        TweetRowView(tweet: tweet)
+                        
+                    }
                 }
+                
+                
                 
             }
             

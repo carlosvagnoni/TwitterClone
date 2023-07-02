@@ -48,10 +48,14 @@ struct FeedView: View {
                         
                         LazyVStack {
                             
-                            ForEach(Array(feedViewModel.tweets.enumerated()), id: \.offset) { index, tweet in
-                                
-                                TweetRowView(tweet: tweet)
-                                
+//                            ForEach(Array(feedViewModel.tweets.enumerated()), id: \.offset) { index, tweet in
+//
+//                                TweetRowView(tweet: tweet)
+//
+//                            }
+                            
+                            ForEach(Array(feedViewModel.tweetsData.enumerated()), id: \.offset) { index, tweetData in
+                                TweetRowView(tweet: tweetData.tweet, isRetweet: tweetData.isRetweet, retweetedUserFullname: tweetData.retweetedUserFullname)
                             }
                         }
                         

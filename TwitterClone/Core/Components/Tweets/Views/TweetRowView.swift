@@ -7,22 +7,67 @@
 
 import SwiftUI
 import Kingfisher
+import Firebase
 
 struct TweetRowView: View {
     
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     @ObservedObject var tweetRowViewModel: TweetRowViewModel
+    
+    var isRetweet: Bool?
+    var retweetedUserFullname: String?
     
     init(tweet: Tweet) {
         
         self.tweetRowViewModel = TweetRowViewModel(tweet: tweet)
+        self.isRetweet = false
+        self.retweetedUserFullname = nil
         
     }
+    
+    init(tweet: Tweet, isRetweet: Bool, retweetedUserFullname: String?) {
+            self.tweetRowViewModel = TweetRowViewModel(tweet: tweet)
+            self.isRetweet = isRetweet
+            self.retweetedUserFullname = retweetedUserFullname
+        }
     
     var body: some View {
         
         VStack(spacing: 0) {
             
             VStack(alignment: .leading, spacing: 0) {
+                
+                if let isRetweet = isRetweet {
+                    
+                    if isRetweet {
+                        HStack(alignment: .top, spacing: 9) {
+                            
+                            Spacer()
+                                .frame(width: 56)
+                            
+                            HStack(spacing: 5) {
+                                Image(systemName: "arrow.2.squarepath")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                
+                                
+                                
+                                Text(authViewModel.currentUser?.fullname == retweetedUserFullname ? "You Retweeted" : "\(retweetedUserFullname ?? "Unknown") Retweeted")
+                                    .font(.subheadline).bold()
+                                    .truncationMode(.tail)
+                                    .lineLimit(1)
+                                    .foregroundColor(.gray)
+                                
+                                
+                            }
+                            
+                            
+                            
+                        }
+                        .padding(.bottom, 10)
+                    }
+                }
                 
                 //Profile image + User info + Tweet
                 HStack(alignment: .top, spacing: 12) {
@@ -161,7 +206,7 @@ struct TweetRowView: View {
                             
                             Image(systemName: "arrow.2.squarepath")
                                 .font(.subheadline)
-                                .foregroundColor(tweetRowViewModel.tweet.didRetweet ?? false ? .blue : .gray)
+                                .foregroundColor(tweetRowViewModel.tweet.didRetweet ?? false ? .green : .gray)
                             
                         }
                         
@@ -211,11 +256,14 @@ struct TweetRowView: View {
     }
 }
 
-//struct TweetRowView_Previews: PreviewProvider {
-//    
-//    static var previews: some View {
-//        
-//        TweetRowView()
-//        
-//    }
-//}
+struct TweetRowView_Previews: PreviewProvider {
+    
+    static let tweet = Tweet(caption: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", likes: 0, bookmarkCount: 0, retweetCount: 0)
+    
+    static var previews: some View {
+        
+        TweetRowView(tweet: tweet)
+            .environmentObject(AuthViewModel())
+        
+    }
+}
