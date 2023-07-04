@@ -39,6 +39,12 @@
 		DD6775A12A33E3EF00202AA2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DD6775A02A33E3EF00202AA2 /* FirebaseStorage */; };
 		DD6775A32A33E8A400202AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6775A22A33E8A400202AA2 /* AuthViewModel.swift */; };
 		DD70956B2A394F0100CC88EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD70956A2A394F0100CC88EC /* User.swift */; };
+		DD76E1172A542EB100B9BC01 /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1162A542EB100B9BC01 /* TweetViewModel.swift */; };
+		DD76E1192A542EBF00B9BC01 /* TweetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1182A542EBF00B9BC01 /* TweetView.swift */; };
+		DD76E11E2A542FA700B9BC01 /* TweetCommentRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E11D2A542FA700B9BC01 /* TweetCommentRowViewModel.swift */; };
+		DD76E1202A542FB600B9BC01 /* TweetCommentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E11F2A542FB600B9BC01 /* TweetCommentRowView.swift */; };
+		DD76E1222A54335300B9BC01 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1212A54335300B9BC01 /* Comment.swift */; };
+		DD76E1242A54358700B9BC01 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1232A54358700B9BC01 /* CommentService.swift */; };
 		DD7768702A4B992C00129C00 /* DateFormatterUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77686F2A4B992C00129C00 /* DateFormatterUtils.swift */; };
 		DD9B88492A2A070900C3D182 /* TweetFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9B88482A2A070900C3D182 /* TweetFilterViewModel.swift */; };
 		DD9E4E2E2A4066AA00413EB7 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E4E2D2A4066AA00413EB7 /* Tweet.swift */; };
@@ -89,6 +95,12 @@
 		DD6775972A33E29200202AA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DD6775A22A33E8A400202AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		DD70956A2A394F0100CC88EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DD76E1162A542EB100B9BC01 /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
+		DD76E1182A542EBF00B9BC01 /* TweetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetView.swift; sourceTree = "<group>"; };
+		DD76E11D2A542FA700B9BC01 /* TweetCommentRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCommentRowViewModel.swift; sourceTree = "<group>"; };
+		DD76E11F2A542FB600B9BC01 /* TweetCommentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCommentRowView.swift; sourceTree = "<group>"; };
+		DD76E1212A54335300B9BC01 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		DD76E1232A54358700B9BC01 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		DD77686F2A4B992C00129C00 /* DateFormatterUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtils.swift; sourceTree = "<group>"; };
 		DD9B88482A2A070900C3D182 /* TweetFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetFilterViewModel.swift; sourceTree = "<group>"; };
 		DD9E4E2D2A4066AA00413EB7 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
@@ -227,8 +239,9 @@
 		DD3178502A2800530095AB30 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				DD25A32C2A4C42EC00DCD8D9 /* Bookmarks */,
 				DD3178552A2800A60095AB30 /* Components */,
+				DD76E1132A542E7A00B9BC01 /* Tweets */,
+				DD25A32C2A4C42EC00DCD8D9 /* Bookmarks */,
 				DDFC1F642A2FC179009807BF /* Authentication */,
 				DDAD134A2A2CB3FD006B5673 /* UploadTweet */,
 				DD334B222A2B9249006F64ED /* SideMenu */,
@@ -248,6 +261,7 @@
 				DD0160042A36AE1B004F45AA /* ImageUploader.swift */,
 				DDD191032A3921F10097F2E8 /* UserService.swift */,
 				DD0AB49E2A3C7110001A730E /* TweetService.swift */,
+				DD76E1232A54358700B9BC01 /* CommentService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -257,6 +271,7 @@
 			children = (
 				DD70956A2A394F0100CC88EC /* User.swift */,
 				DD9E4E2D2A4066AA00413EB7 /* Tweet.swift */,
+				DD76E1212A54335300B9BC01 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -281,6 +296,7 @@
 		DD3178552A2800A60095AB30 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				DD76E11A2A542F4400B9BC01 /* TweetComment */,
 				DDD6B3932A313E0D00A99749 /* Authentication */,
 				DD6723BE2A2A9F5600F9354D /* Users */,
 				DD31785C2A2804E50095AB30 /* Tweets */,
@@ -392,6 +408,56 @@
 				DD334B2B2A2BA20D006F64ED /* UserStatsView.swift */,
 			);
 			path = Users;
+			sourceTree = "<group>";
+		};
+		DD76E1132A542E7A00B9BC01 /* Tweets */ = {
+			isa = PBXGroup;
+			children = (
+				DD76E1152A542E8A00B9BC01 /* ViewModel */,
+				DD76E1142A542E8800B9BC01 /* Views */,
+			);
+			path = Tweets;
+			sourceTree = "<group>";
+		};
+		DD76E1142A542E8800B9BC01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD76E1182A542EBF00B9BC01 /* TweetView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD76E1152A542E8A00B9BC01 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DD76E1162A542EB100B9BC01 /* TweetViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DD76E11A2A542F4400B9BC01 /* TweetComment */ = {
+			isa = PBXGroup;
+			children = (
+				DD76E11C2A542F7200B9BC01 /* ViewModel */,
+				DD76E11B2A542F6F00B9BC01 /* Views */,
+			);
+			path = TweetComment;
+			sourceTree = "<group>";
+		};
+		DD76E11B2A542F6F00B9BC01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD76E11F2A542FB600B9BC01 /* TweetCommentRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD76E11C2A542F7200B9BC01 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DD76E11D2A542FA700B9BC01 /* TweetCommentRowViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DDA1AFB62A2937CF00C5EBFE /* Views */ = {
@@ -579,11 +645,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD0A07A12A28AEEF0031B8BC /* MessagesView.swift in Sources */,
+				DD76E1222A54335300B9BC01 /* Comment.swift in Sources */,
 				DDA1AFB92A29381100C5EBFE /* ProfileView.swift in Sources */,
 				DD3178452A2800010095AB30 /* ContentView.swift in Sources */,
 				DD334B282A2B92F4006F64ED /* SideMenuRowView.swift in Sources */,
 				DD70956B2A394F0100CC88EC /* User.swift in Sources */,
 				DD5137362A365C1A000485B2 /* ProfilePhotoSelectorView.swift in Sources */,
+				DD76E1192A542EBF00B9BC01 /* TweetView.swift in Sources */,
 				DDFC1F682A2FC1CF009807BF /* LoginView.swift in Sources */,
 				DD44D4132A28B175002C8896 /* ExploreView.swift in Sources */,
 				DD9B88492A2A070900C3D182 /* TweetFilterViewModel.swift in Sources */,
@@ -595,14 +663,17 @@
 				DD334B262A2B929A006F64ED /* SideMenuView.swift in Sources */,
 				DD31785B2A2803AB0095AB30 /* FeedView.swift in Sources */,
 				DD25A3322A4C433000DCD8D9 /* BookmarksView.swift in Sources */,
+				DD76E1242A54358700B9BC01 /* CommentService.swift in Sources */,
 				DDF6F14F2A30A1B6006ED0C4 /* CustomTextField.swift in Sources */,
 				DDD191042A3921F10097F2E8 /* UserService.swift in Sources */,
 				DDD6B3952A313E2300A99749 /* AuthHeaderView.swift in Sources */,
+				DD76E11E2A542FA700B9BC01 /* TweetCommentRowViewModel.swift in Sources */,
 				DD334B362A2BA9D7006F64ED /* FeedViewModel.swift in Sources */,
 				DD3178432A2800010095AB30 /* TwitterCloneApp.swift in Sources */,
 				DDAD13502A2CB9D5006B5673 /* TextArea.swift in Sources */,
 				DD0160052A36AE1B004F45AA /* ImageUploader.swift in Sources */,
 				DDFC1F6A2A2FC1E0009807BF /* RegistrationView.swift in Sources */,
+				DD76E1202A542FB600B9BC01 /* TweetCommentRowView.swift in Sources */,
 				DD7768702A4B992C00129C00 /* DateFormatterUtils.swift in Sources */,
 				DDDC44BC2A48BAF100864362 /* MainTabViewModel.swift in Sources */,
 				DDB487542A3BCD4700459789 /* SearchBar.swift in Sources */,
@@ -612,6 +683,7 @@
 				DDF6F14B2A309845006ED0C4 /* RoundedShape.swift in Sources */,
 				DD25A3302A4C431E00DCD8D9 /* BookmarksViewModel.swift in Sources */,
 				DD0AB4A12A3C7835001A730E /* UploadTweetViewModel.swift in Sources */,
+				DD76E1172A542EB100B9BC01 /* TweetViewModel.swift in Sources */,
 				DD0A07972A28AB580031B8BC /* MainTabView.swift in Sources */,
 				DD6775A32A33E8A400202AA2 /* AuthViewModel.swift in Sources */,
 				DDC380882A40E39800E6D088 /* ProfileViewModel.swift in Sources */,
