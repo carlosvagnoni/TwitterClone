@@ -24,5 +24,19 @@ class CommentService {
         }
     }
     
-    
+    func fetchComments(tweetId: String, completion: @escaping([Comment]) -> Void) {
+
+        Firestore.firestore().collection("tweets").document(tweetId).collection("comments")
+            .order(by: "timestamp", descending: true)
+            .getDocuments { snapshot, _ in
+
+            guard let documents = snapshot?.documents else { return }
+
+            let comments = documents.compactMap({ try? $0.data(as: Comment.self) })
+
+            completion(comments)
+
+        }
+
+    }
 }
