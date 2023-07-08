@@ -20,27 +20,10 @@ struct FeedView: View {
             if feedViewModel.isLoading {
                 
                 VStack {
-                    
-                    Spacer()
-                    
-                    
-                    
-                    HStack {
-                        
-                        Spacer()
-                        
-                        ProgressView()
-                            .scaleEffect(2)
-                        
-                        Spacer()
-                        
-                    }
-                    
-                    
-                    
-                    Spacer()
-                    
+                    ProgressView()
+                        .scaleEffect(2)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
     
                 } else {
                     

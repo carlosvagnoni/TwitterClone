@@ -126,7 +126,7 @@ struct TweetCommentRowView: View {
             
             Divider()
         }
-        .frame(minHeight: 110)
+        .frame(minHeight: 80)
     }
 }
 
@@ -134,6 +134,6 @@ struct TweetCommentRowView_Previews: PreviewProvider {
     static let comment = Comment(comment: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1")
     
     static var previews: some View {
-        TweetCommentRowView(comment: comment)
+            TweetCommentRowView(comment: comment)
     }
 }

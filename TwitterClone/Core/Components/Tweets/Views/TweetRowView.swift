@@ -15,6 +15,8 @@ struct TweetRowView: View {
     
     @ObservedObject var tweetRowViewModel: TweetRowViewModel
     
+    @State var shouldNavigateToTweetView = false
+    
     var isRetweet: Bool?
     var retweetedUserFullname: String?
     
@@ -268,10 +270,15 @@ struct TweetRowView: View {
             }
             .padding(12)
             
+            NavigationLink(destination: TweetView(tweet: tweetRowViewModel.tweet), isActive: $shouldNavigateToTweetView, label: { })
+            
             Divider()
 
         }
         .frame(minHeight: 110)
+        .onTapGesture {
+            shouldNavigateToTweetView = true
+        }
         
         
     }

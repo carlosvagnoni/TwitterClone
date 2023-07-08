@@ -6,3 +6,47 @@
 //
 
 import Foundation
+
+class TweetViewModel: ObservableObject {
+    @Published var tweet: Tweet
+    @Published var comments = [Comment]()
+    @Published var isLoading = false
+    @Published var didUploadComment = false
+    
+    let commentService = CommentService()
+    
+    init(tweet: Tweet) {
+        self.tweet = tweet
+        fetchComments()
+    }
+    
+    func uploadComment(comment: String) {
+        guard let tweetId = tweet.id else { return }
+        
+        commentService.uploadComment(tweetId: tweetId, comment: comment) { success in
+            if success {
+                
+                self.didUploadComment = true
+                
+            } else {
+                
+                // Show error message...
+                
+            }
+        }
+    }
+    
+    func fetchComments() {
+        isLoading = true
+        
+        guard let tweetId = tweet.id else { return }
+        
+        commentService.fetchComments(tweetId: tweetId) { comments in
+            DispatchQueue.main.async {
+                self.comments = comments
+                self.isLoading = false
+            }
+        }
+    }
+    
+}
