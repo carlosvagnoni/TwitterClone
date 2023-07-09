@@ -26,7 +26,7 @@ struct TweetView: View {
         ScrollView {
             
             //Tweet
-            TweetRowView(tweet: tweetViewModel.tweet)
+            TweetRowView(tweet: tweetViewModel.tweet, isAlreadyInTweetView: true)
             
             //New Comment
             ZStack(alignment: .bottomTrailing) {
