@@ -13,7 +13,7 @@ class TweetService {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let data = ["uid": uid, "caption": caption, "likes": 0, "retweetCount": 0, "bookmarkCount": 0, "timestamp": Timestamp(date: Date())] as [String : Any]
+        let data = ["uid": uid, "caption": caption, "commentCount": 0, "likes": 0, "retweetCount": 0, "bookmarkCount": 0, "timestamp": Timestamp(date: Date())] as [String : Any]
         
         Firestore.firestore().collection("tweets").document()
             .setData(data) { error in

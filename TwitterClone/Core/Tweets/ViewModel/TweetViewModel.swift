@@ -23,9 +23,10 @@ class TweetViewModel: ObservableObject {
     func uploadComment(comment: String) {
         guard let tweetId = tweet.id else { return }
         
-        commentService.uploadComment(tweetId: tweetId, comment: comment) { success in
+        commentService.uploadComment(tweetId: tweetId, comment: comment) { success, updatedCommentCount in
             if success {
                 
+                self.tweet.commentCount = updatedCommentCount
                 self.didUploadComment = true
                 
             } else {

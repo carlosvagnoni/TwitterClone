@@ -15,6 +15,7 @@ struct Tweet: Identifiable, Decodable {
     let caption: String
     let timestamp: Timestamp
     let uid: String
+    var commentCount: Int
     var likes: Int
     var bookmarkCount: Int
     var retweetCount: Int

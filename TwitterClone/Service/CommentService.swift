@@ -9,24 +9,38 @@ import Firebase
 
 class CommentService {
     
-    func uploadComment(tweetId: String, comment: String, completion: @escaping(Bool) -> Void) {
+    func uploadComment(tweetId: String, comment: String, completion: @escaping((Bool, Int)) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
 
         let data = ["uid": uid, "comment": comment, "timestamp": Timestamp(date: Date())] as [String : Any]
-        
-        Firestore.firestore().collection("tweets").document(tweetId).collection("comments").addDocument(data: data) { error in
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
+
+        tweetRef.collection("comments").addDocument(data: data) { error in
             if let error = error {
-                completion(false)
+                completion((false, 0))
                 return
             }
-            
-            completion(true)
+
+            tweetRef.updateData(["commentCount": FieldValue.increment(Int64(1))]) { _ in
+                tweetRef.getDocument { (document, _) in
+                    if let document = document, document.exists {
+                        let dataDescription = document.data()
+                        let updatedCommentCount = dataDescription?["commentCount"] as? Int ?? 0
+                        completion((true, updatedCommentCount))
+                    } else {
+                        completion((false, 0))
+                    }
+                }
+            }
         }
     }
+
     
     func fetchComments(tweetId: String, completion: @escaping([Comment]) -> Void) {
+        
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
 
-        Firestore.firestore().collection("tweets").document(tweetId).collection("comments")
+        tweetRef.collection("comments")
             .order(by: "timestamp", descending: true)
             .getDocuments { snapshot, _ in
 
