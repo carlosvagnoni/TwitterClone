@@ -31,6 +31,17 @@ class TweetService {
         
     }
     
+    func deleteTweet(tweetId: String, completion: @escaping(Bool) -> Void) {
+        Firestore.firestore().collection("tweets").document(tweetId)
+            .delete() { error in
+                if let error = error {
+                    completion(false)
+                } else {
+                    completion(true)
+                }
+            }
+    }
+    
     func fetchTweets(completion: @escaping([Tweet]) -> Void) {
 
         Firestore.firestore().collection("tweets")

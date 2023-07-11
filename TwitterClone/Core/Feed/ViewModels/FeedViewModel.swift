@@ -9,6 +9,7 @@ import Foundation
 
 class FeedViewModel: ObservableObject {
     
+    
     @Published var tweetsData = [TweetData]()
     @Published var isLoading = false
     

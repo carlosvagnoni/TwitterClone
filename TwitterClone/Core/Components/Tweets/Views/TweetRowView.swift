@@ -40,15 +40,15 @@ struct TweetRowView: View {
         
         ZStack(alignment: .topLeading) {
             NavigationLink(destination: TweetView(tweet: tweetRowViewModel.tweet), isActive: $shouldNavigateToTweetView, label: {
-                    Color.clear
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            if !isAlreadyInTweetView {
-                                shouldNavigateToTweetView = true
-                            }
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if !isAlreadyInTweetView {
+                            shouldNavigateToTweetView = true
                         }
-                })
-
+                    }
+            })
+            
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 0) {
                     if let isRetweet = isRetweet {
@@ -85,21 +85,21 @@ struct TweetRowView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack(spacing: 2.5) {
                                     Text(user.fullname)
-                                            .font(.subheadline).bold()
-                                            .truncationMode(.tail)
-                                            .lineLimit(1)
-                                            .layoutPriority(2)
-                                        Text(" @\(user.username)")
-                                            .foregroundColor(.gray)
-                                            .font(.subheadline)
-                                            .truncationMode(.tail)
-                                            .lineLimit(1)
-                                            .layoutPriority(1)
-                                        Text(" · \(DateFormatterUtils.formatTimestamp(tweetRowViewModel.tweet.timestamp))")
-                                            .foregroundColor(.gray)
-                                            .font(.subheadline)
-                                            .lineLimit(1)
-                                            .layoutPriority(3)
+                                        .font(.subheadline).bold()
+                                        .truncationMode(.tail)
+                                        .lineLimit(1)
+                                        .layoutPriority(2)
+                                    Text(" @\(user.username)")
+                                        .foregroundColor(.gray)
+                                        .font(.subheadline)
+                                        .truncationMode(.tail)
+                                        .lineLimit(1)
+                                        .layoutPriority(1)
+                                    Text(" · \(DateFormatterUtils.formatTimestamp(tweetRowViewModel.tweet.timestamp))")
+                                        .foregroundColor(.gray)
+                                        .font(.subheadline)
+                                        .lineLimit(1)
+                                        .layoutPriority(3)
                                     
                                     Spacer()
                                     
@@ -116,7 +116,7 @@ struct TweetRowView: View {
                                                     .foregroundColor(.gray)
                                             }
                                         }
-
+                                        
                                     }
                                 }
                                 Text(tweetRowViewModel.tweet.caption)
@@ -221,17 +221,18 @@ struct TweetRowView: View {
                 .padding(12)
                 
                 Divider()
-
+                
             }
             .frame(minHeight: 110)
-            .fullScreenCover(isPresented: $isConfirmationViewPresented) {
-                
-                DeleteTweetConfirmationView()
-                
+            .sheet(isPresented: $isConfirmationViewPresented) {
+                DeleteTweetConfirmationView(tweet: tweetRowViewModel.tweet)
+                    .presentationDetents([.fraction(0.25)])
             }
             
-
         }
+        
+        
+        
     }
 }
 

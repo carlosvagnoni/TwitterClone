@@ -13,6 +13,7 @@ struct FeedView: View {
     
     @EnvironmentObject var feedViewModel : FeedViewModel
     
+    
     var body: some View {
         
         ZStack(alignment: .bottomTrailing) {
@@ -69,6 +70,10 @@ struct FeedView: View {
             feedViewModel.fetchTweets()
             
         }
+        .onReceive(TweetDeleteNotifier.shared.tweetDeleted) { _ in
+            feedViewModel.fetchTweets()
+                }
+        
         
     }
 }
