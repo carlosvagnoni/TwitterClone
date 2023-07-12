@@ -46,6 +46,8 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didLike = true
             
+            InteractionNotifier.shared.likeInteractionStatus.send()
+            
             
         }
         
@@ -61,6 +63,7 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didLike = false
 
+            InteractionNotifier.shared.likeInteractionStatus.send()
         }
     }
     
@@ -87,7 +90,7 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didRetweet = true
             
-            
+            InteractionNotifier.shared.retweetInteractionStatus.send()
         }
         
         
@@ -101,7 +104,8 @@ class TweetRowViewModel: ObservableObject {
             self.tweet.retweetCount = updatedRetweetCount
             
             self.tweet.didRetweet = false
-
+            
+            InteractionNotifier.shared.retweetInteractionStatus.send()
         }
     }
     
@@ -128,7 +132,7 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didBookmark = true
             
-            
+            InteractionNotifier.shared.bookmarkInteractionStatus.send()
         }
         
         
@@ -143,6 +147,7 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didBookmark = false
 
+            InteractionNotifier.shared.bookmarkInteractionStatus.send()
         }
     }
     

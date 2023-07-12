@@ -59,10 +59,8 @@ struct DeleteTweetConfirmationView: View {
         .onReceive(deleteTweetConfirmationViewModel.$didDeletedTweet) { success in
             
             if success {
-                
+                InteractionNotifier.shared.tweetDeleted.send(())
                 dismiss()
-                TweetDeleteNotifier.shared.tweetDeleted.send(())
-                
             } else {
                 
                 // Handle error here...

@@ -32,15 +32,42 @@ class TweetService {
     }
     
     func deleteTweet(tweetId: String, completion: @escaping(Bool) -> Void) {
-        Firestore.firestore().collection("tweets").document(tweetId)
-            .delete() { error in
-                if let error = error {
-                    completion(false)
-                } else {
-                    completion(true)
+        let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
+        
+        Firestore.firestore().collection("users").getDocuments { snapshot, _ in
+            guard let documents = snapshot?.documents else { return }
+            
+            // iterate over all users
+            for document in documents {
+                let userId = document.documentID
+                
+                // delete likes, retweets and bookmarks of this tweet for each user
+                Firestore.firestore().collection("users").document(userId).collection("user-likes").document(tweetId).delete()
+                Firestore.firestore().collection("users").document(userId).collection("user-retweets").document(tweetId).delete()
+                Firestore.firestore().collection("users").document(userId).collection("user-bookmarks").document(tweetId).delete()
+            }
+
+            // delete all comments of this tweet
+            let commentsRef = tweetRef.collection("comments")
+            commentsRef.getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                for document in documents {
+                    commentsRef.document(document.documentID).delete()
+                }
+                
+                // after all comments are deleted, delete the tweet itself
+                tweetRef.delete() { error in
+                    if let error = error {
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
                 }
             }
+        }
     }
+
+
     
     func fetchTweets(completion: @escaping([Tweet]) -> Void) {
 

@@ -30,7 +30,6 @@
 		DD334B342A2BA9BE006F64ED /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD334B332A2BA9BE006F64ED /* ExploreViewModel.swift */; };
 		DD334B362A2BA9D7006F64ED /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD334B352A2BA9D7006F64ED /* FeedViewModel.swift */; };
 		DD44D4132A28B175002C8896 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD44D4122A28B175002C8896 /* ExploreView.swift */; };
-		DD4531DB2A5E0D84005E1452 /* TweetDeleteNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4531DA2A5E0D84005E1452 /* TweetDeleteNotifier.swift */; };
 		DD4BE3202A40F848002EF123 /* TweetRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BE31F2A40F848002EF123 /* TweetRowViewModel.swift */; };
 		DD5137362A365C1A000485B2 /* ProfilePhotoSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5137352A365C1A000485B2 /* ProfilePhotoSelectorView.swift */; };
 		DD6723C02A2A9F7100F9354D /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6723BF2A2A9F7100F9354D /* UserRowView.swift */; };
@@ -48,6 +47,7 @@
 		DD76E1222A54335300B9BC01 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1212A54335300B9BC01 /* Comment.swift */; };
 		DD76E1242A54358700B9BC01 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1232A54358700B9BC01 /* CommentService.swift */; };
 		DD7768702A4B992C00129C00 /* DateFormatterUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77686F2A4B992C00129C00 /* DateFormatterUtils.swift */; };
+		DD833C662A5EEC1D00B9C4BD /* InteractionNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD833C652A5EEC1D00B9C4BD /* InteractionNotifier.swift */; };
 		DD8E42E92A5AD89A002727BE /* CounterFormatterUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8E42E82A5AD89A002727BE /* CounterFormatterUtils.swift */; };
 		DD8E42EE2A5AF32D002727BE /* DeleteTweetConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8E42ED2A5AF32D002727BE /* DeleteTweetConfirmationView.swift */; };
 		DD9B88492A2A070900C3D182 /* TweetFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9B88482A2A070900C3D182 /* TweetFilterViewModel.swift */; };
@@ -94,7 +94,6 @@
 		DD334B332A2BA9BE006F64ED /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		DD334B352A2BA9D7006F64ED /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		DD44D4122A28B175002C8896 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
-		DD4531DA2A5E0D84005E1452 /* TweetDeleteNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDeleteNotifier.swift; sourceTree = "<group>"; };
 		DD4BE31F2A40F848002EF123 /* TweetRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetRowViewModel.swift; sourceTree = "<group>"; };
 		DD5137352A365C1A000485B2 /* ProfilePhotoSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoSelectorView.swift; sourceTree = "<group>"; };
 		DD6723BF2A2A9F7100F9354D /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
@@ -108,6 +107,7 @@
 		DD76E1212A54335300B9BC01 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DD76E1232A54358700B9BC01 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		DD77686F2A4B992C00129C00 /* DateFormatterUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtils.swift; sourceTree = "<group>"; };
+		DD833C652A5EEC1D00B9C4BD /* InteractionNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionNotifier.swift; sourceTree = "<group>"; };
 		DD8E42E82A5AD89A002727BE /* CounterFormatterUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterFormatterUtils.swift; sourceTree = "<group>"; };
 		DD8E42ED2A5AF32D002727BE /* DeleteTweetConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTweetConfirmationView.swift; sourceTree = "<group>"; };
 		DD9B88482A2A070900C3D182 /* TweetFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetFilterViewModel.swift; sourceTree = "<group>"; };
@@ -329,6 +329,7 @@
 		DD31785C2A2804E50095AB30 /* Tweets */ = {
 			isa = PBXGroup;
 			children = (
+				DD833C652A5EEC1D00B9C4BD /* InteractionNotifier.swift */,
 				DD4BE31E2A40F810002EF123 /* ViewModels */,
 				DD4BE31D2A40F808002EF123 /* Views */,
 			);
@@ -472,7 +473,6 @@
 		DD8E42EA2A5AF268002727BE /* DeleteTweet */ = {
 			isa = PBXGroup;
 			children = (
-				DD4531DA2A5E0D84005E1452 /* TweetDeleteNotifier.swift */,
 				DD8E42EC2A5AF277002727BE /* ViewModel */,
 				DD8E42EB2A5AF274002727BE /* View */,
 			);
@@ -722,13 +722,13 @@
 				DDF6F14B2A309845006ED0C4 /* RoundedShape.swift in Sources */,
 				DD25A3302A4C431E00DCD8D9 /* BookmarksViewModel.swift in Sources */,
 				DD0AB4A12A3C7835001A730E /* UploadTweetViewModel.swift in Sources */,
+				DD833C662A5EEC1D00B9C4BD /* InteractionNotifier.swift in Sources */,
 				DD76E1172A542EB100B9BC01 /* TweetViewModel.swift in Sources */,
 				DD0A07972A28AB580031B8BC /* MainTabView.swift in Sources */,
 				DD6775A32A33E8A400202AA2 /* AuthViewModel.swift in Sources */,
 				DDC380882A40E39800E6D088 /* ProfileViewModel.swift in Sources */,
 				DD0A079F2A28AECA0031B8BC /* NotificationsView.swift in Sources */,
 				DD9E4E2E2A4066AA00413EB7 /* Tweet.swift in Sources */,
-				DD4531DB2A5E0D84005E1452 /* TweetDeleteNotifier.swift in Sources */,
 				DD334B342A2BA9BE006F64ED /* ExploreViewModel.swift in Sources */,
 				DDD6B3922A3132A700A99749 /* CustomSecureField.swift in Sources */,
 				DD334B2C2A2BA20D006F64ED /* UserStatsView.swift in Sources */,

@@ -180,6 +180,7 @@ struct TweetRowView: View {
                             Spacer()
                             Button {
                                 tweetRowViewModel.tweet.didRetweet ?? false ? tweetRowViewModel.unretweetTweet() : tweetRowViewModel.retweetTweet()
+                                
                             } label: {
                                 HStack(spacing: 2) {
                                     Image(systemName: "arrow.2.squarepath")

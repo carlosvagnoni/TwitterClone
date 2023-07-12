@@ -205,11 +205,22 @@ extension ProfileView {
                 }
                 .onTapGesture {
                     self.selectedFilter = item
-                    print(self.selectedFilter.title)
                     profileViewModel.fetchUserTweets()
                     profileViewModel.fetchLikedTweets()
                     profileViewModel.fetchRetweetedTweets()
                 }
+                .onReceive(InteractionNotifier.shared.tweetDeleted) { _ in
+                    profileViewModel.fetchUserTweets()
+                    profileViewModel.fetchLikedTweets()
+                    profileViewModel.fetchRetweetedTweets()
+                }
+                .onReceive(InteractionNotifier.shared.retweetInteractionStatus) { _ in
+                    profileViewModel.fetchRetweetedTweets()
+                }
+                .onReceive(InteractionNotifier.shared.likeInteractionStatus) { _ in
+                    profileViewModel.fetchLikedTweets()
+                }
+
                 
             }
             

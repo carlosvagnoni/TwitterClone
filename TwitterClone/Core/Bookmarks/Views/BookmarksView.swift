@@ -71,6 +71,12 @@ struct BookmarksView: View {
             bookmarksViewModel.fetchBookmarkedTweets()
             
         }
+        .onReceive(InteractionNotifier.shared.bookmarkInteractionStatus) { _ in
+            bookmarksViewModel.fetchBookmarkedTweets()
+        }
+        .onReceive(InteractionNotifier.shared.tweetDeleted) { _ in
+            bookmarksViewModel.fetchBookmarkedTweets()
+        }
 
     }
 }

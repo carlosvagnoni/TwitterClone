@@ -70,7 +70,10 @@ struct FeedView: View {
             feedViewModel.fetchTweets()
             
         }
-        .onReceive(TweetDeleteNotifier.shared.tweetDeleted) { _ in
+        .onReceive(InteractionNotifier.shared.tweetDeleted) { _ in
+            feedViewModel.fetchTweets()
+                }
+        .onReceive(InteractionNotifier.shared.retweetInteractionStatus) { _ in
             feedViewModel.fetchTweets()
                 }
         
