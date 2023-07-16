@@ -13,6 +13,7 @@
 		DD0A07A12A28AEEF0031B8BC /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A07A02A28AEEF0031B8BC /* MessagesView.swift */; };
 		DD0AB49F2A3C7110001A730E /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0AB49E2A3C7110001A730E /* TweetService.swift */; };
 		DD0AB4A12A3C7835001A730E /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0AB4A02A3C7835001A730E /* UploadTweetViewModel.swift */; };
+		DD0E6AE92A609E3400A0A046 /* MediaUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E6AE82A609E3400A0A046 /* MediaUploader.swift */; };
 		DD25A3302A4C431E00DCD8D9 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD25A32F2A4C431E00DCD8D9 /* BookmarksViewModel.swift */; };
 		DD25A3322A4C433000DCD8D9 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD25A3312A4C433000DCD8D9 /* BookmarksView.swift */; };
 		DD2A056C2A5B2C2500F99E52 /* DeleteTweetConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A056B2A5B2C2500F99E52 /* DeleteTweetConfirmationViewModel.swift */; };
@@ -76,6 +77,7 @@
 		DD0A07A02A28AEEF0031B8BC /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		DD0AB49E2A3C7110001A730E /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
 		DD0AB4A02A3C7835001A730E /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
+		DD0E6AE82A609E3400A0A046 /* MediaUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaUploader.swift; sourceTree = "<group>"; };
 		DD25A32F2A4C431E00DCD8D9 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		DD25A3312A4C433000DCD8D9 /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		DD2A056B2A5B2C2500F99E52 /* DeleteTweetConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTweetConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 		DD3178512A2800560095AB30 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				DD0E6AE82A609E3400A0A046 /* MediaUploader.swift */,
 				DD0160042A36AE1B004F45AA /* ImageUploader.swift */,
 				DDD191032A3921F10097F2E8 /* UserService.swift */,
 				DD0AB49E2A3C7110001A730E /* TweetService.swift */,
@@ -688,6 +691,7 @@
 				DD70956B2A394F0100CC88EC /* User.swift in Sources */,
 				DD5137362A365C1A000485B2 /* ProfilePhotoSelectorView.swift in Sources */,
 				DD76E1192A542EBF00B9BC01 /* TweetView.swift in Sources */,
+				DD0E6AE92A609E3400A0A046 /* MediaUploader.swift in Sources */,
 				DD8E42E92A5AD89A002727BE /* CounterFormatterUtils.swift in Sources */,
 				DD2A056C2A5B2C2500F99E52 /* DeleteTweetConfirmationViewModel.swift in Sources */,
 				DDFC1F682A2FC1CF009807BF /* LoginView.swift in Sources */,

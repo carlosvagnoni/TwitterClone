@@ -82,7 +82,7 @@ class TweetRowViewModel: ObservableObject {
 
     }
     
-    func retweetTweet() {
+    func retweetTweet(completion: @escaping() -> Void) {
         
         tweetService.retweetTweet(tweet) { updatedRetweetCount in
             
@@ -90,14 +90,14 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didRetweet = true
             
-            InteractionNotifier.shared.retweetInteractionStatus.send()
+            completion()
         }
         
         
         
     }
     
-    func unretweetTweet() {
+    func unretweetTweet(completion: @escaping() -> Void) {
         
         tweetService.unretweetTweet(tweet) { updatedRetweetCount in
             
@@ -105,7 +105,7 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didRetweet = false
             
-            InteractionNotifier.shared.retweetInteractionStatus.send()
+            completion()
         }
     }
     

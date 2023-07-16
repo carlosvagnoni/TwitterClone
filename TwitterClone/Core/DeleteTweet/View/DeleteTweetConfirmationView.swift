@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DeleteTweetConfirmationView: View {
+    
     @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var deleteTweetConfirmationViewModel: DeleteTweetConfirmationViewModel

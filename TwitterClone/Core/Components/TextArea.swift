@@ -29,6 +29,8 @@ struct TextArea: View {
             TextEditor(text: $text)
                 .padding(4)
                 .focused($isFocused)
+                .frame(minHeight: 50)
+                .fixedSize(horizontal: false, vertical: true)
             
             if text.isEmpty {
 
@@ -37,6 +39,7 @@ struct TextArea: View {
                     .padding(.horizontal, 8)
                     .padding(.vertical, 12)
                     .background(.clear)
+                    
 
             }
   

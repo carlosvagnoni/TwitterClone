@@ -215,10 +215,14 @@ extension ProfileView {
                     profileViewModel.fetchRetweetedTweets()
                 }
                 .onReceive(InteractionNotifier.shared.retweetInteractionStatus) { _ in
+                    profileViewModel.fetchUserTweets()
+                    profileViewModel.fetchLikedTweets()
                     profileViewModel.fetchRetweetedTweets()
                 }
                 .onReceive(InteractionNotifier.shared.likeInteractionStatus) { _ in
+                    profileViewModel.fetchUserTweets()
                     profileViewModel.fetchLikedTweets()
+                    profileViewModel.fetchRetweetedTweets()
                 }
 
                 

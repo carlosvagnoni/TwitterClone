@@ -8,6 +8,7 @@
 import SwiftUI
 import Kingfisher
 import Firebase
+import AVKit
 
 struct TweetRowView: View {
     
@@ -110,18 +111,48 @@ struct TweetRowView: View {
                                             ZStack {
                                                 Rectangle()
                                                     .fill(Color.clear)
+                                                    
                                                 Image(systemName: "ellipsis")
                                                     .font(.subheadline)
                                                     .rotationEffect(.degrees(90))
                                                     .foregroundColor(.gray)
                                             }
                                         }
+                                        .frame(height: 18)
+
                                         
                                     }
                                 }
                                 Text(tweetRowViewModel.tweet.caption)
                                     .font(.subheadline)
                                     .multilineTextAlignment(.leading)
+                                
+                                if let tweetMediaType = tweetRowViewModel.tweet.mediaType {
+                                    
+                                    switch tweetMediaType {
+                                    case .image:
+                                        KFImage(URL(string: tweetRowViewModel.tweet.mediaURL!))
+                                            .resizable()
+                                            .placeholder{
+                                                ProgressView()
+                                                    .scaleEffect(2)
+                                            }
+                                            .scaledToFill()
+                                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                                            .padding(.top, 8)
+                                    case .video:
+                                        VStack {
+                                            VideoPlayer(player: AVPlayer(url: URL(string: tweetRowViewModel.tweet.mediaURL!)!))
+                                                .aspectRatio(contentMode: .fill)
+                                        }
+                                        .frame(maxHeight: 400)
+                                       
+                                        
+                                            
+                                            
+                                    }
+                                    
+                                }
                             }
                         } else {
                             Circle()
@@ -179,7 +210,15 @@ struct TweetRowView: View {
                             }
                             Spacer()
                             Button {
-                                tweetRowViewModel.tweet.didRetweet ?? false ? tweetRowViewModel.unretweetTweet() : tweetRowViewModel.retweetTweet()
+                                tweetRowViewModel.tweet.didRetweet ?? false ? tweetRowViewModel.unretweetTweet {
+                                    if !isAlreadyInTweetView {
+                                        InteractionNotifier.shared.retweetInteractionStatus.send()
+                                    }
+                                } : tweetRowViewModel.retweetTweet {
+                                    if !isAlreadyInTweetView {
+                                        InteractionNotifier.shared.retweetInteractionStatus.send()
+                                    }
+                                }
                                 
                             } label: {
                                 HStack(spacing: 2) {
@@ -238,10 +277,15 @@ struct TweetRowView: View {
 }
 
 struct TweetRowView_Previews: PreviewProvider {
+
+
+    
     
     static let tweet = Tweet(caption: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", commentCount: 0, likes: 0, bookmarkCount: 0, retweetCount: 0)
     
     static var previews: some View {
+
+        
         
         TweetRowView(tweet: tweet)
             .environmentObject(AuthViewModel())

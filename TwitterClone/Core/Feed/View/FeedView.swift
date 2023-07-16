@@ -12,6 +12,7 @@ struct FeedView: View {
     @State private var showNewTweetView = false
     
     @EnvironmentObject var feedViewModel : FeedViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     
     var body: some View {
@@ -61,6 +62,7 @@ struct FeedView: View {
             .fullScreenCover(isPresented: $showNewTweetView) {
                 
                 NewTweetView()
+                
                 
             }
             

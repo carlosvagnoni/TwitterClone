@@ -6,66 +6,124 @@
 //
 
 import Firebase
+import FirebaseStorage
 
 class TweetService {
     
-    func uploadTweet(caption: String, completion: @escaping(Bool) -> Void) {
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        let data = ["uid": uid, "caption": caption, "commentCount": 0, "likes": 0, "retweetCount": 0, "bookmarkCount": 0, "timestamp": Timestamp(date: Date())] as [String : Any]
-        
-        Firestore.firestore().collection("tweets").document()
-            .setData(data) { error in
-                
-                if let error = error {
-                    
-                    completion(false)
-                    return
-                    
-                }
-                
-                completion(true)
-                
+//    func uploadTweet(caption: String, completion: @escaping(Bool) -> Void) {
+//
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//
+//        let data = ["uid": uid, "caption": caption, "commentCount": 0, "likes": 0, "retweetCount": 0, "bookmarkCount": 0, "timestamp": Timestamp(date: Date())] as [String : Any]
+//
+//        Firestore.firestore().collection("tweets").document()
+//            .setData(data) { error in
+//
+//                if let error = error {
+//
+//                    completion(false)
+//                    return
+//
+//                }
+//
+//                completion(true)
+//
+//            }
+//
+//    }
+    
+    func uploadTweet(caption: String, mediaUrl: String?, mediaType: MediaType?, completion: @escaping(Bool) -> Void) {
+            
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+            var data: [String: Any] = ["uid": uid,
+                                       "caption": caption,
+                                       "commentCount": 0,
+                                       "likes": 0,
+                                       "retweetCount": 0,
+                                       "bookmarkCount": 0,
+                                       "timestamp": Timestamp(date: Date())]
+                                                                         
+                                                                   
+            
+            if let mediaURL = mediaUrl, let mediaType = mediaType {
+                data["mediaURL"] = mediaURL
+                data["mediaType"] = mediaType.rawValue
             }
-        
-    }
+            
+            Firestore.firestore().collection("tweets").document()
+                .setData(data) { error in
+                    
+                    if let error = error {
+                        print("Failed to upload tweet with error \(error.localizedDescription)")
+                        completion(false)
+                        return
+                        
+                    }
+                    
+                    completion(true)
+                }
+            
+        }
     
     func deleteTweet(tweetId: String, completion: @escaping(Bool) -> Void) {
         let tweetRef = Firestore.firestore().collection("tweets").document(tweetId)
-        
-        Firestore.firestore().collection("users").getDocuments { snapshot, _ in
-            guard let documents = snapshot?.documents else { return }
-            
-            // iterate over all users
-            for document in documents {
-                let userId = document.documentID
-                
-                // delete likes, retweets and bookmarks of this tweet for each user
-                Firestore.firestore().collection("users").document(userId).collection("user-likes").document(tweetId).delete()
-                Firestore.firestore().collection("users").document(userId).collection("user-retweets").document(tweetId).delete()
-                Firestore.firestore().collection("users").document(userId).collection("user-bookmarks").document(tweetId).delete()
-            }
 
-            // delete all comments of this tweet
-            let commentsRef = tweetRef.collection("comments")
-            commentsRef.getDocuments { snapshot, _ in
-                guard let documents = snapshot?.documents else { return }
-                for document in documents {
-                    commentsRef.document(document.documentID).delete()
-                }
-                
-                // after all comments are deleted, delete the tweet itself
-                tweetRef.delete() { error in
-                    if let error = error {
-                        completion(false)
-                    } else {
-                        completion(true)
+        tweetRef.getDocument { document, error in
+            if let document = document, document.exists {
+                if let mediaUrlString = document.get("mediaURL") as? String,
+                   let mediaUrl = URL(string: mediaUrlString) {
+
+                    // Delete media in storage
+                    let mediaRef = Storage.storage().reference(forURL: mediaUrlString)
+                    mediaRef.delete { error in
+                        if let error = error {
+                            print("Failed to delete media with error \(error.localizedDescription)")
+                            completion(false)
+                            return
+                        }
                     }
                 }
+
+                // Delete tweet document and its associated data
+                Firestore.firestore().collection("users").getDocuments { snapshot, _ in
+                    guard let documents = snapshot?.documents else { return }
+
+                    // iterate over all users
+                    for document in documents {
+                        let userId = document.documentID
+
+                        // delete likes, retweets and bookmarks of this tweet for each user
+                        Firestore.firestore().collection("users").document(userId).collection("user-likes").document(tweetId).delete()
+                        Firestore.firestore().collection("users").document(userId).collection("user-retweets").document(tweetId).delete()
+                        Firestore.firestore().collection("users").document(userId).collection("user-bookmarks").document(tweetId).delete()
+                    }
+
+                    // delete all comments of this tweet
+                    let commentsRef = tweetRef.collection("comments")
+                    commentsRef.getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            commentsRef.document(document.documentID).delete()
+                        }
+
+                        // after all comments are deleted, delete the tweet itself
+                        tweetRef.delete() { error in
+                            if let error = error {
+                                completion(false)
+                            } else {
+                                completion(true)
+                            }
+                        }
+                    }
+                }
+            } else {
+                print("Document does not exist or failed to get the document.")
+                completion(false)
             }
         }
     }
+
 
 
     

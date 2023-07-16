@@ -25,4 +25,12 @@ struct Tweet: Identifiable, Decodable {
     var didRetweet: Bool? = false
     var didBookmark: Bool? = false
     
+    var mediaURL: String?
+    var mediaType: MediaType?
+    
+}
+
+enum MediaType: String, Decodable {
+    case image
+    case video
 }
