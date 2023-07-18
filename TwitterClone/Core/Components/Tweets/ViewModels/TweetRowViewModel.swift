@@ -11,6 +11,7 @@ class TweetRowViewModel: ObservableObject {
     
     private let tweetService = TweetService()
     private let userService = UserService()
+    private let notificationService = NotificationService()
     
     @Published var tweet: Tweet
     
@@ -46,6 +47,13 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didLike = true
             
+            self.notificationService.uploadNotification(tweet: self.tweet, notificationType: .like) { success in
+                if success {
+                    print("The notification was generated successfully")
+                } else {
+                    print("Error generating the notification")
+                }
+            }
             InteractionNotifier.shared.likeInteractionStatus.send()
             
             
@@ -90,7 +98,15 @@ class TweetRowViewModel: ObservableObject {
             
             self.tweet.didRetweet = true
             
-            completion()
+            self.notificationService.uploadNotification(tweet: self.tweet, notificationType: .retweet) { success in
+                if success {
+                    print("The notification was generated successfully")
+                    completion()
+                } else {
+                    print("Error generating the notification")
+                }
+            }
+            
         }
         
         
@@ -131,6 +147,14 @@ class TweetRowViewModel: ObservableObject {
             self.tweet.bookmarkCount = updatedBookmarkCount
             
             self.tweet.didBookmark = true
+            
+            self.notificationService.uploadNotification(tweet: self.tweet, notificationType: .bookmark) { success in
+                if success {
+                    print("The notification was generated successfully")
+                } else {
+                    print("Error generating the notification")
+                }
+            }
             
             InteractionNotifier.shared.bookmarkInteractionStatus.send()
         }

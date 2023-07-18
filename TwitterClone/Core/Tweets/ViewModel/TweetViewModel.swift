@@ -14,6 +14,7 @@ class TweetViewModel: ObservableObject {
     @Published var didUploadComment = false
     
     let commentService = CommentService()
+    let notificationService = NotificationService()
     
     init(tweet: Tweet) {
         self.tweet = tweet
@@ -28,6 +29,13 @@ class TweetViewModel: ObservableObject {
                 
                 self.tweet.commentCount = updatedCommentCount
                 self.didUploadComment = true
+                self.notificationService.uploadNotification(tweet: self.tweet, notificationType: .comment) { success in
+                    if success {
+                        print("The notification was generated successfully")
+                    } else {
+                        print("Error generating the notification")
+                    }
+                }
                 
             } else {
                 

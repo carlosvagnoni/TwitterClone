@@ -107,12 +107,20 @@ class TweetService {
                             commentsRef.document(document.documentID).delete()
                         }
 
-                        // after all comments are deleted, delete the tweet itself
-                        tweetRef.delete() { error in
-                            if let error = error {
-                                completion(false)
-                            } else {
-                                completion(true)
+                        // delete all notifications of this tweet
+                        Firestore.firestore().collection("notifications").whereField("tweetId", isEqualTo: tweetId).getDocuments { (snapshot, error) in
+                            guard let documents = snapshot?.documents else { return }
+                            for document in documents {
+                                Firestore.firestore().collection("notifications").document(document.documentID).delete()
+                            }
+
+                            // after all comments and notifications are deleted, delete the tweet itself
+                            tweetRef.delete() { error in
+                                if let error = error {
+                                    completion(false)
+                                } else {
+                                    completion(true)
+                                }
                             }
                         }
                     }
@@ -123,6 +131,7 @@ class TweetService {
             }
         }
     }
+
 
 
 
