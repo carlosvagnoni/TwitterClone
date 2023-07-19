@@ -14,6 +14,7 @@ class NotificationRowViewModel: ObservableObject {
     
     private let tweetService = TweetService()
     private let userService = UserService()
+    private let notificationService = NotificationService()
     
     init(notification: Notification) {
         self.notification = notification
@@ -23,6 +24,11 @@ class NotificationRowViewModel: ObservableObject {
         tweetService.fetchTweet(withId: notification.tweetId) { tweet in
             self.tweet = tweet
         }
-    }   
+    }
+    
+    func readNotification() {
+        guard let notificationId = notification.id else {return}
+        notificationService.readNotification(notificationId: notificationId)
+    }
     
 }

@@ -11,6 +11,10 @@ struct NotificationsView: View {
     
     @ObservedObject var notificationsViewModel = NotificationsViewModel()
     
+    var unreadNotificationsCount: Int {
+            return notificationsViewModel.notifications.filter { !$0.read }.count
+        }
+    
     var body: some View {
         
         VStack {
@@ -25,24 +29,31 @@ struct NotificationsView: View {
 
             } else {
                 
-                ScrollView {
+                VStack {
+                    Text("\(unreadNotificationsCount)")
                     
-                    LazyVStack {
+                    ScrollView {
                         
-                        ForEach(notificationsViewModel.notifications) { notification in
+                        LazyVStack(spacing: 0) {
                             
-                            NotificationRowView(notification: notification)
-                            
+                            ForEach(notificationsViewModel.notifications) { notification in
+                                
+                                NotificationRowView(notification: notification)
+                                
+                            }
                         }
+                        
                     }
-                    
                 }
+                
+                
                 
             }
             
         }
         .onAppear() {            
             notificationsViewModel.fetchNotifications()
+            print("HAY \(unreadNotificationsCount) POR LEEAR")
         }
     }
 }

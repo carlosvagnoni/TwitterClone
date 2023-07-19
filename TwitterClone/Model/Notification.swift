@@ -17,8 +17,8 @@ struct Notification: Identifiable, Decodable {
     let receiverId: String
     let notificationType: NotificationType
     let tweetId: String
+    let read: Bool
     let timestamp: Timestamp
-    
 }
 
 
@@ -67,3 +67,4 @@ case bookmark
             }
         }
 }
+

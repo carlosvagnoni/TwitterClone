@@ -20,6 +20,7 @@ class NotificationService {
                                    "receiverId": receiverId,
                                    "notificationType": notificationType.rawValue,
                                    "tweetId": tweet.id,
+                                   "read": false,
                                    "timestamp": Timestamp(date: Date())]
         
         Firestore.firestore().collection("notifications").document()
@@ -34,6 +35,32 @@ class NotificationService {
                 
                 completion(true)
             }
+    }
+    
+    func readNotification(notificationId: String) {
+        let notificationRef = Firestore.firestore().collection("notifications").document(notificationId)
+        
+        notificationRef.getDocument { (document, error) in
+            if let error = error {
+                print("Failed to fetch notification with error \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = document, document.exists else {
+                print("Notification not found")
+                return
+            }
+            
+            if let read = document.data()?["read"] as? Bool, !read {
+                notificationRef.updateData(["read": true]) { error in
+                    if let error = error {
+                        print("Failed to update notification with error \(error.localizedDescription)")
+                    }
+                }
+            } else {
+                print("Notification is already read or read field not found")
+            }
+        }
     }
     
     func fetchNotifications(completion: @escaping([Notification]) -> Void) {
