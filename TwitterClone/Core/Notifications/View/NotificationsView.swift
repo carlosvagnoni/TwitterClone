@@ -9,11 +9,7 @@ import SwiftUI
 
 struct NotificationsView: View {
     
-    @ObservedObject var notificationsViewModel = NotificationsViewModel()
-    
-    var unreadNotificationsCount: Int {
-            return notificationsViewModel.notifications.filter { !$0.read }.count
-        }
+    @EnvironmentObject var notificationsViewModel: NotificationsViewModel
     
     var body: some View {
         
@@ -28,9 +24,6 @@ struct NotificationsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             } else {
-                
-                VStack {
-                    Text("\(unreadNotificationsCount)")
                     
                     ScrollView {
                         
@@ -44,16 +37,11 @@ struct NotificationsView: View {
                         }
                         
                     }
-                }
-                
-                
-                
             }
             
         }
         .onAppear() {            
-            notificationsViewModel.fetchNotifications()
-            print("HAY \(unreadNotificationsCount) POR LEEAR")
+            notificationsViewModel.fetchNotifications()  
         }
     }
 }

@@ -9,7 +9,7 @@ import FirebaseFirestoreSwift
 import Firebase
 import SwiftUI
 
-struct Notification: Identifiable, Decodable {
+struct Notification: Identifiable, Decodable, Equatable {
     
     @DocumentID var id: String?
     

@@ -27,6 +27,8 @@ struct TextArea: View {
         ZStack(alignment: .topLeading) {
             
             TextEditor(text: $text)
+                .autocorrectionDisabled(true)
+                .textInputAutocapitalization(.never)
                 .padding(4)
                 .focused($isFocused)
                 .frame(minHeight: 50)

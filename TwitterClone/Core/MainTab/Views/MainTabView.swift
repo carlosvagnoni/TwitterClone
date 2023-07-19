@@ -13,12 +13,19 @@ struct MainTabView: View {
     
     @ObservedObject var mainTabViewModel = MainTabViewModel()
     
+    @EnvironmentObject var notificationsViewModel: NotificationsViewModel
+    
+    var unreadNotificationsCount: Int {
+            return notificationsViewModel.notifications.filter { !$0.read }.count
+        }
+    
     var body: some View {
         
         TabView(selection: $selectedIndex) {
 
             FeedView()
                 .tabItem {
+                    
                     Image(systemName: selectedIndex == 0 ? "house.fill" : "house")
                         .environment(\.symbolVariants, .none)
                 }
@@ -34,6 +41,7 @@ struct MainTabView: View {
                 .tag(1)
 
             NotificationsView()
+                .badge(unreadNotificationsCount)
                 .tabItem {
                     Image(systemName: selectedIndex == 2 ? "bell.fill" : "bell")
                         .environment(\.symbolVariants, .none)

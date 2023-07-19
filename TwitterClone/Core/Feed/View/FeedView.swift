@@ -13,6 +13,7 @@ struct FeedView: View {
     
     @EnvironmentObject var feedViewModel : FeedViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var notificationsViewModel: NotificationsViewModel
     
     
     var body: some View {
@@ -70,6 +71,7 @@ struct FeedView: View {
         .onAppear() {
             
             feedViewModel.fetchTweets()
+            notificationsViewModel.fetchNotifications()
             
         }
         .onReceive(InteractionNotifier.shared.tweetDeleted) { _ in
