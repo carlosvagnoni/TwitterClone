@@ -168,6 +168,7 @@ struct NewTweetView: View {
                                             .fill(.ultraThinMaterial)
                                             .overlay {
                                                 ProgressView()
+                                                    .tint(Color(.systemBlue))
                                             }
                                     }
                                 }
@@ -190,19 +191,21 @@ struct NewTweetView: View {
                 Divider()
                 
                 HStack(spacing: 0) {
-                    Spacer()
-                    
                     PhotosPicker(selection: $selectedItem,
-    //                             matching: .any(of: [.images, .videos])
-                                 matching: .images
+                                 matching: .any(of: [.images, .videos])
+//                                 matching: .images
                     ) {
                         
-                        Image(systemName: "photo")
+                        Image(systemName: "photo.on.rectangle")
                             .resizable()
-                            .frame(width: 25, height: 25)
+                            .scaledToFit()
+                            .frame(height: 25)
                             .foregroundColor(Color(.systemBlue))
                         
                     }
+                    
+                    Spacer()
+                    
                 }
                 .padding(.horizontal, 12)
                 
@@ -213,6 +216,7 @@ struct NewTweetView: View {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
                 ProgressView()
+                    .tint(Color(.systemBlue))
                     .scaleEffect(2)
            }
             

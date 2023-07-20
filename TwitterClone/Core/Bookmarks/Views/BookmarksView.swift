@@ -21,6 +21,7 @@ struct BookmarksView: View {
                 
                 VStack {
                     ProgressView()
+                        .tint(Color(.systemBlue))
                         .scaleEffect(2)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

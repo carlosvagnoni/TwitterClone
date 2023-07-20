@@ -43,8 +43,10 @@ struct MediaUploader {
         
         let filename = UUID().uuidString
         let ref = Storage.storage().reference(withPath: "/tweet_media/\(filename)")
+        let metadata = StorageMetadata()
+        metadata.contentType = "video/quicktime"
         
-        ref.putData(videoData, metadata: nil) { _, error in
+        ref.putData(videoData, metadata: metadata) { _, error in
             
             if let error = error {
                 

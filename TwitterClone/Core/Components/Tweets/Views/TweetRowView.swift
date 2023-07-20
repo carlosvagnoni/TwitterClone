@@ -135,6 +135,7 @@ struct TweetRowView: View {
                                             .resizable()
                                             .placeholder{
                                                 ProgressView()
+                                                    .tint(Color(.systemBlue))
                                                     .scaleEffect(2)
                                             }
                                             .scaledToFill()
@@ -144,6 +145,7 @@ struct TweetRowView: View {
                                         VStack {
                                             VideoPlayer(player: AVPlayer(url: URL(string: tweetRowViewModel.tweet.mediaURL!)!))
                                                 .aspectRatio(contentMode: .fill)
+                                                .padding(.top, 8)
                                         }
                                         .frame(maxHeight: 400)
                                        
