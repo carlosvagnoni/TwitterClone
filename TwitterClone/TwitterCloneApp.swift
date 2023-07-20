@@ -14,6 +14,7 @@ struct TwitterCloneApp: App {
     @StateObject var authViewModel = AuthViewModel()
     @StateObject var feedViewModel = FeedViewModel()
     @StateObject var notificationViewModel = NotificationsViewModel()
+    @StateObject var messagesViewModel = MessagesViewModel()
     
     init() {
         
@@ -33,6 +34,7 @@ struct TwitterCloneApp: App {
             .environmentObject(authViewModel)
             .environmentObject(feedViewModel)
             .environmentObject(notificationViewModel)
+            .environmentObject(messagesViewModel)
                    
         }
     }
