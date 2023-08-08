@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var userSessionChanged = false
     
     @EnvironmentObject var authViewModel: AuthViewModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         
@@ -64,7 +65,7 @@ extension ContentView {
             
             SideMenuView()
                 .frame(width: 300)
-                .background(.white)
+                .background(colorScheme == .dark ? .black : .white)
                 .offset(x: showMenu ? 0 : -300)
             
         }

@@ -41,7 +41,7 @@ class UploadTweetViewModel: ObservableObject {
     func uploadTweet(caption: String, image: UIImage? = nil, videoData: Data? = nil, completion: @escaping (Bool) -> Void) {
         
         if let image = image {
-            MediaUploader.uploadImage(image: image) { mediaUrl in
+            MediaUploader.uploadImage(image: image, mediaPath: .tweetMedia) { mediaUrl in
                 self.tweetService.uploadTweet(caption: caption, mediaUrl: mediaUrl, mediaType: .image) { success in
                     if success {
                         self.didUploadTweet = true
@@ -53,7 +53,7 @@ class UploadTweetViewModel: ObservableObject {
                 }
             }
         } else if let videoData = videoData {
-            MediaUploader.uploadVideo(videoData: videoData) { mediaUrl in
+            MediaUploader.uploadVideo(videoData: videoData, mediaPath: .tweetMedia) { mediaUrl in
                 self.tweetService.uploadTweet(caption: caption, mediaUrl: mediaUrl, mediaType: .video) { success in
                     if success {
                         self.didUploadTweet = true

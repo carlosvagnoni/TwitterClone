@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class ConversationRowViewModel: ObservableObject {
+    @Published var recentMessage: RecentMessage
+    
+    init(recentMessage: RecentMessage) {
+        self.recentMessage = recentMessage
+    }
+}

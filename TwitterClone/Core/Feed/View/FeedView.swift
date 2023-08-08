@@ -52,7 +52,7 @@ struct FeedView: View {
                 
                 Image(systemName: "square.and.pencil")
                     .resizable()
-                    .renderingMode(.template)
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 28, height: 28)
                     .padding()
                 

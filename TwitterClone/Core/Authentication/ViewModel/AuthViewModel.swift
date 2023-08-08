@@ -93,7 +93,7 @@ class AuthViewModel: ObservableObject {
         
         guard let uid = tempUserSession?.uid else { return }
         
-        ImageUploader.uploadImage(image: image) { profilePhotoUrl in
+        MediaUploader.uploadImage(image: image, mediaPath: .profileImage) { profilePhotoUrl in
             
             Firestore.firestore().collection("users")
                 .document(uid)

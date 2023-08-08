@@ -25,6 +25,23 @@ struct NotificationsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             } else {
+                
+                if notificationsViewModel.notifications.isEmpty {
+                    
+                    VStack(spacing: 0) {
+                        
+                        Text("You have no notifications")
+                            .bold()
+                            .foregroundColor(.gray)
+                            .padding(20)
+                            .frame(maxWidth: .infinity)
+                        
+                        Spacer()
+                        
+                    }
+                    
+                    
+                } else {
                     
                     ScrollView {
                         
@@ -38,6 +55,7 @@ struct NotificationsView: View {
                         }
                         
                     }
+                }
             }
             
         }

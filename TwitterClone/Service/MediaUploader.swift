@@ -8,14 +8,20 @@
 import FirebaseStorage
 import UIKit
 
+enum MediaPath: String {
+    case tweetMedia = "tweet_media"
+    case messageMedia = "message_media"
+    case profileImage = "profile_image"
+}
+
 struct MediaUploader {
     
-    static func uploadImage(image: UIImage, completion: @escaping(String) -> Void) {
+    static func uploadImage(image: UIImage, mediaPath: MediaPath, completion: @escaping(String) -> Void) {
         
         guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
         
         let filename = UUID().uuidString
-        let ref = Storage.storage().reference(withPath: "/tweet_media/\(filename)")
+        let ref = Storage.storage().reference(withPath: "/\(mediaPath.rawValue)/\(filename)")
         
         ref.putData(imageData, metadata: nil) { _, error in
             
@@ -39,10 +45,10 @@ struct MediaUploader {
         
     }
     
-    static func uploadVideo(videoData: Data, completion: @escaping(String) -> Void) {
+    static func uploadVideo(videoData: Data, mediaPath: MediaPath, completion: @escaping(String) -> Void) {
         
         let filename = UUID().uuidString
-        let ref = Storage.storage().reference(withPath: "/tweet_media/\(filename)")
+        let ref = Storage.storage().reference(withPath: "/\(mediaPath.rawValue)/\(filename)")
         let metadata = StorageMetadata()
         metadata.contentType = "video/quicktime"
         

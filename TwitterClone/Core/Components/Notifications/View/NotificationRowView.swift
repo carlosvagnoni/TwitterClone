@@ -75,6 +75,7 @@ struct NotificationRowView: View {
                     .padding(12)
                     
                     Divider()
+                        .background(Color("dividerColor"))
                 }
                 .frame(minHeight: 50)
             }

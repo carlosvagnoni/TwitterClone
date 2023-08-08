@@ -9,17 +9,29 @@ import SwiftUI
 
 struct MessagesView: View {
     
+    @State private var selectedUser: User?
+    
     @State private var showUserListView = false
     
-    @EnvironmentObject var messagesViewModel : MessagesViewModel
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var notificationsViewModel: NotificationsViewModel
+    @State private var shouldNavigateToConversation = false
+    @State var isConfirmationViewPresented = false
     
+    @EnvironmentObject var messagesViewModel: MessagesViewModel
     
     var body: some View {
         
+        
         ZStack(alignment: .bottomTrailing) {
- 
+            
+            if let receiverUser = selectedUser {
+                
+                NavigationLink(isActive: $shouldNavigateToConversation) {
+                    ConversationView(receiverUser: receiverUser)
+                } label: {
+                }
+                
+            }
+            
             if messagesViewModel.isLoading {
                 
                 VStack {
@@ -28,74 +40,102 @@ struct MessagesView: View {
                         .scaleEffect(2)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-    
-                }
-            else {
-                    
-//                    ScrollView {
-                        
-//                        LazyVStack {
-//
-//                            ForEach(Array(feedViewModel.tweetsData.enumerated()), id: \.offset) { index, tweetData in
-//                                TweetRowView(tweet: tweetData.tweet, isRetweet: tweetData.isRetweet, retweetedUserFullname: tweetData.retweetedUserFullname)
-//                            }
-//                        }
-                        
-                    }
-           
-                }
-            
-            Button {
-                
-                showUserListView = true
-                
-            } label: {
-                
-                Image(systemName: "envelope")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 28)
-                    .padding()
                 
             }
-            .background(Color(.systemBlue))
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .padding()
-            .fullScreenCover(isPresented: $showUserListView) {
+            else {
                 
-                NewTweetView()
+                if messagesViewModel.recentMessages.isEmpty {
+                    
+                    VStack(spacing: 0) {
+                        
+                        Text("Tap 'New Message' icon to start a conversation")
+                            .bold()
+                            .foregroundColor(.gray)
+                            .padding(20)
+                            .frame(maxWidth: .infinity)
+                        
+                        Spacer()
+                        
+                    }
+                    
+                    
+                } else {
+                    ScrollView {
+                        
+                        LazyVStack(spacing: 0) {
+                            
+                            ForEach(messagesViewModel.recentMessages) { recentMessage in
+                                
+                                if let user = recentMessage.receiverUser {
+                                    
+                                        ConversationRowView(recentMessage: recentMessage)
+                                        .onTapGesture {
+                                            self.selectedUser = user
+                                            self.shouldNavigateToConversation = true
+                                            if !recentMessage.read {
+                                                messagesViewModel.readConversation(receiverID: user.id!)
+                                            }
+                                            
+                                        }
+                                        .onLongPressGesture {
+                                            self.selectedUser = user
+                                            isConfirmationViewPresented = true
+                                        }
+
+                                    
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                }
                 
                 
+                
+            }
+            
+            Button {
+                showUserListView = true
+            } label: {
+                VStack {
+                    
+                    Image(systemName: "envelope")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 28, height: 28)
+                        .padding()
+                    
+                }
+                .background(Color(.systemBlue))
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                .padding()
             }
             
         }
-//        .onAppear() {
-//
-//            feedViewModel.fetchTweets()
-//            notificationsViewModel.fetchNotifications()
-//
-//        }
-//        .onReceive(InteractionNotifier.shared.tweetDeleted) { _ in
-//            feedViewModel.fetchTweets()
-//                }
-//        .onReceive(InteractionNotifier.shared.retweetInteractionStatus) { _ in
-//            feedViewModel.fetchTweets()
-//                }
+        .onAppear() {
+            messagesViewModel.fetchRecentMessages()
+        }
+        .fullScreenCover(isPresented: $showUserListView) {
+            MessageRecipientListView(selectedUser: $selectedUser, shouldNavigateToConversation: $shouldNavigateToConversation)
+        }
+        .sheet(isPresented: $isConfirmationViewPresented) {
+            DeleteConversationView(receiverId: (selectedUser?.id)!)
+                .presentationDetents([.fraction(0.25)])
+        }
         
         
-    
+        
+        
+    }
 }
 
 
 struct MessagesView_Previews: PreviewProvider {
     
     static var previews: some View {
-        
         MessagesView()
             .environmentObject(MessagesViewModel())
-            .environmentObject(AuthViewModel())
-            .environmentObject(NotificationsViewModel())
-        
     }
 }

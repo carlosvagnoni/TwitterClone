@@ -14,9 +14,15 @@ struct MainTabView: View {
     @ObservedObject var mainTabViewModel = MainTabViewModel()
     
     @EnvironmentObject var notificationsViewModel: NotificationsViewModel
+    @EnvironmentObject var messagesViewModel: MessagesViewModel
+    
     
     var unreadNotificationsCount: Int {
             return notificationsViewModel.notifications.filter { !$0.read }.count
+        }
+    
+    var unreadRecentMessagesCount: Int {
+            return messagesViewModel.recentMessages.filter { !$0.read }.count
         }
     
     var body: some View {
@@ -49,6 +55,7 @@ struct MainTabView: View {
                 .tag(2)
 
             MessagesView()
+                .badge(unreadRecentMessagesCount)
                 .tabItem {
                     Image(systemName: selectedIndex == 3 ? "envelope.fill" : "envelope")
                         .environment(\.symbolVariants, .none)
@@ -56,10 +63,13 @@ struct MainTabView: View {
                 .tag(3)
 
         }
-        .tint(.black)
+        .tint(.primary)
         .onAppear() {
 
-            UITabBar.appearance().unselectedItemTintColor = UIColor(Color.black)
+            UITabBar.appearance().unselectedItemTintColor = UIColor(Color.primary)
+            let tabBarAppearance = UITabBarAppearance()
+                tabBarAppearance.configureWithDefaultBackground()
+                UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
 
         }
         .navigationBarTitleDisplayMode(.inline)

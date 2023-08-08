@@ -1,14 +1,13 @@
 //
-//  ExploreViewModel.swift
+//  MessageRecipientListViewModel.swift
 //  TwitterClone
 //
-//  Created by user239477 on 6/3/23.
+//  Created by user239477 on 7/21/23.
 //
 
-import Foundation
+import Firebase
 
-class ExploreViewModel: ObservableObject {
-    
+class MessageRecipientListViewModel: ObservableObject {
     @Published var users = [User]()
     @Published var searchText = ""
     
@@ -34,11 +33,10 @@ class ExploreViewModel: ObservableObject {
     
     
     func fetchUsers() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
         
         userService.fetchUsers { users in
-            
-            self.users = users
-            
+            self.users = users.filter { $0.id != currentUserID }
         }
     }
 }

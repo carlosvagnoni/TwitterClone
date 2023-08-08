@@ -97,7 +97,7 @@ extension ProfileView {
                 
                 Image(systemName: "bell.badge")
                     .font(.title3)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .padding(6)
                     .overlay(Circle().stroke(Color.gray, lineWidth: 0.75))
                     
@@ -112,7 +112,7 @@ extension ProfileView {
                 Text(profileViewModel.actionButtonTitle)
                     .font(.subheadline).bold()
                     .frame(width: 120, height: 37)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.gray, lineWidth: 0.75))
                 
             }
@@ -185,7 +185,7 @@ extension ProfileView {
                     Text(item.title)
                         .font(.subheadline)
                         .fontWeight(selectedFilter == item ? .bold : .regular)
-                        .foregroundColor(selectedFilter == item ? .black : .gray)
+                        .foregroundColor(selectedFilter == item ? .primary : .gray)
                     
                     if selectedFilter == item {
                         

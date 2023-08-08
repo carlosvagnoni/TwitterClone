@@ -47,6 +47,27 @@ class UserService {
             }
     }
     
+    func fetchUsers(withUids uids: [String], completion: @escaping ([String: User]) -> Void) {
+        let usersRef = Firestore.firestore().collection("users")
+        let dispatchGroup = DispatchGroup()
+        var usersDict = [String: User]()
+        
+        for uid in uids {
+            dispatchGroup.enter()
+            usersRef.document(uid).getDocument { snapshot, _ in
+                if let snapshot = snapshot, let user = try? snapshot.data(as: User.self) {
+                    usersDict[uid] = user
+                }
+                dispatchGroup.leave()
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            completion(usersDict)
+        }
+    }
+
+    
     func fetchUsersWithRetweets(completion: @escaping([User]) -> Void) {
         Firestore.firestore().collection("users").getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
@@ -80,7 +101,24 @@ class UserService {
             }
         }
     }
+    
+    func fetchAndAssignUsersToRecentMessages(recentMessages: [RecentMessage], completion: @escaping ([RecentMessage]) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        let otherUserIds = recentMessages.compactMap { $0.id }
+        
+        self.fetchUsers(withUids: otherUserIds) { usersDict in
+            var updatedRecentMessages = recentMessages
+            for index in updatedRecentMessages.indices {
+                if let otherUserId = updatedRecentMessages[index].id,
+                   let user = usersDict[otherUserId] {
+                    updatedRecentMessages[index].receiverUser = user
+                }
+            }
+            completion(updatedRecentMessages)
+        }
+    }
 
-
+    
+    
     
 }

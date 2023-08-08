@@ -33,6 +33,7 @@ struct TextArea: View {
                 .focused($isFocused)
                 .frame(minHeight: 50)
                 .fixedSize(horizontal: false, vertical: true)
+                .scrollContentBackground(.hidden)
             
             if text.isEmpty {
 

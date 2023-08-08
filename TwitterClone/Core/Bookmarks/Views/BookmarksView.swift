@@ -67,6 +67,7 @@ struct BookmarksView: View {
                 
             }
     }
+        .toolbarBackground(.visible)
         .onAppear() {
             
             bookmarksViewModel.fetchBookmarkedTweets()

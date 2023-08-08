@@ -263,6 +263,7 @@ struct TweetRowView: View {
                 .padding(12)
                 
                 Divider()
+                    .background(Color("dividerColor"))
                 
             }
             .frame(minHeight: 110)

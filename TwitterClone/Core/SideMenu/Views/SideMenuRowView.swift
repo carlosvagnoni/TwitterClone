@@ -20,7 +20,7 @@ struct SideMenuRowView: View {
             Text(sideMenuViewModel.title)
             
         }
-        .foregroundColor(.black)
+        .foregroundColor(.primary)
         .frame(height: 40)
         
     }

@@ -42,6 +42,7 @@ struct SideMenuView: View {
                 }
                 
                 Divider()
+                    .background(Color("dividerColor"))
                     .padding(.vertical)
                 
                 ForEach(SideMenuViewModel.allCases, id: \.rawValue) { option in
@@ -67,7 +68,7 @@ struct SideMenuView: View {
                         } label: {
                             
                             SideMenuRowView(sideMenuViewModel: option)
-                                .foregroundColor(.black)
+                                .foregroundColor(.primary)
                             
                         }
                         

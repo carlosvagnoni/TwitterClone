@@ -26,6 +26,7 @@ struct UserRowView: View {
                 
                 Text(user.fullname)
                     .font(.subheadline).bold()
+                    .foregroundColor(.primary)
                 
                 Text("@\(user.username)")
                     .font(.subheadline)

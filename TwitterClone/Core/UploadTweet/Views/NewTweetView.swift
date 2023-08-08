@@ -189,6 +189,7 @@ struct NewTweetView: View {
                 Spacer()
                 
                 Divider()
+                    .background(Color("dividerColor"))
                 
                 HStack(spacing: 0) {
                     PhotosPicker(selection: $selectedItem,
@@ -207,7 +208,7 @@ struct NewTweetView: View {
                     Spacer()
                     
                 }
-                .padding(.horizontal, 12)
+                .padding(12)
                 
             }
             
