@@ -18,7 +18,6 @@ struct RegistrationView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
-        
         VStack(spacing: 0) {
             
             NavigationLink(destination: ProfilePhotoSelectorView(), isActive: $shouldNavigateToPhotoSelector, label: { })
@@ -26,7 +25,6 @@ struct RegistrationView: View {
             AuthHeaderView(title1: "Get started.", title2: "Create your account")
             
             VStack(spacing: 40) {
-                
                 CustomTextField(imageName: "envelope", placeholderText: "Email", text: $email)
                 
                 CustomTextField(imageName: "person", placeholderText: "Username", text: $username)
@@ -34,25 +32,19 @@ struct RegistrationView: View {
                 CustomTextField(imageName: "person", placeholderText: "Full name", text: $fullname)
                 
                 CustomSecureField(imageName: "lock", placeholderText: "Password", password: $password)
-                
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 44)
             
             Button {
-                
                 authViewModel.register(withEmail: email, password: password, fullname: fullname, username: username) { success in
                     
                     if success {
-                        
                         shouldNavigateToPhotoSelector = true
-                        
                     }
-                    
                 }
                 
             } label: {
-                
                 Text("Sign Up")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -60,51 +52,38 @@ struct RegistrationView: View {
                     .background(Color(.systemBlue))
                     .clipShape(Capsule())
                     .padding()
-                
             }
             .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 0)
             
             Spacer()
             
             NavigationLink {
-                
                 LoginView()
                     .toolbar(.hidden)
-                
             } label: {
-                
                 HStack {
-                    
                     Text("Already have an account?")
                         .font(.footnote)
                     
                     Text("Sign In")
                         .font(.footnote)
                         .fontWeight(.semibold)
-                    
-                    
                 }
             }
             .padding(.bottom, 32)
             .foregroundColor(Color(.systemBlue))
-               
         }
         .ignoresSafeArea()
         .toolbar(.hidden)
-        
     }
 }
 
 struct RegistrationView_Previews: PreviewProvider {
-    
     static var previews: some View {
-      
+        
         NavigationView {
-            
             RegistrationView()
                 .environmentObject(AuthViewModel())
-            
         }
-       
     }
 }

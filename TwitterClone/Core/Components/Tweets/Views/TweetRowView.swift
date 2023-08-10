@@ -118,7 +118,7 @@ struct TweetRowView: View {
                                                     .foregroundColor(.gray)
                                             }
                                         }
-                                        .frame(height: 18)
+                                        .frame(width: 5, height: 18)
 
                                         
                                     }

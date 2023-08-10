@@ -10,28 +10,6 @@ import FirebaseStorage
 
 class TweetService {
     
-//    func uploadTweet(caption: String, completion: @escaping(Bool) -> Void) {
-//
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//
-//        let data = ["uid": uid, "caption": caption, "commentCount": 0, "likes": 0, "retweetCount": 0, "bookmarkCount": 0, "timestamp": Timestamp(date: Date())] as [String : Any]
-//
-//        Firestore.firestore().collection("tweets").document()
-//            .setData(data) { error in
-//
-//                if let error = error {
-//
-//                    completion(false)
-//                    return
-//
-//                }
-//
-//                completion(true)
-//
-//            }
-//
-//    }
-    
     func uploadTweet(caption: String, mediaUrl: String?, mediaType: MediaType?, completion: @escaping(Bool) -> Void) {
             
             guard let uid = Auth.auth().currentUser?.uid else { return }

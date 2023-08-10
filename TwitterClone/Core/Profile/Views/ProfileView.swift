@@ -140,7 +140,7 @@ extension ProfileView {
                 .font(.subheadline)
                 .foregroundColor(.gray)
             
-            Text("In the end, you have to just pull the trigger.")
+            Text("Keep pushing the limits")
                 .font(.subheadline)
                 .padding(.vertical)
             
@@ -150,7 +150,7 @@ extension ProfileView {
                     
                     Image(systemName: "mappin.and.ellipse")
                     
-                    Text("Perth, Australia")
+                    Text("Mónaco, Mónaco")
                     
                 }
                 
@@ -158,7 +158,7 @@ extension ProfileView {
                     
                     Image(systemName: "link")
                     
-                    Text("www.danielricciardo.com")
+                    Text("www.formula1.com")
                     
                 }
                 

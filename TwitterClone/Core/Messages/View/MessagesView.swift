@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MessagesView: View {
     
@@ -72,6 +73,7 @@ struct MessagesView: View {
                                         .onTapGesture {
                                             self.selectedUser = user
                                             self.shouldNavigateToConversation = true
+                                                                                       
                                             if !recentMessage.read {
                                                 messagesViewModel.readConversation(receiverID: user.id!)
                                             }

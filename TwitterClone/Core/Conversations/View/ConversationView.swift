@@ -25,6 +25,8 @@ struct ConversationView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    @EnvironmentObject var messagesViewModel: MessagesViewModel
+    
     @StateObject var conversationViewModel: ConversationViewModel
     
     
@@ -310,6 +312,13 @@ struct ConversationView: View {
                 }
             }
         }
+        .onAppear {
+            messagesViewModel.currentConversationUserId = conversationViewModel.receiverUser.id
+            
+            }
+            .onDisappear {
+                messagesViewModel.currentConversationUserId = nil
+            }
     }
 }
 

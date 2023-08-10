@@ -16,11 +16,10 @@ struct ProfilePhotoSelectorView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     
     init() {
-            print("DEBUG: Initializing ProfilePhotoSelectorView")
-        }
+        print("DEBUG: Initializing ProfilePhotoSelectorView")
+    }
     
     var body: some View {
-        
         VStack(spacing: 0) {
             
             AuthHeaderView(title1: "Setup account", title2: "Add a profile photo")
@@ -29,22 +28,17 @@ struct ProfilePhotoSelectorView: View {
                          matching: .images) {
                 
                 ZStack {
-                    
                     if let selectedProfilePhoto = selectedProfilePhoto {
-                        
                         Image(uiImage: selectedProfilePhoto)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
-                        
                     } else {
-                        
                         Image("emptyProfilePhoto")
                             .resizable()
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
-                        
                     }
                     
                     Circle()
@@ -56,7 +50,6 @@ struct ProfilePhotoSelectorView: View {
                         .resizable()
                         .frame(width: 30, height: 30)
                         .offset(x: 0, y: 50)
-                      
                 }
                 
             }
@@ -73,13 +66,9 @@ struct ProfilePhotoSelectorView: View {
                          }
             
             if let selectedProfilePhoto = selectedProfilePhoto {
-                
                 Button {
-                    
                     authViewModel.uploadProfilePhoto(selectedProfilePhoto)
-                    
                 } label: {
-                    
                     Text("Continue")
                         .font(.headline)
                         .foregroundColor(.white)
@@ -87,27 +76,22 @@ struct ProfilePhotoSelectorView: View {
                         .background(Color(.systemBlue))
                         .clipShape(Capsule())
                         .padding()
-                    
                 }
                 .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 0)
                 .padding(.top, 32)
-  
             }
             
             Spacer()
             
         }
         .ignoresSafeArea()
-        
     }
 }
 
 struct ProfilePhotoSelectorView_Previews: PreviewProvider {
-    
     static var previews: some View {
         
         ProfilePhotoSelectorView()
-            .environmentObject(AuthViewModel())
-        
+            .environmentObject(AuthViewModel())        
     }
 }

@@ -9,6 +9,8 @@ import Firebase
 
 class MessageService {
     
+    var recentMessagesListener: ListenerRegistration?
+    
     func sendMessage(receiverId: String, text: String, mediaUrl: String?, mediaType: MediaType?) {
         guard let fromId = Auth.auth().currentUser?.uid else { return }
         
@@ -86,44 +88,45 @@ class MessageService {
 
         }
     }
-    
-    func fetchMessages(receiverId: String, completion: @escaping ([Message]) -> Void) {
-        guard let fromId = Auth.auth().currentUser?.uid else { return }
+       
+    func observeMessages(receiverId: String, completion: @escaping ([Message]) -> Void) {
+            guard let fromId = Auth.auth().currentUser?.uid else { return }
 
-        Firestore.firestore().collection("messages").document(fromId).collection(receiverId)
-            .order(by: "timestamp")
-            .addSnapshotListener { querySnapshot, error in
-                
-                if let error = error {
-                    print("Failed to fetch messages with error \(error.localizedDescription)")
-                    completion([])
-                    return
-                }
+            Firestore.firestore().collection("messages").document(fromId).collection(receiverId)
+                .order(by: "timestamp")
+                .addSnapshotListener { querySnapshot, error in
 
-                var messages = [Message]()
+                    if let error = error {
+                        print("Failed to fetch messages with error \(error.localizedDescription)")
+                        completion([])
+                        return
+                    }
 
-                querySnapshot?.documentChanges.forEach { change in
-                    if change.type == .added {
+                    var messages = [Message]()
+
+                    querySnapshot?.documents.forEach { document in
                         do {
-                            var message = try Firestore.Decoder().decode(Message.self, from: change.document.data())
-                            message.id = change.document.documentID
+                            var message = try Firestore.Decoder().decode(Message.self, from: document.data())
+                            message.id = document.documentID
                             messages.append(message)
                         } catch {
                             print("Failed to decode message: \(error)")
                         }
                     }
-                }
 
-                completion(messages)
-            }
-    }
+                    completion(messages)
+                }
+        }
     
     func fetchRecentMessages(completion: @escaping ([RecentMessage]) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        recentMessagesListener?.remove()
 
-        Firestore.firestore().collection("recent_messages").document(uid).collection("messages")
+        recentMessagesListener = Firestore.firestore().collection("recent_messages").document(uid).collection("messages")
             .order(by: "timestamp", descending: true)
             .addSnapshotListener { querySnapshot, error in
+//                    .getDocuments { querySnapshot, error in
 
                 if let error = error {
                     print("Failed to fetch messages with error \(error.localizedDescription)")
@@ -146,6 +149,11 @@ class MessageService {
                 completion(recentMessages)
             }
     }
+    
+    func removeRecentMessagesListener() {
+        recentMessagesListener?.remove()
+    }
+
     
     func readConversation(receiverId: String) {
         guard let fromId = Auth.auth().currentUser?.uid else { return }

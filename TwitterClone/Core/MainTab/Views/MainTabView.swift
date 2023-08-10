@@ -15,6 +15,7 @@ struct MainTabView: View {
     
     @EnvironmentObject var notificationsViewModel: NotificationsViewModel
     @EnvironmentObject var messagesViewModel: MessagesViewModel
+    @EnvironmentObject var feedViewModel: FeedViewModel
     
     
     var unreadNotificationsCount: Int {
@@ -65,6 +66,7 @@ struct MainTabView: View {
         }
         .tint(.primary)
         .onAppear() {
+            messagesViewModel.fetchRecentMessages()
 
             UITabBar.appearance().unselectedItemTintColor = UIColor(Color.primary)
             let tabBarAppearance = UITabBarAppearance()
@@ -75,7 +77,30 @@ struct MainTabView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(mainTabViewModel.titleForSelectedIndex(selectedIndex))
         .toolbarBackground(.visible)
-        
+        .toolbar {
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                
+                if selectedIndex == 0 {
+                    
+                    Button {
+                            
+                        feedViewModel.fetchTweets()
+                        
+                    } label: {
+                        
+                        Image(systemName: "arrow.clockwise")
+                            .resizable()
+                            .scaledToFill()
+                            .foregroundColor(Color(.systemBlue))
+                            .frame(width: 20, height: 20)
+                        
+                    }
+                    
+                }
+                
+            }
+    }
 
         
         

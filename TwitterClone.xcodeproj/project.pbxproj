@@ -312,15 +312,14 @@
 		DD3178412A2800010095AB30 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
-				DDDC44BF2A48C7B600864362 /* Utils */,
+				DD718DEA2A849CE30052C328 /* App */,
+				DD3178502A2800530095AB30 /* Core */,
 				DD3178532A28005D0095AB30 /* Extensions */,
 				DD3178522A28005A0095AB30 /* Model */,
 				DD3178512A2800560095AB30 /* Service */,
-				DD3178502A2800530095AB30 /* Core */,
-				DD3178422A2800010095AB30 /* TwitterCloneApp.swift */,
-				DD3178442A2800010095AB30 /* ContentView.swift */,
-				DD3178462A2800020095AB30 /* Assets.xcassets */,
+				DDDC44BF2A48C7B600864362 /* Utils */,
 				DD6775972A33E29200202AA2 /* GoogleService-Info.plist */,
+				DD3178462A2800020095AB30 /* Assets.xcassets */,
 				DD3178482A2800020095AB30 /* Preview Content */,
 			);
 			path = TwitterClone;
@@ -337,22 +336,23 @@
 		DD3178502A2800530095AB30 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				DDFC1F642A2FC179009807BF /* Authentication */,
+				DD718DEC2A849D580052C328 /* Base */,
+				DD25A32C2A4C42EC00DCD8D9 /* Bookmarks */,
 				DD3178552A2800A60095AB30 /* Components */,
 				DD1383B72A6B1041002384F0 /* Conversations */,
 				DD7412C52A7E6B37005900B0 /* DeleteConversation */,
-				DD1383B02A6AF916002384F0 /* MessageRecipientList */,
-				DD76E1132A542E7A00B9BC01 /* Tweets */,
-				DD25A32C2A4C42EC00DCD8D9 /* Bookmarks */,
-				DDFC1F642A2FC179009807BF /* Authentication */,
-				DDAD134A2A2CB3FD006B5673 /* UploadTweet */,
 				DD8E42EA2A5AF268002727BE /* DeleteTweet */,
-				DD334B222A2B9249006F64ED /* SideMenu */,
-				DD0A079B2A28AE510031B8BC /* Profile */,
 				DD44D4112A28B151002C8896 /* Explore */,
-				DD0A079A2A28ADFF0031B8BC /* Notifications */,
-				DD0A07982A28ADF90031B8BC /* Messages */,
-				DD0A07952A28AB2D0031B8BC /* MainTab */,
 				DD3178542A2800A30095AB30 /* Feed */,
+				DD0A07952A28AB2D0031B8BC /* MainTab */,
+				DD1383B02A6AF916002384F0 /* MessageRecipientList */,
+				DD0A07982A28ADF90031B8BC /* Messages */,
+				DD0A079A2A28ADFF0031B8BC /* Notifications */,
+				DD0A079B2A28AE510031B8BC /* Profile */,
+				DD334B222A2B9249006F64ED /* SideMenu */,
+				DD76E1132A542E7A00B9BC01 /* Tweets */,
+				DDAD134A2A2CB3FD006B5673 /* UploadTweet */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -403,18 +403,18 @@
 		DD3178552A2800A60095AB30 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				DDAF36EC2A6A0CFE00DCE3C8 /* Messages */,
+				DDD6B3912A3132A700A99749 /* CustomSecureField.swift */,
+				DDF6F14E2A30A1B6006ED0C4 /* CustomTextField.swift */,
+				DDF6F14A2A309845006ED0C4 /* RoundedShape.swift */,
+				DDB487532A3BCD4700459789 /* SearchBar.swift */,
+				DDAD134F2A2CB9D5006B5673 /* TextArea.swift */,
+				DDD6B3932A313E0D00A99749 /* Authentication */,
 				DDA51BAF2A69B28900E983CE /* Conversations */,
+				DDAF36EC2A6A0CFE00DCE3C8 /* Messages */,
 				DDF6C2CB2A65BADB00E0EEB0 /* Notifications */,
 				DD76E11A2A542F4400B9BC01 /* TweetComment */,
-				DDD6B3932A313E0D00A99749 /* Authentication */,
-				DD6723BE2A2A9F5600F9354D /* Users */,
 				DD31785C2A2804E50095AB30 /* Tweets */,
-				DDAD134F2A2CB9D5006B5673 /* TextArea.swift */,
-				DDF6F14A2A309845006ED0C4 /* RoundedShape.swift */,
-				DDF6F14E2A30A1B6006ED0C4 /* CustomTextField.swift */,
-				DDD6B3912A3132A700A99749 /* CustomSecureField.swift */,
-				DDB487532A3BCD4700459789 /* SearchBar.swift */,
+				DD6723BE2A2A9F5600F9354D /* Users */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -519,6 +519,22 @@
 				DD334B2B2A2BA20D006F64ED /* UserStatsView.swift */,
 			);
 			path = Users;
+			sourceTree = "<group>";
+		};
+		DD718DEA2A849CE30052C328 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DD3178422A2800010095AB30 /* TwitterCloneApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DD718DEC2A849D580052C328 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DD3178442A2800010095AB30 /* ContentView.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		DD7412C52A7E6B37005900B0 /* DeleteConversation */ = {

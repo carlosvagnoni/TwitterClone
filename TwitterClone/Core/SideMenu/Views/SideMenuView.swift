@@ -10,6 +10,8 @@ import Kingfisher
 
 struct SideMenuView: View {
     
+    @EnvironmentObject var messagesViewModel: MessagesViewModel
+    
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
@@ -57,13 +59,15 @@ struct SideMenuView: View {
                             
                             SideMenuRowView(sideMenuViewModel: option)
                             
-                        }
+                        }	
                         
                     } else if option == .logout {
                         
                         Button {
+                            Task {
+                                authViewModel.signOut()
+                            }
                             
-                            authViewModel.signOut()
                             
                         } label: {
                             

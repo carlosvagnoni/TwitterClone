@@ -10,7 +10,7 @@ import Foundation
 enum SideMenuViewModel: Int, CaseIterable {
     
     case profile
-    case lists
+    case verification
     case bookmarks
     case logout
     
@@ -19,7 +19,7 @@ enum SideMenuViewModel: Int, CaseIterable {
         switch self {
             
         case .profile: return "Profile"
-        case .lists: return "Lists"
+        case .verification: return "Blue"
         case .bookmarks: return "Bookmarks"
         case .logout: return "Logout"
             
@@ -32,7 +32,7 @@ enum SideMenuViewModel: Int, CaseIterable {
         switch self {
             
         case .profile: return "person"
-        case .lists: return "list.bullet"
+        case .verification: return "checkmark.seal"
         case .bookmarks: return "bookmark"
         case .logout: return "arrow.left.square"
             

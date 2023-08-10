@@ -15,7 +15,7 @@ struct UserStatsView: View {
             
             HStack(spacing: 5) {
                 
-                Text("196")
+                Text("10")
                     .bold()
                 
                 Text("Following")
@@ -25,7 +25,7 @@ struct UserStatsView: View {
             
             HStack(spacing: 5) {
                 
-                Text("3.2M")
+                Text("1.5M")
                     .bold()
                 
                 Text("Followers")

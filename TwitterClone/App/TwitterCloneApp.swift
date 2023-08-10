@@ -17,19 +17,14 @@ struct TwitterCloneApp: App {
     @StateObject var messagesViewModel = MessagesViewModel()
     
     init() {
-        
         FirebaseApp.configure()
-        
     }
-    
+        
     var body: some Scene {
         
         WindowGroup {
-                
             NavigationView {
-                
-                ContentView()
-                        
+                ContentView()                        
             }
             .environmentObject(authViewModel)
             .environmentObject(feedViewModel)

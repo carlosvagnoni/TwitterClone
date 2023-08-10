@@ -19,19 +19,16 @@ class ConversationViewModel: ObservableObject {
         self.receiverUser = receiverUser
         fetchMessages()
     }
-
+    
     func fetchMessages() {
-        self.isLoading = true
-        guard let receiverId = receiverUser.id else { return }
-        
-        messageService.fetchMessages(receiverId: receiverId) { newMessages in
-            DispatchQueue.main.async {
-                self.messages += newMessages
-                self.isLoading = false
-                
+            guard let receiverId = receiverUser.id else { return }
+
+            messageService.observeMessages(receiverId: receiverId) { [weak self] newMessages in
+                DispatchQueue.main.async {
+                    self?.messages = newMessages
+                }
             }
         }
-    }
     
     func sendMessage(receiverId: String, text: String, image: UIImage? = nil, videoData: Data? = nil, completion: @escaping () -> Void) {
         
