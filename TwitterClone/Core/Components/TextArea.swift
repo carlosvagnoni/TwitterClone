@@ -16,16 +16,13 @@ struct TextArea: View {
     @FocusState private var isFocused: Bool
     
     init(_ placeholder: String, text: Binding<String>) {
-        
         self.placeholder = placeholder
         self._text = text
-
     }
-
+    
     var body: some View {
         
         ZStack(alignment: .topLeading) {
-            
             TextEditor(text: $text)
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
@@ -36,30 +33,23 @@ struct TextArea: View {
                 .scrollContentBackground(.hidden)
             
             if text.isEmpty {
-
                 Text(placeholder)
                     .foregroundColor(Color(.gray))
                     .padding(.horizontal, 8)
                     .padding(.vertical, 12)
                     .background(.clear)
-                    
-
             }
-  
         }
         .font(.body)
         .onAppear {
-                    isFocused = true
-                }
+            isFocused = true
+        }
         
     }
 }
 
 struct TextArea_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
-        TextArea("Placeholder", text: .constant(""))
-        
+        TextArea("Placeholder", text: .constant(""))        
     }
 }

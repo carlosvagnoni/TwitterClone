@@ -12,29 +12,24 @@ class BookmarksViewModel: ObservableObject {
     @Published var isLoading = false
     
     let tweetService = TweetService()
+    let userService = UserService()
     
     init() {
-        
         fetchBookmarkedTweets()
-        
-    }
-    
+    }    
     
     func fetchBookmarkedTweets() {
-        
         isLoading = true
         
         tweetService.fetchBookmarkedTweets { bookmarkedTweets in
             
             DispatchQueue.main.async {
-                
-                self.bookmarkedTweets = bookmarkedTweets
-                
-                self.isLoading = false
-                
+                self.userService.fetchAndAssignUsersToTweets(tweets: bookmarkedTweets) { updatedBookmarkedTweets in
+                    self.bookmarkedTweets = updatedBookmarkedTweets
+                    self.isLoading = false
+                }
+                    
             }
         }
-                
     }
-    
 }

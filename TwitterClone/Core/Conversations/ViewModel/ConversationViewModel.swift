@@ -48,9 +48,7 @@ class ConversationViewModel: ObservableObject {
             messageService.sendMessage(receiverId: receiverId, text: text, mediaUrl: nil, mediaType: nil)
             completion()
         }
-        
-    }
-    
+    }    
     
 }
 

@@ -13,6 +13,7 @@ import AVKit
 struct NewTweetView: View {
     
     @Environment(\.dismiss) private var dismiss
+    
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var feedViewModel: FeedViewModel
     
@@ -23,7 +24,6 @@ struct NewTweetView: View {
     @State private var selectedPhoto: UIImage?
     @State private var isVideoProcessing: Bool = false
     @State private var isTweetBeingUploaded: Bool? = false
-    
     @State private var selectedVideoUrl: URL?
     @State private var selectedVideoData: Data?
     @State private var mediaType: MediaType?
@@ -32,20 +32,13 @@ struct NewTweetView: View {
         
         ZStack {
             VStack {
-                
-                
-                
                 HStack {
                     
                     Button {
-                        
                         dismiss()
-                        
                     } label: {
-                        
                         Image(systemName: "xmark")
                             .foregroundColor(.gray)
-                        
                     }
                     
                     Spacer()
@@ -72,7 +65,6 @@ struct NewTweetView: View {
                         }
                         
                     } label: {
-                        
                         Text("Tweet")
                             .bold()
                             .padding(.horizontal)
@@ -80,25 +72,19 @@ struct NewTweetView: View {
                             .foregroundColor(.white)
                             .background(Color(.systemBlue))
                             .clipShape(Capsule())
-                        
                     }
-                    
                 }
                 .padding(12)
                 
                 HStack(alignment: .top, spacing: 0) {
-                    
                     if let user = authViewModel.currentUser {
-                        
                         KFImage(URL(string: user.profilePhotoUrl))
                             .resizable()
                             .scaledToFill()
                             .clipShape(Circle())
                             .frame(width: 40, height: 40)
                             .padding(12)
-                        
                     }
-                    
                     
                     VStack {
                         TextArea("What's happening?", text: $caption)
@@ -131,10 +117,7 @@ struct NewTweetView: View {
                                             .padding(.horizontal, 24)
                                             .padding(.vertical, 12)
                                         }
-
                                     }
-                                    
-                                    
                                 }
                             case .video:
                                 ZStack(alignment: .topLeading) {
@@ -144,7 +127,7 @@ struct NewTweetView: View {
                                         }
                                         .frame(maxHeight: 400)
                                         .padding(.horizontal, 12)
-                                            
+                                        
                                         Button {
                                             self.selectedVideoUrl = nil
                                             self.mediaType = nil
@@ -163,6 +146,7 @@ struct NewTweetView: View {
                                             .padding(.vertical, 12)
                                         }
                                     }
+                                    
                                     if isVideoProcessing {
                                         Rectangle()
                                             .fill(.ultraThinMaterial)
@@ -174,16 +158,9 @@ struct NewTweetView: View {
                                 }
                             }
                         }
-                        
-                        
-                        
                         Spacer()
                         
                     }
-                    
-                    
-                                   
-                    
                 }
                 
                 Spacer()
@@ -194,35 +171,28 @@ struct NewTweetView: View {
                 HStack(spacing: 0) {
                     PhotosPicker(selection: $selectedItem,
                                  matching: .any(of: [.images, .videos])
-//                                 matching: .images
+                                 //                                 matching: .images
                     ) {
-                        
                         Image(systemName: "photo.on.rectangle")
                             .resizable()
                             .scaledToFit()
                             .frame(height: 25)
                             .foregroundColor(Color(.systemBlue))
-                        
                     }
                     
                     Spacer()
-                    
                 }
                 .padding(12)
-                
             }
             
-
             if isTweetBeingUploaded ?? false {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
                 ProgressView()
                     .tint(Color(.systemBlue))
                     .scaleEffect(2)
-           }
-            
+            }
         }
-        
         .onChange(of: selectedItem) { newItem in
             Task {
                 if let contentTypes = selectedItem?.supportedContentTypes {
@@ -251,22 +221,15 @@ struct NewTweetView: View {
                 }
             }
         }
-
         .onReceive(uploadTweetViewModel.$didUploadTweet) { success in
             
             if success {
-                
                 feedViewModel.fetchTweets()
-                
                 dismiss()
-                
             } else {
-                
                 // Handle error here...
-                
             }
         }
-        
     }
 }
 
@@ -284,16 +247,12 @@ struct VideoPickerTransferable: Transferable {
             try FileManager.default.copyItem(at: originalFile, to: copiedFile)
             return .init(videoUrl: copiedFile)
         }
-
     }
 }
 
 struct NewTweetView_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
         NewTweetView()
-            .environmentObject(AuthViewModel())
-        
+            .environmentObject(AuthViewModel())        
     }
 }

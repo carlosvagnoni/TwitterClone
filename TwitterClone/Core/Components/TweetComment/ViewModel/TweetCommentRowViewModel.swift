@@ -18,13 +18,10 @@ class TweetCommentRowViewModel: ObservableObject {
     }
     
     func fetchUserforComment() {
-        
         userService.fetchUser(withUid: comment.uid) { user in
             
             DispatchQueue.main.async {
-                
-                self.comment.user = user
-                
+                self.comment.user = user                
             }
         }
     }

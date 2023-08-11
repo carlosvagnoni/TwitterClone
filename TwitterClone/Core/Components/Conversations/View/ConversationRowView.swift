@@ -63,19 +63,14 @@ struct ConversationRowView: View {
                                             .lineLimit(1)
                                             .layoutPriority(1)
                                         
-                                        
                                         Text(" · \(DateFormatterUtils.formatTimestamp(conversationRowViewModel.recentMessage.timestamp))")
                                             .bold(conversationRowViewModel.recentMessage.read ? false : true)
                                             .foregroundColor(.gray)
                                             .font(.subheadline)
                                             .lineLimit(1)
                                             .layoutPriority(3)
-                                        
-                                        
-                                        
-                                        
+
                                         Spacer()
-                                        
                                     }
                                     
                                     //Last message
@@ -84,9 +79,7 @@ struct ConversationRowView: View {
                                         .font(.subheadline)
                                         .multilineTextAlignment(.leading)
                                         .foregroundColor(.gray)
-                                    
                                 }
-                                
                                 
                             } else {
                                 
@@ -151,10 +144,7 @@ struct ConversationRowView: View {
         }
         .contentShape(Rectangle())
         .frame(minHeight: 80)
-        
     
-        
-        
     }
 }
 

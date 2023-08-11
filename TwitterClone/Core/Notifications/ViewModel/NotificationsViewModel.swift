@@ -14,27 +14,17 @@ class NotificationsViewModel: ObservableObject {
     let notificationService = NotificationService()
     
     init() {
-        
         fetchNotifications()
-        
-    }
-    
+    }    
     
     func fetchNotifications() {
-        
         isLoading = true
         
         notificationService.fetchNotifications { notifications in
-            
             DispatchQueue.main.async {
-                
                 self.notifications = notifications
-                
                 self.isLoading = false
-                
             }
         }
-                
     }
-    
 }

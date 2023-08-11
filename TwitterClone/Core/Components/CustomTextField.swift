@@ -11,15 +11,13 @@ struct CustomTextField: View {
     
     let imageName: String
     let placeholderText: String
-
+    
     @Binding var text: String
     
     var body: some View {
         
         VStack {
-            
             HStack {
-                
                 Image(systemName: imageName)
                     .resizable()
                     .scaledToFit()
@@ -29,23 +27,17 @@ struct CustomTextField: View {
                 TextField(placeholderText, text: $text)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
-                
             }
             .padding(.bottom, 8)
             
             Divider()
                 .background(Color(.darkGray))
-            
         }
-        
     }
 }
 
 struct CustomTextField_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
-        CustomTextField(imageName: "envelope", placeholderText: "Email", text: .constant(""))
-        
+        CustomTextField(imageName: "envelope", placeholderText: "Email", text: .constant(""))        
     }
 }

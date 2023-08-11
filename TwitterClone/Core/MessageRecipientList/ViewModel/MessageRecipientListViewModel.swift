@@ -18,19 +18,12 @@ class MessageRecipientListViewModel: ObservableObject {
     }
     
     var searchableUsers: [User] {
+        let lowercasedQuery = searchText.lowercased()
         
-            
-            let lowercasedQuery = searchText.lowercased()
-            
-            return users.filter({
-                
-                $0.username.lowercased().contains(lowercasedQuery) || $0.fullname.lowercased().contains(lowercasedQuery)
-                
-            })
-        
+        return users.filter({
+            $0.username.lowercased().contains(lowercasedQuery) || $0.fullname.lowercased().contains(lowercasedQuery)
+        })
     }
-    
-    
     
     func fetchUsers() {
         guard let currentUserID = Auth.auth().currentUser?.uid else { return }

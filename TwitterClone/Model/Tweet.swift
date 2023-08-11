@@ -19,15 +19,12 @@ struct Tweet: Identifiable, Decodable {
     var likes: Int
     var bookmarkCount: Int
     var retweetCount: Int
-    
     var user: User?
     var didLike: Bool? = false
     var didRetweet: Bool? = false
     var didBookmark: Bool? = false
-    
     var mediaURL: String?
-    var mediaType: MediaType?
-    
+    var mediaType: MediaType?    
 }
 
 enum MediaType: String, Decodable {

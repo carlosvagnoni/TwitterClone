@@ -38,7 +38,6 @@ struct DeleteTweetConfirmationView: View {
                         .clipShape(Capsule())
                 }
                 
-                
                 Button {
                     dismiss()
                 } label: {
@@ -63,13 +62,9 @@ struct DeleteTweetConfirmationView: View {
                 InteractionNotifier.shared.tweetDeleted.send(())
                 dismiss()
             } else {
-                
                 // Handle error here...
-                
             }
         }
-        
-        
     }
 }
 

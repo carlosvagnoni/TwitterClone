@@ -16,7 +16,7 @@ struct MessageRowView: View {
     @State private var showTime = false
     
     var message: Message
- 
+    
     var body: some View {
         let wasSentByCurrentUser = message.senderId == authViewModel.currentUser?.id
         
@@ -54,14 +54,13 @@ struct MessageRowView: View {
                     Text(message.text)
                         .foregroundColor(wasSentByCurrentUser ? .white : .primary)
                         .padding()
-                }
-                
+                }                
             }
             .background(
                 (wasSentByCurrentUser ? Color(.systemBlue) : Color(.systemGray5))
-                .onTapGesture {
-                    showTime.toggle()
-                }
+                    .onTapGesture {
+                        showTime.toggle()
+                    }
             )
             .cornerRadius(30)
             .frame(maxWidth: 300, alignment: wasSentByCurrentUser ? .trailing : .leading)

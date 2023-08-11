@@ -8,53 +8,22 @@
 import Foundation
 
 class FeedViewModel: ObservableObject {
-    
-    
+
     @Published var tweetsData = [TweetData]()
     @Published var isLoading = false
     
     let tweetService = TweetService()
     let userService = UserService()
     
-    struct TweetData {
-        let tweet: Tweet
-        let relevantDate: Date
-        let isRetweet: Bool
-        let retweetedUserFullname: String?
-    }
-    
     init() {
-        
         fetchTweets()
-        
     }
-    
-    
-//    func fetchTweets() {
-//
-//        isLoading = true
-//
-//        tweetService.fetchTweets { tweets in
-//
-//            DispatchQueue.main.async {
-//
-//                self.tweets = tweets
-//
-//                self.isLoading = false
-//
-//            }
-//
-//        }
-//
-//    }
     
     func fetchTweets() {
         isLoading = true
-
         let group = DispatchGroup()
-
         var tweetDataList = [TweetData]()
-
+        
         group.enter()
         tweetService.fetchTweets { tweets in
             tweetDataList.append(contentsOf: tweets.map {
@@ -62,11 +31,11 @@ class FeedViewModel: ObservableObject {
             })
             group.leave()
         }
-
+        
         group.enter()
         userService.fetchUsersWithRetweets { users in
             let retweetGroup = DispatchGroup()
-
+            
             for user in users {
                 guard let userId = user.id else { continue }
                 
@@ -85,18 +54,17 @@ class FeedViewModel: ObservableObject {
                     retweetGroup.leave()
                 }
             }
-
+            
             retweetGroup.notify(queue: .main) {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
-            self.tweetsData = tweetDataList.sorted(by: { $0.relevantDate > $1.relevantDate })
-            self.isLoading = false
+            self.userService.fetchAndAssignUsersToTweetsData(tweetsData: tweetDataList) { updatedTweetsData in
+                self.tweetsData = updatedTweetsData.sorted(by: { $0.relevantDate > $1.relevantDate })
+                self.isLoading = false
+            }
         }
     }
-
-
-    
 }

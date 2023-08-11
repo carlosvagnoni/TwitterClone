@@ -37,7 +37,6 @@ struct TweetCommentRowView: View {
                             
                             //User info
                             HStack(spacing: 2.5) {
-                                
                                 Text(user.fullname)
                                     .font(.subheadline).bold()
                                     .truncationMode(.tail)
@@ -58,19 +57,15 @@ struct TweetCommentRowView: View {
                                     .layoutPriority(3)
                                 
                                 Spacer()
-                                
                             }
-
+                            
                             //Comment
                             Text(tweetCommentRowViewModel.comment.comment)
                                 .font(.subheadline)
                                 .multilineTextAlignment(.leading)
-                            
                         }
                         
-                        
                     } else {
-                        
                         //Profile Image
                         Circle()
                             .scaledToFill()
@@ -83,7 +78,6 @@ struct TweetCommentRowView: View {
                             
                             //User info
                             HStack(spacing: 2.5) {
-                                
                                 Rectangle()
                                     .fill(Color.gray.opacity(0.5))
                                     .frame(height: 8)
@@ -115,11 +109,8 @@ struct TweetCommentRowView: View {
                                 .multilineTextAlignment(.leading)
                                 .padding(.top, 5)
                                 .modifier(Shimmer())
-                            
                         }
-                        
                     }
-                    
                 }
             }
             .padding(12)
@@ -135,6 +126,6 @@ struct TweetCommentRowView_Previews: PreviewProvider {
     static let comment = Comment(comment: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1")
     
     static var previews: some View {
-            TweetCommentRowView(comment: comment)
+        TweetCommentRowView(comment: comment)
     }
 }

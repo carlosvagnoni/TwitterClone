@@ -21,7 +21,7 @@ struct Shimmer: ViewModifier {
             .onAppear { phase = 0.8 }
     }
     
-    /// An animatable modifier to interpolate between `phase` values.
+//  An animatable modifier to interpolate between `phase` values.
     struct AnimatedMask: AnimatableModifier {
         var phase: CGFloat = 0
         
@@ -36,8 +36,8 @@ struct Shimmer: ViewModifier {
         }
     }
     
-    /// A slanted, animatable gradient between transparent and opaque to use as mask.
-    /// The `phase` parameter shifts the gradient, moving the opaque band.
+//  A slanted, animatable gradient between transparent and opaque to use as mask.
+//    The `phase` parameter shifts the gradient, moving the opaque band.
     struct GradientMask: View {
         let phase: CGFloat
         let centerColor = Color.black

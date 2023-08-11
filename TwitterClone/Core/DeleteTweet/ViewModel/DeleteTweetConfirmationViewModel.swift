@@ -21,14 +21,11 @@ class DeleteTweetConfirmationViewModel: ObservableObject {
         guard let tweetId = tweet.id else { return }
         
         tweetService.deleteTweet(tweetId: tweetId) { success in
+            
             if success {
-                
                 self.didDeletedTweet = true
-                
             } else {
-                
-                // Show error message...
-                
+                // Show error message...                
             }
         }
     }

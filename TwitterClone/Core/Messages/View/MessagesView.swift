@@ -19,36 +19,29 @@ struct MessagesView: View {
     
     @EnvironmentObject var messagesViewModel: MessagesViewModel
     
-    var body: some View {
-        
+    var body: some View {        
         
         ZStack(alignment: .bottomTrailing) {
-            
             if let receiverUser = selectedUser {
                 
                 NavigationLink(isActive: $shouldNavigateToConversation) {
                     ConversationView(receiverUser: receiverUser)
                 } label: {
                 }
-                
             }
             
             if messagesViewModel.isLoading {
-                
                 VStack {
                     ProgressView()
                         .tint(Color(.systemBlue))
                         .scaleEffect(2)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
             }
             else {
-                
                 if messagesViewModel.recentMessages.isEmpty {
                     
                     VStack(spacing: 0) {
-                        
                         Text("Tap 'New Message' icon to start a conversation")
                             .bold()
                             .foregroundColor(.gray)
@@ -56,24 +49,20 @@ struct MessagesView: View {
                             .frame(maxWidth: .infinity)
                         
                         Spacer()
-                        
                     }
-                    
                     
                 } else {
                     ScrollView {
-                        
                         LazyVStack(spacing: 0) {
-                            
                             ForEach(messagesViewModel.recentMessages) { recentMessage in
                                 
                                 if let user = recentMessage.receiverUser {
                                     
-                                        ConversationRowView(recentMessage: recentMessage)
+                                    ConversationRowView(recentMessage: recentMessage)
                                         .onTapGesture {
                                             self.selectedUser = user
                                             self.shouldNavigateToConversation = true
-                                                                                       
+                                            
                                             if !recentMessage.read {
                                                 messagesViewModel.readConversation(receiverID: user.id!)
                                             }
@@ -83,18 +72,11 @@ struct MessagesView: View {
                                             self.selectedUser = user
                                             isConfirmationViewPresented = true
                                         }
-
-                                    
                                 }
                             }
                         }
-                        
                     }
-                    
                 }
-                
-                
-                
             }
             
             Button {
@@ -126,16 +108,10 @@ struct MessagesView: View {
             DeleteConversationView(receiverId: (selectedUser?.id)!)
                 .presentationDetents([.fraction(0.25)])
         }
-        
-        
-        
-        
     }
 }
 
-
 struct MessagesView_Previews: PreviewProvider {
-    
     static var previews: some View {
         MessagesView()
             .environmentObject(MessagesViewModel())

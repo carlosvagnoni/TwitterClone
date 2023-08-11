@@ -22,7 +22,11 @@ class NotificationRowViewModel: ObservableObject {
             self.senderFullname = senderUser.fullname
         }
         tweetService.fetchTweet(withId: notification.tweetId) { tweet in
-            self.tweet = tweet
+            
+            self.userService.fetchUser(withUid: tweet.uid) { user in
+                self.tweet = tweet
+                self.tweet?.user = user
+            }
         }
     }
     

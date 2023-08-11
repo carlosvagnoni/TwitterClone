@@ -11,12 +11,10 @@ import Firebase
 struct RecentMessage: Identifiable, Decodable, Hashable {
     
     var id: String?
-    
     let senderId: String
     let text: String
     let read: Bool
-    let timestamp: Timestamp
-    
+    let timestamp: Timestamp    
     var receiverUser: User?
     
     func hash(into hasher: inout Hasher) {

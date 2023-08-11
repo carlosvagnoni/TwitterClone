@@ -18,16 +18,12 @@ class DeleteConversationViewModel: ObservableObject {
     }
     
     func deleteConversation() {
-        
         messageService.deleteConversation(receiverId: receiverId) { success in
-            
             
             if success {
                 self.didDeletedConversation = true
             } else {
-                
-                // Show error message...
-                
+                // Show error message...   
             }
         }
     }

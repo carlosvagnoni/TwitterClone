@@ -35,11 +35,11 @@ class MessageService {
                     return
                     
                 }
-
+                
             }
         
         let recipientMessagesRef = Firestore.firestore().collection("messages").document(receiverId).collection(fromId)
-          
+        
         recipientMessagesRef.document()
             .setData(message) { error in
                 
@@ -48,7 +48,7 @@ class MessageService {
                     return
                     
                 }
-
+                
             }
         
         let persistRecentMessagesRef = Firestore.firestore().collection("recent_messages").document(fromId).collection("messages").document(receiverId)
@@ -69,9 +69,7 @@ class MessageService {
             if let error = error {
                 print("Failed to upload persist recent message with error \(error.localizedDescription)")
                 return
-                
             }
-
         }
         
         let recipientPersistRecentMessagesRef = Firestore.firestore().collection("recent_messages").document(receiverId).collection("messages").document(fromId)
@@ -83,59 +81,56 @@ class MessageService {
             if let error = error {
                 print("Failed to upload persist recent message with error \(error.localizedDescription)")
                 return
-                
             }
-
         }
     }
-       
-    func observeMessages(receiverId: String, completion: @escaping ([Message]) -> Void) {
-            guard let fromId = Auth.auth().currentUser?.uid else { return }
-
-            Firestore.firestore().collection("messages").document(fromId).collection(receiverId)
-                .order(by: "timestamp")
-                .addSnapshotListener { querySnapshot, error in
-
-                    if let error = error {
-                        print("Failed to fetch messages with error \(error.localizedDescription)")
-                        completion([])
-                        return
-                    }
-
-                    var messages = [Message]()
-
-                    querySnapshot?.documents.forEach { document in
-                        do {
-                            var message = try Firestore.Decoder().decode(Message.self, from: document.data())
-                            message.id = document.documentID
-                            messages.append(message)
-                        } catch {
-                            print("Failed to decode message: \(error)")
-                        }
-                    }
-
-                    completion(messages)
-                }
-        }
     
-    func fetchRecentMessages(completion: @escaping ([RecentMessage]) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+    func observeMessages(receiverId: String, completion: @escaping ([Message]) -> Void) {
+        guard let fromId = Auth.auth().currentUser?.uid else { return }
         
-        recentMessagesListener?.remove()
-
-        recentMessagesListener = Firestore.firestore().collection("recent_messages").document(uid).collection("messages")
-            .order(by: "timestamp", descending: true)
+        Firestore.firestore().collection("messages").document(fromId).collection(receiverId)
+            .order(by: "timestamp")
             .addSnapshotListener { querySnapshot, error in
-//                    .getDocuments { querySnapshot, error in
-
+                
                 if let error = error {
                     print("Failed to fetch messages with error \(error.localizedDescription)")
                     completion([])
                     return
                 }
-
+                
+                var messages = [Message]()
+                
+                querySnapshot?.documents.forEach { document in
+                    do {
+                        var message = try Firestore.Decoder().decode(Message.self, from: document.data())
+                        message.id = document.documentID
+                        messages.append(message)
+                    } catch {
+                        print("Failed to decode message: \(error)")
+                    }
+                }
+                completion(messages)
+            }
+    }
+    
+    func fetchRecentMessages(completion: @escaping ([RecentMessage]) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        recentMessagesListener?.remove()
+        
+        recentMessagesListener = Firestore.firestore().collection("recent_messages").document(uid).collection("messages")
+            .order(by: "timestamp", descending: true)
+            .addSnapshotListener { querySnapshot, error in
+                //                    .getDocuments { querySnapshot, error in
+                
+                if let error = error {
+                    print("Failed to fetch messages with error \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+                
                 var recentMessages = [RecentMessage]()
-
+                
                 querySnapshot?.documents.forEach { document in
                     do {
                         var recentMessage = try Firestore.Decoder().decode(RecentMessage.self, from: document.data())
@@ -145,7 +140,6 @@ class MessageService {
                         print("Failed to decode recent message: \(error)")
                     }
                 }
-
                 completion(recentMessages)
             }
     }
@@ -153,24 +147,24 @@ class MessageService {
     func removeRecentMessagesListener() {
         recentMessagesListener?.remove()
     }
-
+    
     
     func readConversation(receiverId: String) {
         guard let fromId = Auth.auth().currentUser?.uid else { return }
-
+        
         let recentMessageRef = Firestore.firestore().collection("recent_messages").document(fromId).collection("messages").document(receiverId)
-
+        
         recentMessageRef.getDocument { (document, error) in
             if let error = error {
                 print("Failed to fetch recent message with error \(error.localizedDescription)")
                 return
             }
-
+            
             guard let document = document, document.exists else {
                 print("Recent message not found")
                 return
             }
-
+            
             if let read = document.data()?["read"] as? Bool, !read {
                 recentMessageRef.updateData(["read": true]) { error in
                     if let error = error {
@@ -184,16 +178,16 @@ class MessageService {
             }
         }
     }
-
-       
+    
+    
     func deleteConversation(receiverId: String, completion: @escaping (Bool) -> Void) {
         guard let fromId = Auth.auth().currentUser?.uid else {
             completion(false)
             return
         }
-
+        
         let group = DispatchGroup()
-
+        
         // Delete the sender's messages
         let senderMessagesRef = Firestore.firestore().collection("messages").document(fromId).collection(receiverId)
         group.enter()
@@ -203,7 +197,7 @@ class MessageService {
                 group.leave()
                 return
             }
-
+            
             snapshot?.documents.forEach({ (documentSnapshot) in
                 group.enter()
                 senderMessagesRef.document(documentSnapshot.documentID).delete { (error) in
@@ -215,7 +209,7 @@ class MessageService {
             })
             group.leave()
         }
-
+        
         // Delete the sender's recent messages
         let senderRecentMessagesRef = Firestore.firestore().collection("recent_messages").document(fromId).collection("messages").document(receiverId)
         group.enter()
@@ -225,12 +219,9 @@ class MessageService {
             }
             group.leave()
         }
-
+        
         group.notify(queue: .main) {
             completion(true)
         }
     }
-
-
-
 }

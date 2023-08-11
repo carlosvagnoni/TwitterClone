@@ -54,9 +54,11 @@ struct TweetRowView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     if let isRetweet = isRetweet {
                         if isRetweet {
+                            
                             HStack(alignment: .top, spacing: 9) {
                                 Spacer()
                                     .frame(width: 56)
+                                
                                 HStack(spacing: 5) {
                                     Image(systemName: "arrow.2.squarepath")
                                         .font(.subheadline)
@@ -71,6 +73,7 @@ struct TweetRowView: View {
                             .padding(.bottom, 10)
                         }
                     }
+                    
                     HStack(alignment: .top, spacing: 12) {
                         if let user = tweetRowViewModel.tweet.user {
                             NavigationLink {
@@ -83,6 +86,7 @@ struct TweetRowView: View {
                                     .frame(width: 56, height: 56)
                                     .foregroundColor(Color(.systemBlue))
                             }
+                            
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack(spacing: 2.5) {
                                     Text(user.fullname)
@@ -90,12 +94,14 @@ struct TweetRowView: View {
                                         .truncationMode(.tail)
                                         .lineLimit(1)
                                         .layoutPriority(2)
+                                    
                                     Text(" @\(user.username)")
                                         .foregroundColor(.gray)
                                         .font(.subheadline)
                                         .truncationMode(.tail)
                                         .lineLimit(1)
                                         .layoutPriority(1)
+                                    
                                     Text(" · \(DateFormatterUtils.formatTimestamp(tweetRowViewModel.tweet.timestamp))")
                                         .foregroundColor(.gray)
                                         .font(.subheadline)
@@ -111,7 +117,7 @@ struct TweetRowView: View {
                                             ZStack {
                                                 Rectangle()
                                                     .fill(Color.clear)
-                                                    
+                                                
                                                 Image(systemName: "ellipsis")
                                                     .font(.subheadline)
                                                     .rotationEffect(.degrees(90))
@@ -119,8 +125,7 @@ struct TweetRowView: View {
                                             }
                                         }
                                         .frame(width: 5, height: 18)
-
-                                        
+   
                                     }
                                 }
                                 Text(tweetRowViewModel.tweet.caption)
@@ -148,20 +153,18 @@ struct TweetRowView: View {
                                                 .padding(.top, 8)
                                         }
                                         .frame(maxHeight: 400)
-                                       
-                                        
-                                            
-                                            
+   
                                     }
-                                    
                                 }
                             }
                         } else {
+                            
                             Circle()
                                 .scaledToFill()
                                 .frame(width: 56, height: 56)
                                 .foregroundColor(Color.gray.opacity(0.5))
                                 .modifier(Shimmer())
+                            
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack(spacing: 2.5) {
                                     Rectangle()
@@ -170,12 +173,14 @@ struct TweetRowView: View {
                                         .cornerRadius(5)
                                         .font(.subheadline).bold()
                                         .modifier(Shimmer())
+                                    
                                     Rectangle()
                                         .fill(Color.gray.opacity(0.5))
                                         .frame(height: 8)
                                         .cornerRadius(5)
                                         .font(.subheadline)
                                         .modifier(Shimmer())
+                                    
                                     Rectangle()
                                         .fill(Color.gray.opacity(0.5))
                                         .frame(height: 8)
@@ -183,6 +188,7 @@ struct TweetRowView: View {
                                         .font(.subheadline)
                                         .modifier(Shimmer())
                                 }
+                                
                                 Rectangle()
                                     .fill(Color.gray.opacity(0.5))
                                     .frame(height: 8)
@@ -194,11 +200,13 @@ struct TweetRowView: View {
                             }
                         }
                     }
+                    
                     HStack {
                         HStack {
                         }
                         .frame(width: 56)
                         .padding(.trailing, 3)
+                        
                         HStack {
                             Button {
                                 shouldNavigateToTweetView = true
@@ -210,15 +218,21 @@ struct TweetRowView: View {
                                         .font(.subheadline)
                                 }
                             }
+                            
                             Spacer()
+                            
                             Button {
                                 tweetRowViewModel.tweet.didRetweet ?? false ? tweetRowViewModel.unretweetTweet {
-                                    if !isAlreadyInTweetView {
-                                        InteractionNotifier.shared.retweetInteractionStatus.send()
+                                    Task {
+                                        if !isAlreadyInTweetView {
+                                            InteractionNotifier.shared.retweetInteractionStatus.send()
+                                        }
                                     }
                                 } : tweetRowViewModel.retweetTweet {
-                                    if !isAlreadyInTweetView {
-                                        InteractionNotifier.shared.retweetInteractionStatus.send()
+                                    Task {
+                                        if !isAlreadyInTweetView {
+                                            InteractionNotifier.shared.retweetInteractionStatus.send()
+                                        }
                                     }
                                 }
                                 
@@ -231,7 +245,9 @@ struct TweetRowView: View {
                                 }
                                 .foregroundColor(tweetRowViewModel.tweet.didRetweet ?? false ? .green : .gray)
                             }
+                            
                             Spacer()
+                            
                             Button {
                                 tweetRowViewModel.tweet.didLike ?? false ? tweetRowViewModel.unlikeTweet() : tweetRowViewModel.likeTweet()
                             } label: {
@@ -243,7 +259,9 @@ struct TweetRowView: View {
                                 }
                                 .foregroundColor(tweetRowViewModel.tweet.didLike ?? false ? .red : .gray)
                             }
+                            
                             Spacer()
+                            
                             Button {
                                 tweetRowViewModel.tweet.didBookmark ?? false ? tweetRowViewModel.unbookmarkTweet() : tweetRowViewModel.bookmarkTweet()
                             } label: {
@@ -271,27 +289,16 @@ struct TweetRowView: View {
                 DeleteTweetConfirmationView(tweet: tweetRowViewModel.tweet)
                     .presentationDetents([.fraction(0.25)])
             }
-            
         }
-        
-        
-        
     }
 }
 
 struct TweetRowView_Previews: PreviewProvider {
-
-
-    
-    
     static let tweet = Tweet(caption: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", commentCount: 0, likes: 0, bookmarkCount: 0, retweetCount: 0)
     
     static var previews: some View {
-
-        
-        
+                
         TweetRowView(tweet: tweet)
             .environmentObject(AuthViewModel())
-        
     }
 }

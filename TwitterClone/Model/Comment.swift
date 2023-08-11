@@ -15,7 +15,5 @@ struct Comment: Identifiable, Decodable {
     let comment: String
     let timestamp: Timestamp
     let uid: String
-    
-    var user: User?
-    
+    var user: User?    
 }

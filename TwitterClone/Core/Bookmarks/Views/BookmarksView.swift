@@ -14,11 +14,9 @@ struct BookmarksView: View {
     @ObservedObject var bookmarksViewModel = BookmarksViewModel()
     
     var body: some View {
-        
         VStack {
             
             if bookmarksViewModel.isLoading {
-                
                 VStack {
                     ProgressView()
                         .tint(Color(.systemBlue))
@@ -27,22 +25,15 @@ struct BookmarksView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
     
                 } else {
-                    
                     ScrollView {
-                        
                         LazyVStack {
-                            
                             ForEach(bookmarksViewModel.bookmarkedTweets) { tweet in
                                 
                                 TweetRowView(tweet: tweet)
-                                
                             }
                         }
-                        
                     }
-           
                 }
-            
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Bookmarks")
@@ -50,28 +41,20 @@ struct BookmarksView: View {
         .toolbar {
             
             ToolbarItem(placement: .navigationBarLeading) {
-                
                 Button {
-
                     dismiss()
-
                 } label: {
-
                     Image(systemName: "arrow.left.circle")
                         .resizable()
                         .frame(width: 30, height: 30)
                         .foregroundColor(.gray)
-
                 }
                 .padding(0)
-                
             }
     }
         .toolbarBackground(.visible)
         .onAppear() {
-            
             bookmarksViewModel.fetchBookmarkedTweets()
-            
         }
         .onReceive(InteractionNotifier.shared.bookmarkInteractionStatus) { _ in
             bookmarksViewModel.fetchBookmarkedTweets()
@@ -84,10 +67,7 @@ struct BookmarksView: View {
 }
 
 struct BookmarksView_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
-        BookmarksView()
-        
+        BookmarksView()        
     }
 }

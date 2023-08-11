@@ -13,6 +13,7 @@ class NotificationService {
         let receiverId = tweet.uid
         
         if senderId == receiverId {
+            completion(false)
             return
         }
         
@@ -30,9 +31,7 @@ class NotificationService {
                     print("Failed to upload notification with error \(error.localizedDescription)")
                     completion(false)
                     return
-                    
                 }
-                
                 completion(true)
             }
     }
@@ -79,11 +78,7 @@ class NotificationService {
                 }
                 
                 let notifications = documents.compactMap({ try? $0.data(as: Notification.self) })
-                
                 completion(notifications)
-                
             }
-    }
-    
-    
+    }    
 }

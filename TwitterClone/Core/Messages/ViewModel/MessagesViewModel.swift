@@ -11,7 +11,7 @@ import Firebase
 class MessagesViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var recentMessages = [RecentMessage]()
-
+    
     var currentConversationUserId: String?
     
     let messageService = MessageService()
@@ -29,26 +29,23 @@ class MessagesViewModel: ObservableObject {
         messageService.fetchRecentMessages { recentMessages in
             self.userService.fetchAndAssignUsersToRecentMessages(recentMessages: recentMessages) { updatedRecentMessages in
                 DispatchQueue.main.async {
-
+                    
                     for recentMessage in updatedRecentMessages {
                         if let user = recentMessage.receiverUser {
                             if user.id == self.currentConversationUserId {
-
+                                
                                 self.messageService.readConversation(receiverId: user.id!)
                             }
                         }
-
                     }
-
                     self.recentMessages = updatedRecentMessages
                     self.isLoading = false
-               }
+                }
             }
         }
     }
     
     func readConversation(receiverID: String) {
         messageService.readConversation(receiverId: receiverID)
-    }
-    
+    }    
 }

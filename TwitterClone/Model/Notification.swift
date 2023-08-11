@@ -23,23 +23,23 @@ struct Notification: Identifiable, Decodable, Equatable {
 
 
 enum NotificationType: String, Decodable {
-case comment
-case retweet
-case like
-case bookmark
+    case comment
+    case retweet
+    case like
+    case bookmark
     
     var imageName: String {
-            switch self {
-            case .comment:
-                return "bubble.left.fill"
-            case .retweet:
-                return "arrow.2.squarepath"
-            case .like:
-                return "heart.fill"
-            case .bookmark:
-                return "bookmark.fill"
-            }
+        switch self {
+        case .comment:
+            return "bubble.left.fill"
+        case .retweet:
+            return "arrow.2.squarepath"
+        case .like:
+            return "heart.fill"
+        case .bookmark:
+            return "bookmark.fill"
         }
+    }
     
     var imageColor: Color {
         switch self {
@@ -55,16 +55,16 @@ case bookmark
     }
     
     var message: String {
-            switch self {
-            case .comment:
-                return "has commented on your tweet."
-            case .retweet:
-                return "has retweeted your tweet."
-            case .like:
-                return "has liked your tweet"
-            case .bookmark:
-                return "has bookmarked your tweet."
-            }
+        switch self {
+        case .comment:
+            return "has commented on your tweet."
+        case .retweet:
+            return "has retweeted your tweet."
+        case .like:
+            return "has liked your tweet"
+        case .bookmark:
+            return "has bookmarked your tweet."
         }
+    }
 }
 

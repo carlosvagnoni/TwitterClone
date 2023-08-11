@@ -14,11 +14,9 @@ struct ConversationView: View {
     
     @State var selectedItem: PhotosPickerItem?
     @State private var newMessage = ""
-    
     @State private var selectedPhoto: UIImage?
     @State private var isVideoProcessing: Bool = false
     @State private var isMessageBeingUploaded: Bool? = false
-    
     @State private var selectedVideoUrl: URL?
     @State private var selectedVideoData: Data?
     @State private var mediaType: MediaType?
@@ -30,9 +28,9 @@ struct ConversationView: View {
     @StateObject var conversationViewModel: ConversationViewModel
     
     
-        init (receiverUser: User) {
-            self._conversationViewModel = StateObject(wrappedValue: ConversationViewModel(receiverUser: receiverUser))
-        }
+    init (receiverUser: User) {
+        self._conversationViewModel = StateObject(wrappedValue: ConversationViewModel(receiverUser: receiverUser))
+    }
     
     var body: some View {
         
@@ -75,22 +73,17 @@ struct ConversationView: View {
                         }
                     }
                     .padding(.top, 12)
-
-
-                    
                     
                     HStack(alignment: .top) {
                         PhotosPicker(selection: $selectedItem,
                                      matching: .any(of: [.images, .videos])
-    //                                 matching: .images
+                                     //                                 matching: .images
                         ) {
-                            
                             Image(systemName: "photo.on.rectangle")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 25)
                                 .foregroundColor(Color(.systemBlue))
-                            
                         }
                         .padding(.top, 10)
                         
@@ -125,12 +118,11 @@ struct ConversationView: View {
                                                 .padding(.horizontal, 24)
                                                 .padding(.vertical, 12)
                                             }
-
                                         }
                                         .frame(maxHeight: 250)
                                         
-                                        
                                     }
+                                    
                                 case .video:
                                     ZStack(alignment: .topLeading) {
                                         if let selectedVideoUrl {
@@ -139,7 +131,7 @@ struct ConversationView: View {
                                             }
                                             .frame(maxHeight: 400)
                                             .padding(.horizontal, 12)
-                                                
+                                            
                                             Button {
                                                 self.selectedVideoUrl = nil
                                                 self.mediaType = nil
@@ -158,6 +150,7 @@ struct ConversationView: View {
                                                 .padding(.vertical, 12)
                                             }
                                         }
+                                        
                                         if isVideoProcessing {
                                             Rectangle()
                                                 .fill(.ultraThinMaterial)
@@ -170,9 +163,8 @@ struct ConversationView: View {
                                     .frame(maxHeight: 250)
                                 }
                             }
-
+                            
                         }
-                        
                         
                         Spacer()
                         
@@ -221,14 +213,13 @@ struct ConversationView: View {
                             .padding(.top, 6)
                         }
                         
-
                     }
                     .padding(12)
                     .background(Color.gray.opacity(0.15))
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .padding(.horizontal, 12)
                     .padding(.top, 5)
-
+                    
                 }
             }
             
@@ -238,27 +229,21 @@ struct ConversationView: View {
                 ProgressView()
                     .tint(Color(.systemBlue))
                     .scaleEffect(2)
-           }
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             
             ToolbarItem(placement: .navigationBarLeading) {
-                
                 HStack {
-
                     Button {
-
                         dismiss()
-
                     } label: {
-
                         Image(systemName: "arrow.left.circle")
                             .resizable()
                             .frame(width: 30, height: 30)
                             .foregroundColor(.gray)
-
                     }
                     
                     NavigationLink {
@@ -273,15 +258,8 @@ struct ConversationView: View {
                     
                     Text(conversationViewModel.receiverUser.fullname)
                         .font(.headline)
-                                  
                 }
-                
-                
-                
-                
-                
-            }
-            
+            }            
         }
         .toolbarBackground(.visible)
         .onChange(of: selectedItem) { newItem in
@@ -315,10 +293,10 @@ struct ConversationView: View {
         .onAppear {
             messagesViewModel.currentConversationUserId = conversationViewModel.receiverUser.id
             
-            }
-            .onDisappear {
-                messagesViewModel.currentConversationUserId = nil
-            }
+        }
+        .onDisappear {
+            messagesViewModel.currentConversationUserId = nil
+        }
     }
 }
 

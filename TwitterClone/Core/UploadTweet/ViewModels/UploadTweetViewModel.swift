@@ -8,36 +8,12 @@
 import Foundation
 import SwiftUI
 
-//class UploadTweetViewModel: ObservableObject {
-//
-//    @Published var didUploadTweet = false
-//
-//    let tweetService = TweetService()
-//
-//    func uploadTweet(withCaption caption: String) {
-//
-//        tweetService.uploadTweet(caption: caption) { success in
-//
-//            if success {
-//
-//                self.didUploadTweet = true
-//
-//            } else {
-//
-//                // Show error message...
-//
-//            }
-//        }
-//
-//    }
-//}
-
 class UploadTweetViewModel: ObservableObject {
-
+    
     @Published var didUploadTweet = false
-
+    
     let tweetService = TweetService()
-
+    
     func uploadTweet(caption: String, image: UIImage? = nil, videoData: Data? = nil, completion: @escaping (Bool) -> Void) {
         
         if let image = image {
@@ -74,8 +50,7 @@ class UploadTweetViewModel: ObservableObject {
                     completion(false)
                 }
             }
-        }
-        
+        }        
     }
 }
 

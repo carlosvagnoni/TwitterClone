@@ -22,9 +22,7 @@ struct MessageRecipientListView: View {
                 SearchBar(text: $messageRecipientListViewModel.searchText)
                     .padding(.top, 10)
                 
-                
                 ScrollView {
-                    
                     LazyVStack(spacing: 0) {
                         let usersToShow = messageRecipientListViewModel.searchText.isEmpty ? messageRecipientListViewModel.users : messageRecipientListViewModel.searchableUsers
                         
@@ -36,42 +34,27 @@ struct MessageRecipientListView: View {
                             } label: {
                                 UserRowView(user: user)
                             }
- 
                         }
-                        
                     }
-                    
-                    
-                    
                 }
             }
-        .navigationTitle("New message")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            
-            ToolbarItem(placement: .navigationBarLeading) {
-                
-                Button {
-                    
-                    dismiss()
-                    
-                } label: {
-                    
-                    Image(systemName: "arrow.left.circle")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.gray)
-                    
+            .navigationTitle("New message")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "arrow.left.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(0)
                 }
-                .padding(0)
-                
             }
         }
-    }
-        
-        
-        
     }
 }
 

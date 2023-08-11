@@ -17,13 +17,9 @@ class UserService {
             .getDocument { snapshot, _ in
                 
                 guard let snapshot = snapshot else { return }
-                
                 guard let user = try? snapshot.data(as: User.self) else { return }
-                
                 completion(user)
-
             }
-        
     }
     
     func fetchUsers(completion: @escaping([User]) -> Void) {
@@ -32,18 +28,12 @@ class UserService {
             .getDocuments { snapshot, _ in
                 
                 guard let documents = snapshot?.documents else { return }
-                
                 documents.forEach { document in
                     
                     guard let user = try? document.data(as: User.self) else { return }
-                    
                     let users = documents.compactMap({ try? $0.data(as: User.self) })
-                    
                     completion(users)
                 }
-                
-                
-                
             }
     }
     
@@ -61,23 +51,22 @@ class UserService {
                 dispatchGroup.leave()
             }
         }
-
+        
         dispatchGroup.notify(queue: .main) {
             completion(usersDict)
         }
     }
-
     
     func fetchUsersWithRetweets(completion: @escaping([User]) -> Void) {
         Firestore.firestore().collection("users").getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
-
+            
             var usersWithRetweets: [User] = []
             let group = DispatchGroup()
-
+            
             for document in documents {
                 group.enter()
-
+                
                 guard let user = try? document.data(as: User.self), let userId = user.id else {
                     group.leave()
                     continue
@@ -102,6 +91,36 @@ class UserService {
         }
     }
     
+    func fetchAndAssignUsersToTweets(tweets: [Tweet], completion: @escaping ([Tweet]) -> Void) {
+        let uids = tweets.map { $0.uid }
+
+        self.fetchUsers(withUids: uids) { usersDict in
+            var updatedTweets = tweets
+            for index in updatedTweets.indices {
+                let uid = updatedTweets[index].uid
+                if let user = usersDict[uid] {
+                    updatedTweets[index].user = user
+                }
+            }
+            completion(updatedTweets)
+        }
+    }
+    
+    func fetchAndAssignUsersToTweetsData(tweetsData: [TweetData], completion: @escaping ([TweetData]) -> Void) {
+        let uids = tweetsData.map { $0.tweet.uid }
+        
+        self.fetchUsers(withUids: uids) { usersDict in
+            var updatedTweetsData = tweetsData
+            for index in updatedTweetsData.indices {
+                let uid = updatedTweetsData[index].tweet.uid
+                if let user = usersDict[uid] {
+                    updatedTweetsData[index].tweet.user = user
+                }
+            }
+            completion(updatedTweetsData)
+        }
+    }
+    
     func fetchAndAssignUsersToRecentMessages(recentMessages: [RecentMessage], completion: @escaping ([RecentMessage]) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         let otherUserIds = recentMessages.compactMap { $0.id }
@@ -116,9 +135,5 @@ class UserService {
             }
             completion(updatedRecentMessages)
         }
-    }
-
-    
-    
-    
+    } 
 }

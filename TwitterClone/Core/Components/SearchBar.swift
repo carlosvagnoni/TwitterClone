@@ -14,7 +14,6 @@ struct SearchBar: View {
     var body: some View {
         
         HStack {
-            
             TextField("Search...", text: $text)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled(true)
@@ -23,16 +22,13 @@ struct SearchBar: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .overlay(
-                
+                    
                     HStack {
-                        
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
-                        
                     }
-                    
                 )
         }
         .padding(.horizontal, 12)
@@ -41,11 +37,8 @@ struct SearchBar: View {
 }
 
 struct SearchBar_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
         SearchBar(text: .constant(""))
-            .previewLayout(.sizeThatFits)
-        
+            .previewLayout(.sizeThatFits)        
     }
 }

@@ -25,7 +25,7 @@ struct DeleteConversationView: View {
             
             HStack {
                 Button {
-                        deleteConversationViewModel.deleteConversation()
+                    deleteConversationViewModel.deleteConversation()
                 } label: {
                     Text("Yes")
                         .frame(minWidth: 120)
@@ -36,7 +36,6 @@ struct DeleteConversationView: View {
                         .background(Color(.systemBlue))
                         .clipShape(Capsule())
                 }
-                
                 
                 Button {
                     dismiss()
@@ -56,19 +55,14 @@ struct DeleteConversationView: View {
                 }
             }
         }
-        .onReceive(deleteConversationViewModel.$didDeletedConversation) { successVIEW in
-
-            if successVIEW {
+        .onReceive(deleteConversationViewModel.$didDeletedConversation) { success in
+            
+            if success {
                 dismiss()
-                
             } else {
-                
                 // Handle error here...
-                
             }
-        }
-        
-        
+        }        
     }
 }
 

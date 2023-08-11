@@ -10,8 +10,7 @@ import Kingfisher
 
 struct SideMenuView: View {
     
-    @EnvironmentObject var messagesViewModel: MessagesViewModel
-    
+    @EnvironmentObject var messagesViewModel: MessagesViewModel    
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
@@ -19,14 +18,13 @@ struct SideMenuView: View {
         if let user = authViewModel.currentUser {
             
             VStack(alignment: .leading) {
-                
                 VStack(alignment: .leading, spacing: 12) {
                     
                     KFImage(URL(string: user.profilePhotoUrl))
                         .resizable()
                         .scaledToFill()
                         .clipShape(Circle())
-                    .frame(width: 48, height: 48)
+                        .frame(width: 48, height: 48)
                     
                     VStack(alignment: .leading, spacing: 4) {
                         
@@ -36,11 +34,8 @@ struct SideMenuView: View {
                         Text("@\(user.username)")
                             .font(.caption)
                             .foregroundColor(.gray)
-                        
                     }
-                    
                     UserStatsView()
-                    
                 }
                 
                 Divider()
@@ -50,67 +45,44 @@ struct SideMenuView: View {
                 ForEach(SideMenuViewModel.allCases, id: \.rawValue) { option in
                     
                     if option == .profile {
-                        
                         NavigationLink {
-                            
                             ProfileView(user: user)
-                            
                         } label: {
-                            
                             SideMenuRowView(sideMenuViewModel: option)
-                            
-                        }	
-                        
+                        }
                     } else if option == .logout {
-                        
                         Button {
                             Task {
                                 authViewModel.signOut()
                             }
                             
-                            
                         } label: {
-                            
                             SideMenuRowView(sideMenuViewModel: option)
                                 .foregroundColor(.primary)
-                            
                         }
                         
                     } else if option == .bookmarks {
                         
                         NavigationLink {
-                            
                             BookmarksView()
-                            
                         } label: {
-                            
                             SideMenuRowView(sideMenuViewModel: option)
-                            
                         }
-                        
                     } else {
-                        
                         SideMenuRowView(sideMenuViewModel: option)
-                        
                     }
-                    
                 }
                 
                 Spacer()
             }
             .padding(.horizontal, 20)
-            
         }
-        
     }
 }
 
 struct SideMenuView_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
         SideMenuView()
             .environmentObject(AuthViewModel())
-        
     }
 }

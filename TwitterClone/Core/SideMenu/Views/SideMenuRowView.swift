@@ -11,26 +11,19 @@ struct SideMenuRowView: View {
     
     let sideMenuViewModel: SideMenuViewModel
     
-    var body: some View {
-        
+    var body: some View {        
         HStack {
-            
             Image(systemName: sideMenuViewModel.imageName)
             
             Text(sideMenuViewModel.title)
-            
         }
         .foregroundColor(.primary)
         .frame(height: 40)
-        
     }
 }
 
 struct SideMenuRowView_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
         SideMenuRowView(sideMenuViewModel: .profile)
-        
     }
 }

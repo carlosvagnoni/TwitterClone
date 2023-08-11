@@ -26,7 +26,6 @@ class TweetViewModel: ObservableObject {
         
         commentService.uploadComment(tweetId: tweetId, comment: comment) { success, updatedCommentCount in
             if success {
-                
                 self.tweet.commentCount = updatedCommentCount
                 self.didUploadComment = true
                 self.notificationService.uploadNotification(tweet: self.tweet, notificationType: .comment) { success in
@@ -38,9 +37,7 @@ class TweetViewModel: ObservableObject {
                 }
                 
             } else {
-                
                 // Show error message...
-                
             }
         }
     }
@@ -49,13 +46,11 @@ class TweetViewModel: ObservableObject {
         isLoading = true
         
         guard let tweetId = tweet.id else { return }
-        
         commentService.fetchComments(tweetId: tweetId) { comments in
             DispatchQueue.main.async {
                 self.comments = comments
                 self.isLoading = false
             }
         }
-    }
-    
+    }    
 }

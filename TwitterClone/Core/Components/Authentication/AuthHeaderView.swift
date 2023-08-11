@@ -13,13 +13,10 @@ struct AuthHeaderView: View {
     let title2: String
     
     var body: some View {
-        
         VStack(alignment: .leading) {
             
             HStack {
-                
                 VStack(alignment: .leading, spacing: 0) {
-                    
                     
                     Text(title1)
                         .font(.largeTitle)
@@ -28,30 +25,22 @@ struct AuthHeaderView: View {
                     Text(title2)
                         .font(.largeTitle)
                         .fontWeight(.semibold)
-                    
                 }
                 .padding(.leading, 12)
                 
                 Spacer()
-                    
             }
-
-            
         }
         .foregroundColor(.white)
         .frame(height: 260)
         .frame(maxWidth: .infinity)
         .background(Color(.systemBlue))
         .clipShape(RoundedShape(corners: [.bottomRight]))
-        
     }
 }
 
 struct AuthHeaderView_Previews: PreviewProvider {
-    
     static var previews: some View {
-        
-        AuthHeaderView(title1: "Hello.", title2: "Welcome Back")
-        
+        AuthHeaderView(title1: "Hello.", title2: "Welcome Back")       
     }
 }

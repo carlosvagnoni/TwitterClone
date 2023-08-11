@@ -15,7 +15,6 @@ struct UserRowView: View {
     var body: some View {
         
         HStack {
-            
             KFImage(URL(string: user.profilePhotoUrl))
                 .resizable()
                 .scaledToFill()
@@ -23,7 +22,6 @@ struct UserRowView: View {
                 .frame(width: 48, height: 48)
             
             VStack(alignment: .leading, spacing: 4) {
-                
                 Text(user.fullname)
                     .font(.subheadline).bold()
                     .foregroundColor(.primary)
@@ -31,14 +29,12 @@ struct UserRowView: View {
                 Text("@\(user.username)")
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                
             }
             
             Spacer()
             
         }
-        .padding(12)
-        
+        .padding(12)        
     }
 }
 
