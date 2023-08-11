@@ -78,7 +78,7 @@ struct MessageRowView: View {
 
 struct MessageRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageRowView(message: Message(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non mi viverra, pellentesque enim sit amet, viverra sapien. Phasellus nec ultricies odio. Donec sit amet lorem nulla.", senderId: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", timestamp: Timestamp(date: Date())))
+        MessageRowView(message: Message.MOCK_MESSAGE)
             .environmentObject(AuthViewModel())
     }
 }

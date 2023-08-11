@@ -294,11 +294,10 @@ struct TweetRowView: View {
 }
 
 struct TweetRowView_Previews: PreviewProvider {
-    static let tweet = Tweet(caption: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", commentCount: 0, likes: 0, bookmarkCount: 0, retweetCount: 0)
     
     static var previews: some View {
                 
-        TweetRowView(tweet: tweet)
+        TweetRowView(tweet: Tweet.MOCK_TWEET)
             .environmentObject(AuthViewModel())
     }
 }

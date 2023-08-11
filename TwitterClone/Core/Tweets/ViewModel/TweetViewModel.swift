@@ -15,9 +15,15 @@ class TweetViewModel: ObservableObject {
     
     let commentService = CommentService()
     let notificationService = NotificationService()
+    let userService = UserService()
     
     init(tweet: Tweet) {
         self.tweet = tweet
+        if tweet.user == nil {
+            userService.fetchUser(withUid: tweet.uid) { user in
+                self.tweet.user = user
+            }
+        }
         fetchComments()
     }
     
@@ -47,10 +53,13 @@ class TweetViewModel: ObservableObject {
         
         guard let tweetId = tweet.id else { return }
         commentService.fetchComments(tweetId: tweetId) { comments in
-            DispatchQueue.main.async {
-                self.comments = comments
-                self.isLoading = false
+            self.userService.fetchAndAssignUsersToComments(comments: comments) { updatedComments in
+                DispatchQueue.main.async {
+                    self.comments = updatedComments
+                    self.isLoading = false
+                }
             }
+            
         }
     }    
 }

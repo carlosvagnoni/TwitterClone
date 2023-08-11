@@ -57,6 +57,22 @@ class UserService {
         }
     }
     
+    func fetchAndAssignFullnameToNotifications(notifications: [Notification], completion: @escaping ([Notification]) -> Void) {
+        let senderIds = notifications.map { $0.senderId }
+
+        self.fetchUsers(withUids: senderIds) { usersDict in
+            var updatedNotifications = notifications
+            for index in updatedNotifications.indices {
+                let senderId = updatedNotifications[index].senderId
+                if let user = usersDict[senderId] {
+                    updatedNotifications[index].senderFullname = user.fullname
+                }
+            }
+            completion(updatedNotifications)
+        }
+    }
+
+    
     func fetchUsersWithRetweets(completion: @escaping([User]) -> Void) {
         Firestore.firestore().collection("users").getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
@@ -120,6 +136,22 @@ class UserService {
             completion(updatedTweetsData)
         }
     }
+    
+    func fetchAndAssignUsersToComments(comments: [Comment], completion: @escaping ([Comment]) -> Void) {
+        let uids = comments.map { $0.uid }
+
+        self.fetchUsers(withUids: uids) { usersDict in
+            var updatedComments = comments
+            for index in updatedComments.indices {
+                let uid = updatedComments[index].uid
+                if let user = usersDict[uid] {
+                    updatedComments[index].user = user
+                }
+            }
+            completion(updatedComments)
+        }
+    }
+
     
     func fetchAndAssignUsersToRecentMessages(recentMessages: [RecentMessage], completion: @escaping ([RecentMessage]) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }

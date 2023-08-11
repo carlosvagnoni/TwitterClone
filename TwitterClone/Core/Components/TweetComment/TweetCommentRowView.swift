@@ -10,18 +10,15 @@ import Kingfisher
 import Firebase
 
 struct TweetCommentRowView: View {
-    @ObservedObject var tweetCommentRowViewModel: TweetCommentRowViewModel
     
-    init(comment: Comment) {
-        self.tweetCommentRowViewModel = TweetCommentRowViewModel(comment: comment)
-    }
+    var comment: Comment
     
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top, spacing: 12) {
                     
-                    if let user = tweetCommentRowViewModel.comment.user {
+                    if let user = comment.user {
                         
                         //Profile Image
                         KFImage(URL(string: user.profilePhotoUrl))
@@ -50,7 +47,7 @@ struct TweetCommentRowView: View {
                                     .lineLimit(1)
                                     .layoutPriority(1)
                                 
-                                Text(" · \(DateFormatterUtils.formatTimestamp(tweetCommentRowViewModel.comment.timestamp))")
+                                Text(" · \(DateFormatterUtils.formatTimestamp(comment.timestamp))")
                                     .foregroundColor(.gray)
                                     .font(.subheadline)
                                     .lineLimit(1)
@@ -60,7 +57,7 @@ struct TweetCommentRowView: View {
                             }
                             
                             //Comment
-                            Text(tweetCommentRowViewModel.comment.comment)
+                            Text(comment.comment)
                                 .font(.subheadline)
                                 .multilineTextAlignment(.leading)
                         }
@@ -123,9 +120,8 @@ struct TweetCommentRowView: View {
 }
 
 struct TweetCommentRowView_Previews: PreviewProvider {
-    static let comment = Comment(comment: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1")
     
     static var previews: some View {
-        TweetCommentRowView(comment: comment)
+        TweetCommentRowView(comment: Comment.MOCK_COMMENT)
     }
 }

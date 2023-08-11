@@ -12,6 +12,8 @@ class NotificationsViewModel: ObservableObject {
     @Published var isLoading = false
     
     let notificationService = NotificationService()
+    let userService = UserService()
+    let tweetService = TweetService()
     
     init() {
         fetchNotifications()
@@ -21,10 +23,16 @@ class NotificationsViewModel: ObservableObject {
         isLoading = true
         
         notificationService.fetchNotifications { notifications in
-            DispatchQueue.main.async {
-                self.notifications = notifications
-                self.isLoading = false
+            self.userService.fetchAndAssignFullnameToNotifications(notifications: notifications) { updatedNotifications in
+                self.tweetService.fetchAndAssignTweetsToNotifications(notifications: updatedNotifications) { fullNotifications in
+                    DispatchQueue.main.async {
+                        self.notifications = fullNotifications
+                        self.isLoading = false
+                    }
+                }
+                
             }
+            
         }
     }
 }

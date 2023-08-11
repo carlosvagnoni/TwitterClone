@@ -17,3 +17,7 @@ struct Comment: Identifiable, Decodable {
     let uid: String
     var user: User?    
 }
+
+extension Comment {
+    static let MOCK_COMMENT = Comment(comment: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", user: User.MOCK_USER)
+}

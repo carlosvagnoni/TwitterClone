@@ -30,6 +30,7 @@ struct TwitterCloneApp: App {
             .environmentObject(feedViewModel)
             .environmentObject(notificationViewModel)
             .environmentObject(messagesViewModel)
+            .navigationViewStyle(StackNavigationViewStyle())
                    
         }
     }

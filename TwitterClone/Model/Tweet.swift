@@ -31,3 +31,7 @@ enum MediaType: String, Decodable {
     case image
     case video
 }
+
+extension Tweet {
+    static let MOCK_TWEET = Tweet(caption: "Prueba", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", commentCount: 0, likes: 0, bookmarkCount: 0, retweetCount: 0, user: User.MOCK_USER)
+}

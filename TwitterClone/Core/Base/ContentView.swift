@@ -12,20 +12,34 @@ struct ContentView: View {
     
     @State private var showMenu = false
     @State private var userSessionChanged = false
+    @State var isActive: Bool = false
     
     @EnvironmentObject var authViewModel: AuthViewModel
     
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        Group {
-            
-            if authViewModel.userSession == nil {
-                LoginView()
-            } else {
-                mainInterfaceView
-            }
-            
+        Group {            
+            VStack {
+                        if self.isActive {
+                            
+                            if authViewModel.userSession == nil {
+                                LoginView()
+                            } else {
+                                mainInterfaceView
+                            }
+                            
+                        } else {
+                            SplashScreenView()
+                        }
+                    }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            withAnimation {
+                                self.isActive = true
+                            }
+                        }
+                    }
         }
         .onReceive(authViewModel.$userSession) { _ in
             userSessionChanged.toggle()
@@ -80,8 +94,12 @@ extension ContentView {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        ContentView()
-            .environmentObject(AuthViewModel())
+        NavigationView {
+            ContentView()                
+        }
+        .environmentObject(AuthViewModel())
+        .environmentObject(FeedViewModel())
+        .environmentObject(NotificationsViewModel())
+        .environmentObject(MessagesViewModel())
     }
 }

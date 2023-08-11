@@ -137,6 +137,42 @@ class TweetService {
                 completion(tweet)
             }
     }
+    
+    func fetchAndAssignTweetsToNotifications(notifications: [Notification], completion: @escaping ([Notification]) -> Void) {
+        let tweetIds = notifications.map { $0.tweetId }
+        
+        fetchTweetsWithIds(tweetIds) { tweetsDict in
+            var updatedNotifications = notifications
+            for index in updatedNotifications.indices {
+                let tweetId = updatedNotifications[index].tweetId
+                if let tweet = tweetsDict[tweetId] {
+                    updatedNotifications[index].tweet = tweet
+                }
+            }
+            completion(updatedNotifications)
+        }
+    }
+
+    func fetchTweetsWithIds(_ ids: [String], completion: @escaping ([String: Tweet]) -> Void) {
+        let tweetsRef = Firestore.firestore().collection("tweets")
+        let dispatchGroup = DispatchGroup()
+        var tweetsDict = [String: Tweet]()
+        
+        for id in ids {
+            dispatchGroup.enter()
+            tweetsRef.document(id).getDocument { snapshot, _ in
+                if let snapshot = snapshot, let tweet = try? snapshot.data(as: Tweet.self) {
+                    tweetsDict[id] = tweet
+                }
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion(tweetsDict)
+        }
+    }
+
 }
 
 // MARK: - likes

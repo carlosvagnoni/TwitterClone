@@ -38,11 +38,9 @@ struct UserRowView: View {
     }
 }
 
-//struct UserRowView_Previews: PreviewProvider {
-//    
-//    static var previews: some View {
-//        
-//        UserRowView()
-//        
-//    }
-//}
+struct UserRowView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UserRowView(user: User.MOCK_USER)        
+    }
+}

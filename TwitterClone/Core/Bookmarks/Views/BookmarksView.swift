@@ -68,6 +68,8 @@ struct BookmarksView: View {
 
 struct BookmarksView_Previews: PreviewProvider {
     static var previews: some View {
-        BookmarksView()        
+        NavigationView {
+            BookmarksView()
+        }
     }
 }

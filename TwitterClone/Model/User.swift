@@ -25,3 +25,7 @@ struct User: Identifiable, Decodable, Hashable {
         }
     }
 }
+
+extension User {
+    static let MOCK_USER = User(username: "charles_leclerc", fullname: "Charles Leclerc", profilePhotoUrl: "https://firebasestorage.googleapis.com:443/v0/b/twitterclone-39f99.appspot.com/o/profile_image%2FFDD2CFDA-BAF3-4CE7-8930-70F22E90B369?alt=media&token=4deeecea-34a8-4857-a23d-88db16ce8801", email: "charlesleclerc@mail.com")
+}

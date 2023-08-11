@@ -23,3 +23,7 @@ struct RecentMessage: Identifiable, Decodable, Hashable {
         }
     }
 }
+
+extension RecentMessage {
+    static let MOCK_RECENTMESSAGE = RecentMessage(senderId: "Mpkv6Jxr0odghQj9oh58FKZSuXj1", text: "Prueba", read: false, timestamp: Timestamp(date: Date()), receiverUser: User.MOCK_USER)
+}

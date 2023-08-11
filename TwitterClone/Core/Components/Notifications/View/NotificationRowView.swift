@@ -27,7 +27,7 @@ struct NotificationRowView: View {
                 }
                 
                 VStack(spacing: 0) {
-                    if let tweet = notificationRowViewModel.tweet {
+                    if let tweet = notificationRowViewModel.notification.tweet {
                         NavigationLink(destination: TweetView(tweet: tweet), isActive: $navigateToTweetView) {
                             EmptyView()
                         }
@@ -47,7 +47,7 @@ struct NotificationRowView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack(spacing: 2.5) {
                                     
-                                    Text("\(notificationRowViewModel.senderFullname) \(notificationRowViewModel.notification.notificationType.message)")
+                                    Text("\(notificationRowViewModel.notification.senderFullname!) \(notificationRowViewModel.notification.notificationType.message)")
                                         .font(.subheadline)
                                         .multilineTextAlignment(.leading)
                                         .bold(notificationRowViewModel.notification.read ? false : true)
@@ -78,10 +78,8 @@ struct NotificationRowView: View {
     }
 }
 
-struct NotificationRowView_Previews: PreviewProvider {
-    static let notification = Notification(senderId: "7EeGLcXRW0XyRlZ6amZUeZjmfav2", receiverId: "Mpkv6Jxr0odghQj9oh58FKZSuXj1", notificationType: .like, tweetId: "aodHpKPkuOfRuioQzAdI", read: false, timestamp: Timestamp(date: Date()))
-    
+struct NotificationRowView_Previews: PreviewProvider {    
     static var previews: some View {
-        NotificationRowView(notification: notification)
+        NotificationRowView(notification: Notification.MOCK_NOTIFICATION)
     }
 }

@@ -49,7 +49,6 @@
 		DD7412CB2A7E6B91005900B0 /* DeleteConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7412CA2A7E6B91005900B0 /* DeleteConversationView.swift */; };
 		DD76E1172A542EB100B9BC01 /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1162A542EB100B9BC01 /* TweetViewModel.swift */; };
 		DD76E1192A542EBF00B9BC01 /* TweetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1182A542EBF00B9BC01 /* TweetView.swift */; };
-		DD76E11E2A542FA700B9BC01 /* TweetCommentRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E11D2A542FA700B9BC01 /* TweetCommentRowViewModel.swift */; };
 		DD76E1202A542FB600B9BC01 /* TweetCommentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E11F2A542FB600B9BC01 /* TweetCommentRowView.swift */; };
 		DD76E1222A54335300B9BC01 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1212A54335300B9BC01 /* Comment.swift */; };
 		DD76E1242A54358700B9BC01 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76E1232A54358700B9BC01 /* CommentService.swift */; };
@@ -74,6 +73,7 @@
 		DDC380882A40E39800E6D088 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC380872A40E39800E6D088 /* ProfileViewModel.swift */; };
 		DDC3BAA12A7B4CB000A6683E /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3BAA02A7B4CB000A6683E /* RecentMessage.swift */; };
 		DDD191042A3921F10097F2E8 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD191032A3921F10097F2E8 /* UserService.swift */; };
+		DDD2F51E2A866671007F94F5 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD2F51D2A866671007F94F5 /* SplashScreenView.swift */; };
 		DDD6B3922A3132A700A99749 /* CustomSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD6B3912A3132A700A99749 /* CustomSecureField.swift */; };
 		DDD6B3952A313E2300A99749 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD6B3942A313E2300A99749 /* AuthHeaderView.swift */; };
 		DDDC44BC2A48BAF100864362 /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDC44BB2A48BAF100864362 /* MainTabViewModel.swift */; };
@@ -127,7 +127,6 @@
 		DD7412CA2A7E6B91005900B0 /* DeleteConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConversationView.swift; sourceTree = "<group>"; };
 		DD76E1162A542EB100B9BC01 /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
 		DD76E1182A542EBF00B9BC01 /* TweetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetView.swift; sourceTree = "<group>"; };
-		DD76E11D2A542FA700B9BC01 /* TweetCommentRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCommentRowViewModel.swift; sourceTree = "<group>"; };
 		DD76E11F2A542FB600B9BC01 /* TweetCommentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCommentRowView.swift; sourceTree = "<group>"; };
 		DD76E1212A54335300B9BC01 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DD76E1232A54358700B9BC01 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
@@ -150,7 +149,9 @@
 		DDB487532A3BCD4700459789 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		DDC380872A40E39800E6D088 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DDC3BAA02A7B4CB000A6683E /* RecentMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
+		DDC3C6FE2A86B25B005BF555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DDD191032A3921F10097F2E8 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		DDD2F51D2A866671007F94F5 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		DDD6B3912A3132A700A99749 /* CustomSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureField.swift; sourceTree = "<group>"; };
 		DDD6B3942A313E2300A99749 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
 		DDDC44BB2A48BAF100864362 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
@@ -316,6 +317,7 @@
 				DD3178512A2800560095AB30 /* Service */,
 				DDDC44BF2A48C7B600864362 /* Utils */,
 				DD6775972A33E29200202AA2 /* GoogleService-Info.plist */,
+				DDC3C6FE2A86B25B005BF555 /* Info.plist */,
 				DD3178462A2800020095AB30 /* Assets.xcassets */,
 				DD3178482A2800020095AB30 /* Preview Content */,
 			);
@@ -348,6 +350,7 @@
 				DD0A079A2A28ADFF0031B8BC /* Notifications */,
 				DD0A079B2A28AE510031B8BC /* Profile */,
 				DD334B222A2B9249006F64ED /* SideMenu */,
+				DDD2F51C2A86663F007F94F5 /* SplashScreen */,
 				DD76E1132A542E7A00B9BC01 /* Tweets */,
 				DDAD134A2A2CB3FD006B5673 /* UploadTweet */,
 			);
@@ -580,26 +583,9 @@
 		DD76E11A2A542F4400B9BC01 /* TweetComment */ = {
 			isa = PBXGroup;
 			children = (
-				DD76E11C2A542F7200B9BC01 /* ViewModel */,
-				DD76E11B2A542F6F00B9BC01 /* Views */,
-			);
-			path = TweetComment;
-			sourceTree = "<group>";
-		};
-		DD76E11B2A542F6F00B9BC01 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 				DD76E11F2A542FB600B9BC01 /* TweetCommentRowView.swift */,
 			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		DD76E11C2A542F7200B9BC01 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				DD76E11D2A542FA700B9BC01 /* TweetCommentRowViewModel.swift */,
-			);
-			path = ViewModel;
+			path = TweetComment;
 			sourceTree = "<group>";
 		};
 		DD8E42EA2A5AF268002727BE /* DeleteTweet */ = {
@@ -716,6 +702,14 @@
 				DD5619B32A6C20B7008F0264 /* MessageRowView.swift */,
 			);
 			path = Messages;
+			sourceTree = "<group>";
+		};
+		DDD2F51C2A86663F007F94F5 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				DDD2F51D2A866671007F94F5 /* SplashScreenView.swift */,
+			);
+			path = SplashScreen;
 			sourceTree = "<group>";
 		};
 		DDD6B3932A313E0D00A99749 /* Authentication */ = {
@@ -935,7 +929,6 @@
 				DDF6F14F2A30A1B6006ED0C4 /* CustomTextField.swift in Sources */,
 				DDD191042A3921F10097F2E8 /* UserService.swift in Sources */,
 				DDD6B3952A313E2300A99749 /* AuthHeaderView.swift in Sources */,
-				DD76E11E2A542FA700B9BC01 /* TweetCommentRowViewModel.swift in Sources */,
 				DD334B362A2BA9D7006F64ED /* FeedViewModel.swift in Sources */,
 				DD3178432A2800010095AB30 /* TwitterCloneApp.swift in Sources */,
 				DDAD13502A2CB9D5006B5673 /* TextArea.swift in Sources */,
@@ -970,6 +963,7 @@
 				DD0A079F2A28AECA0031B8BC /* NotificationsView.swift in Sources */,
 				DD9E4E2E2A4066AA00413EB7 /* Tweet.swift in Sources */,
 				DD334B342A2BA9BE006F64ED /* ExploreViewModel.swift in Sources */,
+				DDD2F51E2A866671007F94F5 /* SplashScreenView.swift in Sources */,
 				DDD6B3922A3132A700A99749 /* CustomSecureField.swift in Sources */,
 				DD334B2C2A2BA20D006F64ED /* UserStatsView.swift in Sources */,
 			);
@@ -1102,9 +1096,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TwitterClone/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TwitterClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1130,9 +1124,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TwitterClone/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TwitterClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

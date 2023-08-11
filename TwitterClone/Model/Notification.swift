@@ -9,7 +9,7 @@ import FirebaseFirestoreSwift
 import Firebase
 import SwiftUI
 
-struct Notification: Identifiable, Decodable, Equatable {
+struct Notification: Identifiable, Decodable {
     
     @DocumentID var id: String?
     
@@ -19,6 +19,12 @@ struct Notification: Identifiable, Decodable, Equatable {
     let tweetId: String
     let read: Bool
     let timestamp: Timestamp
+    var tweet: Tweet?
+    var senderFullname: String?
+}
+
+extension Notification {
+    static let MOCK_NOTIFICATION = Notification(senderId: "7EeGLcXRW0XyRlZ6amZUeZjmfav2", receiverId: "Mpkv6Jxr0odghQj9oh58FKZSuXj1", notificationType: .like, tweetId: "aodHpKPkuOfRuioQzAdI", read: false, timestamp: Timestamp(date: Date()), tweet: Tweet.MOCK_TWEET ,senderFullname: User.MOCK_USER.fullname)
 }
 
 
