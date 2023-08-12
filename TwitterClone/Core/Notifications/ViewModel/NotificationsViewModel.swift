@@ -21,6 +21,7 @@ class NotificationsViewModel: ObservableObject {
     
     func fetchNotifications() {
         isLoading = true
+        notifications.removeAll()
         
         notificationService.fetchNotifications { notifications in
             self.userService.fetchAndAssignFullnameToNotifications(notifications: notifications) { updatedNotifications in

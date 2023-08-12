@@ -21,6 +21,9 @@ class ProfileViewModel: ObservableObject {
     
     init(user: User) {
         self.user = user
+        fetchUserTweets()
+        fetchLikedTweets()
+        fetchRetweetedTweets()
     }
     
     var actionButtonTitle: String {
@@ -42,6 +45,8 @@ class ProfileViewModel: ObservableObject {
         isLoading = true
         guard let uid = user.id else { return }
         
+        
+        
         tweetService.fetchTweets(forUid: uid) { tweets in
             self.userService.fetchAndAssignUsersToTweets(tweets: tweets) { updatedTweets in
                 self.tweets = updatedTweets
@@ -53,6 +58,9 @@ class ProfileViewModel: ObservableObject {
     func fetchLikedTweets() {
         isLoading = true
         guard let uid = user.id else { return }
+        
+        
+        
         tweetService.fetchLikedTweets(forUid: uid) { tweets in
             self.userService.fetchAndAssignUsersToTweets(tweets: tweets) { updatedTweets in
                 self.likedTweets = updatedTweets
@@ -64,6 +72,8 @@ class ProfileViewModel: ObservableObject {
     func fetchRetweetedTweets() {
         isLoading = true
         guard let uid = user.id else { return }
+        
+        
         
         tweetService.fetchRetweetedTweets(forUid: uid) { tweets in
             self.userService.fetchAndAssignUsersToTweets(tweets: tweets) { updatedTweets in

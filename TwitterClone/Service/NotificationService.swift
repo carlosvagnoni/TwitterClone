@@ -8,6 +8,8 @@
 import Firebase
 
 class NotificationService {
+    var notificationsListener: ListenerRegistration?
+    
     func uploadNotification(tweet: Tweet, notificationType: NotificationType, completion: @escaping(Bool) -> Void) {
         guard let senderId = Auth.auth().currentUser?.uid else { return }
         let receiverId = tweet.uid
@@ -63,12 +65,13 @@ class NotificationService {
     }
     
     func fetchNotifications(completion: @escaping([Notification]) -> Void) {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        notificationsListener?.remove()
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }        
         
-        Firestore.firestore().collection("notifications")
+        notificationsListener = Firestore.firestore().collection("notifications")
             .whereField("receiverId", isEqualTo: currentUid)
             .order(by: "timestamp", descending: true)
-            .getDocuments { snapshot, _ in
+            .addSnapshotListener { snapshot, _ in
                 
                 guard let documents = snapshot?.documents else { return }
                 

@@ -32,11 +32,6 @@ struct ProfileView: View {
             Spacer()
         }
         .toolbar(.hidden)
-        .onAppear() {
-            profileViewModel.fetchUserTweets()
-            profileViewModel.fetchLikedTweets()
-            profileViewModel.fetchRetweetedTweets()
-        }
     }
 }
 
@@ -221,12 +216,11 @@ extension ProfileView {
                 }
             }
         }
-        
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {        
-        ProfileView(user: User(username: "thehoneybadger", fullname: "Daniel Ricciardo", profilePhotoUrl: "", email: ""))
+        ProfileView(user: User.MOCK_USER)
     }
 }

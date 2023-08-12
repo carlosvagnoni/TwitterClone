@@ -66,8 +66,8 @@ struct DeleteConversationView: View {
     }
 }
 
-//struct DeleteConversationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeleteConversationView()
-//    }
-//}
+struct DeleteConversationView_Previews: PreviewProvider {
+    static var previews: some View {
+        DeleteConversationView(receiverId: User.MOCK_USER.id!)
+    }
+}

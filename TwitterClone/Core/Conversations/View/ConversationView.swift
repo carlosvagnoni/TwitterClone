@@ -300,10 +300,11 @@ struct ConversationView: View {
     }
 }
 
-//struct ConversationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            ConversationView()
-//        }
-//    }
-//}
+struct ConversationView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            ConversationView(receiverUser: User.MOCK_USER)
+        }
+        .environmentObject(MessagesViewModel())
+    }
+}

@@ -68,8 +68,8 @@ struct DeleteTweetConfirmationView: View {
     }
 }
 
-//struct DeleteTweetConfirmationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeleteTweetConfirmationView()
-//    }
-//}
+struct DeleteTweetConfirmationView_Previews: PreviewProvider {
+    static var previews: some View {
+        DeleteTweetConfirmationView(tweet: Tweet.MOCK_TWEET)
+    }
+}

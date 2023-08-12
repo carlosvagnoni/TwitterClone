@@ -58,8 +58,8 @@ struct MessageRecipientListView: View {
     }
 }
 
-//struct MessageRecipientListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MessageRecipientListView()
-//    }
-//}
+struct MessageRecipientListView_Previews: PreviewProvider {
+    static var previews: some View {
+        MessageRecipientListView(selectedUser: .constant(nil), shouldNavigateToConversation: .constant(false))
+    }
+}

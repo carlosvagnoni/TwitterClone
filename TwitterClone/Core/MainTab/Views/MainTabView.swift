@@ -91,7 +91,13 @@ struct MainTabView: View {
 }
 
 struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()        
+    static var previews: some View {        
+        NavigationView {
+            MainTabView()
+        }
+        .environmentObject(FeedViewModel())
+        .environmentObject(MessagesViewModel())
+        .environmentObject(NotificationsViewModel())
+        .environmentObject(AuthViewModel())
     }
 }

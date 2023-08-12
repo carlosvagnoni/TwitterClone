@@ -73,5 +73,7 @@ struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
         FeedView()
             .environmentObject(FeedViewModel())
+            .environmentObject(AuthViewModel())
+            .environmentObject(NotificationsViewModel())
     }
 }

@@ -119,7 +119,7 @@ struct TweetView: View {
 
 struct TweetView_Previews: PreviewProvider {
     
-    static let tweet = Tweet(id: "24kgxouwQPskp0ABhdtC",caption: "Prueba de TweetView", timestamp: Timestamp(date: Date()), uid: "VBEo4qsxtTaYBgc4BK4wkh0mvAh1", commentCount: 0, likes: 2, bookmarkCount: 3, retweetCount: 5)
+    static let tweet = Tweet.MOCK_TWEET
     
     static var previews: some View {
         NavigationView {
