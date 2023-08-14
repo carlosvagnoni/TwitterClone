@@ -32,6 +32,9 @@ struct ProfileView: View {
             Spacer()
         }
         .toolbar(.hidden)
+        .onAppear() {
+            profileViewModel.fetchUserTweets()
+        }
     }
 }
 
